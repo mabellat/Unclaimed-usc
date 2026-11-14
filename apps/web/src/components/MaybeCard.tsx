@@ -19,6 +19,7 @@ export function MaybeCard({ item, resource }: { item: MatchItem; resource: Resou
   const { fields, answer } = useStudent();
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState<string | null>(null);
   const field = item.unknown[0];
   const spec = field ? fields[field] : undefined;
   const depends = item.unknown.map((f) => ABOUT[f] ?? f.replace(/_/g, " ")).join(" and ");
@@ -36,7 +37,8 @@ export function MaybeCard({ item, resource }: { item: MatchItem; resource: Resou
         <div className="mt-3 border-t border-dashed border-rule pt-3">
           <div className="mb-1 font-display text-lg font-bold leading-tight">{spec.question}</div>
           {spec.why && <p className="mb-2 text-[13px] leading-snug text-muted"><b>Why we ask:</b> {spec.why}</p>}
-          <AnswerControls spec={spec} dark={false} busy={busy} onAnswer={async (v) => { setBusy(true); try { await answer(field, v); } finally { setBusy(false); } }} />
+          <AnswerControls key={field} spec={spec} dark={false} busy={busy} onSkip={() => setOpen(false)} onAnswer={async (v) => { setBusy(true); setProblem(null); try { await answer(field, v); } catch { setProblem("We couldn't update your matches. Please try again."); } finally { setBusy(false); } }} />
+          {problem && <p role="alert" className="mt-3 text-sm text-cardinal">{problem}</p>}
           <Link href={`/ticket/${resource.id}`} className="mt-2 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">See the full ticket</Link>
         </div>
       )}

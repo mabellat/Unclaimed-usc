@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnswerControls } from "@/components/Answer";
-import { BackButton, Check, ErrorBox, Loading, Rings, Scallop, Track, primaryBtn } from "@/components/bits";
+import { BackButton, Check, ErrorBox, Loading, Note, Rings, Scallop, Track, primaryBtn } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 import { answerLabel, capitalize, hostOf, prettyDate } from "@/lib/ui";
@@ -24,6 +24,7 @@ export default function Ticket() {
   const [claim, setClaim] = useState<Claim | null>(null);
   const [why, setWhy] = useState<string[] | null>(null);
   const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState<string | null>(null);
 
   useEffect(() => {
     if (ready && !card && !error) router.replace("/");
@@ -62,7 +63,7 @@ export default function Ticket() {
         <Scallop color="#990000" />
 
         <div className="flex flex-col gap-4 px-5 pb-2.5 pt-[18px]">
-          {status === "yes" && (
+          {status === "yes" && claim && (
             <Section title="Where this stands">
               <Track index={idx} />
               <div className="mt-2.5 text-[13px] leading-[1.4] text-muted">
@@ -72,7 +73,7 @@ export default function Ticket() {
           )}
 
           {status === "yes" && (
-            <Section title="Why you qualify">
+            <Section title="Why this matches">
               <div className="flex flex-col gap-2">
                 {item!.why.map((w, i) => (
                   <div key={i} className="flex items-start gap-2.5 text-[15px] leading-[1.4]">
@@ -93,10 +94,11 @@ export default function Ticket() {
                   <div key={f}>
                     <div className="mb-1 font-display text-lg font-bold leading-tight">{fields[f].question}</div>
                     {fields[f].why && <p className="mb-2 text-[13px] leading-snug text-muted"><b>Why we ask:</b> {fields[f].why}</p>}
-                    <AnswerControls spec={fields[f]} dark={false} busy={busy} onAnswer={async (v) => { setBusy(true); try { await answer(f, v); } finally { setBusy(false); } }} />
+                    <AnswerControls spec={fields[f]} dark={false} busy={busy} onAnswer={async (v) => { setBusy(true); setProblem(null); try { await answer(f, v); } catch { setProblem("We couldn't update your matches. Please try again."); } finally { setBusy(false); } }} />
                   </div>
                 ))}
               </div>
+              {problem && <p role="alert" className="mt-3 text-sm text-cardinal">{problem}</p>}
               {item!.why.length > 0 && (
                 <div className="mt-4 border-t border-dashed border-rule pt-3 text-[13px] leading-snug text-muted">
                   Already fits: {item!.why.map((w) => w.text).join("; ")}.
@@ -172,34 +174,34 @@ export default function Ticket() {
           )}
 
           {status === "yes" && idx < 0 && (
-            <div className="rounded-xl bg-ink px-[18px] py-4 text-ticket">
-              <div className="mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">Your claim agent</div>
-              <div className="mb-2.5 font-display text-[19px] font-bold leading-[1.2]">Let it do the paperwork.</div>
-              <ol className="flex flex-col gap-[7px] text-sm leading-[1.4] text-[#EFE3D2]">
+            <details className="rounded-xl border border-rule bg-ticket px-[18px] py-2">
+              <summary className="min-h-[44px] cursor-pointer content-center text-sm font-semibold text-cardinal">How we help you prepare</summary>
+              <ol className="flex flex-col gap-2 pb-3 text-sm leading-relaxed text-muted">
                 <li>1. Re-checks the source page right now</li>
                 <li>2. Works out exactly what you need to prepare</li>
                 <li>3. Drafts your message from your card</li>
                 <li>4. Checks every statement against the source</li>
               </ol>
-              <div className="mt-3 text-[13px] leading-[1.45] text-cream">You stay in control. Nothing is sent until you send it yourself.</div>
-            </div>
+            </details>
           )}
 
           <div className="text-xs leading-normal text-muted">
             Source: <a href={r.source_url} target="_blank" rel="noopener noreferrer" className="break-all font-semibold text-cardinal underline">{hostOf(r.source_url)}</a>
             <br />Sample data, checked {prettyDate(r.last_verified)}. Confirm details with the office before you rely on them. Data version {r.data_version}.
           </div>
+          <Note className="mb-4" />
         </div>
       </div>
 
-      <div className="sticky bottom-0 flex flex-col gap-2 border-t border-rule bg-paper px-5 pb-5 pt-3">
+      <div className="safe-bottom sticky bottom-0 flex flex-col gap-2 border-t border-rule bg-paper px-5 pb-5 pt-3">
+        {status === "yes" && idx < 0 && !r.deadline?.closed && <p className="text-center text-xs leading-relaxed text-muted">Get a checklist and draft. You review and send.</p>}
         {status === "yes" && r.deadline?.closed && idx < 0 ? (
           <>
             <p className="text-center text-[13px] text-muted">The source page says this window has closed. Watch Alerts for the next one.</p>
             <Link href="/wallet" className={`${primaryBtn} flex items-center justify-center`}>Back to my wallet</Link>
           </>
         ) : status === "yes" ? (
-          idx < 0 ? <Link href={`/ticket/${id}/claim`} className={`${primaryBtn} flex items-center justify-center`}>Claim it for me</Link>
+          idx < 0 ? <Link href={`/ticket/${id}/claim`} className={`${primaryBtn} flex items-center justify-center`}>Prepare my application</Link>
           : idx === 0 ? <Link href={`/ticket/${id}/packet`} className={`${primaryBtn} flex items-center justify-center`}>Open my claim packet</Link>
           : idx < 3 ? <Link href="/claims" className={`${primaryBtn} flex items-center justify-center`}>Track it in Claims</Link>
           : <Link href="/wallet" className={`${primaryBtn} flex items-center justify-center`}>Back to my wallet</Link>

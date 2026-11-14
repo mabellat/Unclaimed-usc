@@ -43,10 +43,10 @@ async function loadPersona(name) {
   await page.goto(WEB, { waitUntil: "networkidle0" });
   await page.evaluate(() => localStorage.clear());
   await page.goto(WEB, { waitUntil: "networkidle0" });
-  await click("Skip: load a demo student");
+  await click("Try a demo student");
   await wait(600);
   await click(name);
-  await until(() => location.pathname === "/scan");
+  await until(() => location.pathname === "/wallet");
   cards.push(await page.evaluate(() => localStorage.getItem("unclaimed.card")));
 }
 
@@ -56,21 +56,24 @@ try {
 
   await page.goto(WEB, { waitUntil: "networkidle0" });
   await frame("Welcome. USC has set money and help aside; some of it is yours.");
-  await click("Skip: load a demo student");
+  await click("Try a demo student");
   await frame("Five demo students, loaded through the same API as a real card.");
 
   await loadPersona("Priya");
-  await frame("Priya, a Dornsife junior: the rules engine checks every approved resource.");
+  await frame("Priya, a Dornsife junior: resources matched to her answers.");
   await until(() => location.pathname === "/wallet");
   await wait(2500);
   await frame("Her wallet. PURF is due soon, so it is marked urgent. One question could unlock two more.", true);
+  await click("Needs answers");
   await click("Yes", 'section[aria-label="One question"]');
+  await wait(1500);
+  await click("Matches");
   await wait(2500);
   await frame("She has a faculty mentor: SOAR and SURF flip from maybe to yes. Nothing was guessed.", true);
 
   await page.goto(`${WEB}/ticket/purf`, { waitUntil: "networkidle0" });
   await frame("PURF ticket: why she qualifies (with what she told us), how to claim, and the source page.", true);
-  await click("Claim it for me");
+  await click("Prepare my application");
   // Catch the live trace when its last step lands, before the app moves on to the packet.
   await until(() => document.body.innerText.includes("Your claim packet is ready"), 90000);
   const file = `frames/${String(frames.length + 1).padStart(2, "0")}.png`;

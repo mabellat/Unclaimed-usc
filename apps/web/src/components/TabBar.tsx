@@ -14,13 +14,13 @@ const TABS: [string, string, string][] = [
 export function TabBar({ badges = {} }: { badges?: Record<string, number> }) {
   const path = usePathname();
   return (
-    <nav aria-label="Main" className="sticky bottom-0 z-10 flex border-t-2 border-gold bg-ink px-1.5 pb-3.5 pt-1.5">
+    <nav aria-label="Main" className="safe-bottom sticky bottom-0 z-10 flex border-t border-rule bg-ticket px-1.5 pb-3.5 pt-1.5">
       {TABS.map(([href, label, icon]) => {
         const on = path === href;
         const badge = badges[href] ?? 0;
         return (
           <Link key={href} href={href} aria-current={on ? "page" : undefined} aria-label={label + (badge ? `, ${badge} new` : "")}
-            className={`flex min-h-[56px] flex-1 flex-col items-center justify-center gap-[3px] ${on ? "text-gold" : "text-[#C9BFB4]"}`}>
+            className={`flex min-h-[56px] flex-1 flex-col items-center justify-center gap-[3px] rounded-lg ${on ? "bg-paper text-cardinal" : "text-muted"}`}>
             <span className="relative inline-flex">
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d={icon} /></svg>
               {badge > 0 && !on && (

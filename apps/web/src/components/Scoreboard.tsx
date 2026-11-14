@@ -31,7 +31,7 @@ export function Scoreboard({ amount }: { amount: number }) {
   const shown = useTicker(amount);
   const text = money(shown);
   return (
-    <div role="img" aria-label={`${money(amount)} in funds you qualify for`} className="relative mb-3 flex items-center gap-[5px]">
+    <div role="img" aria-label={`${money(amount)} in published amounts across your matches`} className="relative mb-3 flex flex-wrap items-center gap-[5px]">
       {Array.from(text).map((c, i) =>
         /\d/.test(c) ? (
           <span key={i} className="flip inline-flex h-[52px] w-9 items-center justify-center rounded-md font-label text-[36px] font-semibold text-gold">{c}</span>

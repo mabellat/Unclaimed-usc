@@ -10,9 +10,9 @@ from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
 from unclaimed import repo
-from unclaimed.agents import claim_tools, demo_cache
+from unclaimed.agents import claim_tools, demo_cache, grounding
 from unclaimed.agents import llm as llm_mod
-from unclaimed.agents.claim_graph import STEPS, run_claim
+from unclaimed.agents.claim_graph import STEPS, ClaimError, plan_claim, run_claim
 from unclaimed.agents import navigator as nav
 from unclaimed.agents.navigator import navigate
 from unclaimed.db import SessionLocal, get_session
@@ -71,9 +71,19 @@ def run(student_id: str, resource_id: str):
             cache = demo_cache.load(student.demo_persona, resource_id, live.data_version if live else None)
             steps = [{"node": n, "label": l} for n, l in STEPS]
             if cache and demo_cache.replay_enabled():
-                yield _sse("start", {"mode": "replay", "cached_at": cache["cached_at"], "steps": steps})
-                yield from _replay(session, student, resource_id, cache)
-                return
+                try:
+                    plan = plan_claim(session, student_id, resource_id)
+                except ClaimError as error:
+                    yield _sse("failed", {"error": str(error)})
+                    return
+                catalog = grounding.build_catalog(plan["resource"], plan["facts"], plan["why_fields"])
+                # A persona id is not proof that its original answers still apply.
+                # Rebuild a packet normally if any evidence or self-reported fact differs.
+                packet = cache["packet"]
+                if packet.get("catalog") == catalog and grounding.check(packet["draft"], catalog)["passed"]:
+                    yield _sse("start", {"mode": "replay", "cached_at": cache["cached_at"], "steps": steps})
+                    yield from _replay(session, student, resource_id, cache)
+                    return
             llm = llm_mod.get_llm()
             yield _sse("start", {"mode": "claude" if llm else "template", "steps": steps})
             for item in run_claim(session, student_id, resource_id, llm, cache=cache):

@@ -71,7 +71,7 @@ export default function Claims() {
         {claims && claims.length === 0 && (
           <div className="rounded-[14px] border-2 border-dashed border-sand px-[18px] py-[22px] text-center">
             <div className="mb-1.5 font-display text-xl font-bold">Nothing started yet</div>
-            <div className="mb-3.5 text-sm leading-normal text-muted">Open a ticket in your wallet and tap Claim it for me. It shows up here and we track it for you.</div>
+            <div className="mb-3.5 text-sm leading-normal text-muted">Open a resource in your wallet and choose Prepare my application. Your draft and next steps will appear here.</div>
             <Link href="/wallet" className="inline-flex min-h-[46px] items-center rounded-[10px] bg-cardinal px-5 text-[15px] font-semibold text-ticket">Go to my wallet</Link>
           </div>
         )}

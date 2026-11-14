@@ -4,6 +4,16 @@ export PATH := /Applications/Postgres.app/Contents/Versions/latest/bin:$(PATH)
 
 .PHONY: setup db migrate import structure-rules export-approved admin approve-all test web-setup web watch watcher demo-check demo-backup
 
+.PHONY: app-setup app test-all
+app-setup:
+	python3 scripts/app.py setup
+
+app:
+	python3 scripts/app.py run
+
+test-all:
+	python3 scripts/app.py test
+
 setup:
 	python3 -m venv $(API)/.venv && $(API)/.venv/bin/pip install -q -r $(API)/requirements.txt
 

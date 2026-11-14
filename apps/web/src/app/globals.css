@@ -4,7 +4,11 @@
 
 /* Motion and focus styles from reference/prototype.html */
 button:focus-visible { outline: 3px solid #FFCC00; outline-offset: 2px; box-shadow: 0 0 0 5px #1A1210; }
-a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offset: 2px; }
+a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 3px solid #FFCC00; outline-offset: 2px; box-shadow: 0 0 0 5px #1A1210; }
+button, a, input, select, textarea, summary { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled), summary { cursor: pointer; }
+button:disabled { cursor: wait; }
+.safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 
 @keyframes ustamp { 0% { transform: rotate(-14deg) scale(2.2); opacity: 0 } 60% { transform: rotate(-14deg) scale(.94); opacity: 1 } 100% { transform: rotate(-14deg) scale(1); opacity: .95 } }
 .ustamp { animation: ustamp .45s cubic-bezier(.2,.9,.3,1) both; }

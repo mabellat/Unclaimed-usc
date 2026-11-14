@@ -64,33 +64,38 @@ def _event(node: str, tools: list[dict], result: str, **extra) -> dict:
             "at": datetime.now(timezone.utc).isoformat(), **extra}
 
 
+def plan_claim(session: Session, student_id: str, resource_id: str) -> dict:
+    """Shared approval, relevance, eligibility and deadline gate for live and cached runs."""
+    resources = [repo.public_dict(r) for r in repo.list_approved(session)]
+    resource = next((r for r in resources if r["id"] == resource_id), None)
+    if resource is None:
+        raise ClaimError("this resource is not approved")
+    askable = fields_used([r["eligibility"] for r in resources])
+    rows = session.query(StudentFact).filter(StudentFact.student_id == student_id).all()
+    facts = {f.field: f.value for f in rows if f.field in askable}
+    student = session.get(Student, student_id)
+    # The rules engine decides eligibility. The agent only starts on a "yes".
+    own = fields_used([resource["eligibility"]])  # the matcher refuses facts no rule in its input uses
+    result = match.run_match([resource], {f: v for f, v in facts.items() if f in own}, student.needs)
+    item = next((m for m in result["yes"] if m["id"] == resource["id"]), None)
+    if item is None:
+        raise ClaimError("the claim agent only runs when your card is a yes for this resource")
+    if (resource.get("deadline") or {}).get("closed"):
+        raise ClaimError("this application window has closed, according to the source page")
+    why_fields = [w["field"] for w in item["why"] if w.get("field")]
+    return {"facts": facts, "resource": resource, "item": item, "why_fields": why_fields, "attempts": 0,
+            "feedback": None, "trace": [_event("plan", [
+                {"name": "get_profile", "summary": f"{len(facts)} answers on your card"},
+                {"name": "get_resource", "summary": f"{resource['title']}, data version {resource['data_version']}"},
+            ], f"Plan ready for the {resource['title']}: re-check the page, list what you need, draft, check.")]}
+
+
 def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | None = None, cache: dict | None = None):
     today = today or date.today()
     fetch = fetch or http_fetch  # looked up at call time, so tests can replace it
 
     def plan(state: State) -> dict:
-        resources = [repo.public_dict(r) for r in repo.list_approved(session)]
-        resource = next((r for r in resources if r["id"] == state["resource_id"]), None)
-        if resource is None:
-            raise ClaimError("this resource is not approved")
-        askable = fields_used([r["eligibility"] for r in resources])
-        rows = session.query(StudentFact).filter(StudentFact.student_id == state["student_id"]).all()
-        facts = {f.field: f.value for f in rows if f.field in askable}
-        student = session.get(Student, state["student_id"])
-        # The rules engine decides eligibility. The agent only starts on a "yes".
-        own = fields_used([resource["eligibility"]])  # the matcher refuses facts no rule in its input uses
-        result = match.run_match([resource], {f: v for f, v in facts.items() if f in own}, student.needs)
-        item = next((m for m in result["yes"] if m["id"] == resource["id"]), None)
-        if item is None:
-            raise ClaimError("the claim agent only runs when your card is a yes for this resource")
-        if (resource.get("deadline") or {}).get("closed"):
-            raise ClaimError("this application window has closed, according to the source page")
-        why_fields = [w["field"] for w in item["why"] if w.get("field")]
-        return {"facts": facts, "resource": resource, "item": item, "why_fields": why_fields, "attempts": 0,
-                "feedback": None, "trace": [_event("plan", [
-                    {"name": "get_profile", "summary": f"{len(facts)} answers on your card"},
-                    {"name": "get_resource", "summary": f"{resource['title']}, data version {resource['data_version']}"},
-                ], f"Plan ready for the {resource['title']}: re-check the page, list what you need, draft, check.")]}
+        return plan_claim(session, state["student_id"], state["resource_id"])
 
     def verify_source(state: State) -> dict:
         r = state["resource"]
