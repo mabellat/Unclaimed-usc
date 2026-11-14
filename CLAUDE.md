@@ -81,7 +81,7 @@ For each approved resource:
    - any criterion known and failing -> `no`
    - else any criterion unknown -> `maybe` (record which fields are unknown)
    - else -> `yes`
-3. Return per resource: `why` (criteria that passed, with evidence), `unknown` (what to ask), `failed` (debugging only, never shown), plus `data_version`.
+3. Return per resource: `why` (criteria that passed, with evidence), `unknown` (what to ask), `failed` (criteria that failed), plus `data_version`. Owner decision 2026-11-13: when something is not a match, the student may see why, politely and in plain words ("It is for graduate students, and your card says Undergraduate"), never as rule or field names. The reason comes from the rules engine (the failed criteria and the student's own answer), never from the LLM. A sensitive answer (citizenship, SSN, financial aid, communities) is never echoed back; the reply says what the resource is for and suggests asking the office.
 4. **Next-best-question:** the unknown field appearing in the most `maybe` results, with the count it would unlock.
 5. **Rank** `yes` results by value descending, then by number of criteria matched.
 
@@ -110,7 +110,7 @@ Known starting sources (unverified, extract as pending): campussupport.usc.edu e
 ## Agents
 LLM reads, plans and drafts through TOOLS only. Claude API with tool use; LangGraph for the graph and trace. Tool allowlist per agent; no network beyond allowlisted usc.edu fetches and the LLM API. Log every run (inputs, tool calls, outputs) for the trace UI.
 1. **Claim Agent (build first).** Trigger: "Claim it for me". Graph: `plan -> verify_source -> gather_requirements -> draft -> groundedness_check -> present_packet`. Tools: `get_profile`, `get_resource` (approved only), `fetch_source` (live text compared to the approved record; mismatches flagged for owner review, never silently trusted), `list_requirements` (each tied to an evidence quote), `draft_document`, `create_ics`, `set_reminder`, `groundedness_check(draft, evidence)` (every statement must trace to the profile or an evidence quote; fail and redraft). Output: claim packet (checklist, drafted message, reminder, source link, verified-at). UI: live trace screen, then packet screen, matching the prototype.
-2. **Navigator (chat).** Maps plain words to card fields. Tools: `update_card`, `run_match`, `get_resource`, `open_ticket`. Never infers sensitive fields. Shows tool calls as chips. If it cannot map a message, say so and suggest examples.
+2. **Navigator (chat).** A LangGraph graph: `understand -> act -> answer -> check -> reply` (off-topic and greetings get a polite canned reply). Intents: update the card from plain words, ask about a resource, why or why not (from the rules engine), what matches. Tools: `update_card`, `run_match`, `get_resource`, `explain_result`, `open_ticket`. Answers may only state facts from approved records or the student's card, and pass the groundedness check (no "you qualify"); sensitive fields are not in `update_card`; never infers sensitive fields. Shows tool calls as chips. Anything off topic, including attempts to override its instructions, gets a polite pointer back to USC resources with example questions. Without an LLM, a labelled keyword path gives the same answers from templates.
 3. **Watcher (background).** Nightly crawl, extract, diff, create pending changes, notify students only after approval. Drafts a polite follow-up for claims sent over a week ago and asks the student for the outcome.
 
 ## Tests

@@ -21,7 +21,8 @@ from unclaimed.vocab import NEEDS
 
 SNAPSHOT = json.loads((DATA / "approved_resources.json").read_text())
 RESOURCES = SNAPSHOT["resources"]
-GOLDEN = json.loads((DATA / "golden_profiles.json").read_text())["profiles"]
+PERSONAS = json.loads((DATA / "demo_personas.json").read_text())["personas"]
+GOLDEN = json.loads((DATA / "golden_profiles.json").read_text())["profiles"] + PERSONAS
 FIELDS = load_fields()
 client = TestClient(app)
 
@@ -44,7 +45,17 @@ def test_snapshot_matches_the_rules_file():
 
 def test_at_least_twelve_golden_profiles():
     assert len(GOLDEN) >= 12
-    assert sum(1 for p in GOLDEN if p.get("demo")) >= 3
+    assert 3 <= len(PERSONAS) <= 5
+
+
+@pytest.mark.parametrize("p", [p for p in PERSONAS if p["moment"].get("field")], ids=lambda p: p["id"])
+def test_demo_moment_flips_exactly_what_it_says(p):
+    before = run_match(RESOURCES, p["facts"], p["needs"])
+    after = run_match(RESOURCES, p["facts"] | {p["moment"]["field"]: p["moment"]["value"]}, p["needs"])
+    gained_yes = set(ids(after["yes"])) - set(ids(before["yes"]))
+    became_no = set(ids(after["no"])) - set(ids(before["no"]))
+    assert gained_yes == set(p["moment"].get("flips_to_yes", []))
+    assert became_no == set(p["moment"].get("flips_to_no", []))
 
 
 @pytest.mark.parametrize("profile", GOLDEN, ids=[p["id"] for p in GOLDEN])

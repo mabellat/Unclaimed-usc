@@ -1,0 +1,96 @@
+{
+  "description": "Demo students from demo_personas.md, mapped to the approved profile fields (step 2). Expected results were worked out by hand from data/eligibility_rules.json and are also golden tests. `moment` is the live demo beat: answer one question and the listed tickets flip. `demo_claims` are the tickets the Claim Agent is run and cached on by `make demo-check`. Differences from the draft in demo_personas.md are listed in docs/step7-summary.md. signed_off_by stays null until the owner signs off.",
+  "signed_off_by": null,
+  "signed_off_at": null,
+  "personas": [
+    {
+      "id": "priya",
+      "name": "Priya",
+      "summary": "Dornsife junior, first-gen, GPA 3.4. Looking for money, research and a job.",
+      "facts": {"enrolled": true, "level": "undergrad", "schools": ["dornsife"], "units_load": "full_time", "gpa_band": "3_4_plus",
+                "continuing": true, "citizenship": "us_citizen", "communities": ["first_gen"], "expected_graduation_term": "later",
+                "under_144_units": true, "progressive_degree": false},
+      "needs": ["money", "research", "job", "community"],
+      "expected": {
+        "yes": ["skull-and-dagger", "federal-work-study", "exl-award", "dornsife-continuing-student-scholarship", "purf",
+                "campus-support-and-intervention", "career-advising-and-tools", "career-fest-2027", "first-generation-plus-success-center",
+                "its-laptop-loaner", "on-campus-jobs-handshake", "sbn-financial-navigation", "sbn-supplemental-funding",
+                "ship-insurance-waiver", "tommys-closet"],
+        "maybe": ["soar", "surf-shure", "csi-emergency-loan", "financial-aid-appeal-undergrad", "half-century-trojans", "town-and-gown"],
+        "next_question": {"field": "has_dornsife_faculty_mentor", "count": 2}
+      },
+      "moment": {"say": "Do you have a Dornsife faculty mentor?", "field": "has_dornsife_faculty_mentor", "value": true,
+                 "flips_to_yes": ["soar", "surf-shure"]},
+      "demo_claims": ["purf"]
+    },
+    {
+      "id": "wei",
+      "name": "Wei",
+      "summary": "International master's student in Viterbi on an F-1 visa. Needs work authorization, a job and money.",
+      "facts": {"enrolled": true, "level": "masters", "schools": ["viterbi"], "citizenship": "f1_j1", "gpa_band": "3_4_plus", "units_load": "full_time"},
+      "needs": ["international", "job", "money"],
+      "expected": {
+        "yes": ["campus-support-and-intervention", "career-advising-and-tools", "career-fest-2027", "its-laptop-loaner",
+                "ois-work-authorization-advising", "on-campus-jobs-handshake", "sbn-financial-navigation", "sbn-supplemental-funding",
+                "ship-insurance-waiver", "tommys-closet"],
+        "maybe": ["csi-emergency-loan", "financial-aid-appeal-grad", "gsg-emergency-fund", "gsg-npe-fund", "skull-and-dagger"],
+        "next_question": {"field": "gsg_fee_paid", "count": 2}
+      },
+      "moment": {"say": "Do you have a U.S.-issued Social Security number? (No)", "field": "has_ssn", "value": false,
+                 "flips_to_no": ["csi-emergency-loan"]},
+      "demo_claims": ["ois-work-authorization-advising"]
+    },
+    {
+      "id": "marcus",
+      "name": "Marcus",
+      "summary": "Price master's student, U.S. veteran, Southern California resident. Short on money, going to a conference.",
+      "facts": {"enrolled": true, "level": "masters", "schools": ["price"], "citizenship": "us_citizen", "socal_resident": true,
+                "gpa_band": "3_4_plus", "communities": ["veteran"], "continuing": true, "gsg_fee_paid": true},
+      "needs": ["money", "conference"],
+      "expected": {
+        "yes": ["cavaney-vet", "skull-and-dagger", "federal-work-study", "gsg-emergency-fund", "gsg-npe-fund", "gsg-travel-award",
+                "gsg-empowerment-award", "town-and-gown", "campus-support-and-intervention", "its-laptop-loaner",
+                "sbn-financial-navigation", "ship-insurance-waiver"],
+        "maybe": ["csi-emergency-loan", "financial-aid-appeal-grad", "sbn-supplemental-funding"],
+        "next_question": {"field": "units_load", "count": 1}
+      },
+      "moment": {"say": "Deadlines: Town and Gown closes November 15, 2026; Cavaney opens December 1, 2026."},
+      "demo_claims": ["cavaney-vet"]
+    },
+    {
+      "id": "sofia",
+      "name": "Sofia",
+      "summary": "Commuter undergrad skipping meals, with unstable housing. Needs food, housing, transport and money.",
+      "facts": {"enrolled": true, "level": "undergrad", "citizenship": "us_citizen"},
+      "needs": ["food", "housing", "transport", "money"],
+      "expected": {
+        "yes": ["federal-work-study", "campus-support-and-intervention", "emergency-meal-swipes", "free-legal-counseling",
+                "its-laptop-loaner", "metro-u-pass", "sbn-financial-navigation", "sbn-housing-support", "ship-insurance-waiver",
+                "tommys-table", "trojan-food-pantry", "usc-immigration-clinic", "usc-lyft-rides", "calfresh-navigation"],
+        "maybe": ["sbn-supplemental-funding", "annenberg-emergency-aid", "csi-emergency-loan", "dornsife-continuing-student-scholarship",
+                  "exl-award", "financial-aid-appeal-undergrad", "half-century-trojans", "skull-and-dagger", "town-and-gown",
+                  "viterbi-continuing-undergrad"],
+        "next_question": {"field": "continuing", "count": 5}
+      },
+      "moment": {"say": "Claim the Trojan Food Pantry: the agent drafts, Sofia reviews, nothing is sent for her."},
+      "demo_claims": ["trojan-food-pantry", "sbn-housing-support"]
+    },
+    {
+      "id": "blank",
+      "name": "Blank card",
+      "summary": "\"I'm a student, I need money.\" Nothing else answered.",
+      "facts": {},
+      "needs": ["money"],
+      "expected": {
+        "yes": [],
+        "maybe": ["campus-support-and-intervention", "its-laptop-loaner", "annenberg-emergency-aid", "cavaney-vet", "csi-emergency-loan",
+                  "dornsife-continuing-student-scholarship", "exl-award", "federal-work-study", "financial-aid-appeal-grad",
+                  "financial-aid-appeal-undergrad", "gsg-emergency-fund", "gsg-npe-fund", "half-century-trojans", "sbn-financial-navigation",
+                  "sbn-supplemental-funding", "ship-insurance-waiver", "skull-and-dagger", "town-and-gown", "viterbi-continuing-undergrad"],
+        "next_question": {"field": "level", "count": 8}
+      },
+      "moment": {"say": "Unknown is never no and never yes: everything is a maybe, and the first question is not a sensitive one."},
+      "demo_claims": []
+    }
+  ]
+}

@@ -35,3 +35,14 @@ The owner validates these after the full build. Each item says where to look and
 - [ ] Fix 3 records flagged by the first real crawl (details in `docs/step6-summary.md`): two paraphrased evidence quotes (financial-aid-appeal-grad, usc-immigration-clinic) and the usg.usc.edu source for free-legal-counseling. They are listed at `/admin/source-checks`. To fix a quote, open the approved record in /admin, click "Start a new version to edit", fix it, then approve. Then run `make export-approved` and `make test`.
 - [ ] With your key set, run `make watch` after a page changes and review the pending version it proposes (Flags explain each change).
 - [ ] Hosting: run `make watcher` (or `make watch` from cron) next to the API, with outbound HTTPS to the allowlisted domains.
+
+## Step 7: demo
+- [ ] Sign off `data/demo_personas.json` (set `signed_off_by`). Differences from your draft are listed in `docs/step7-summary.md`.
+- [ ] Decide on the pitch edits in `docs/demo/rehearsal.md` (financial-need line, 44 vs 45, "deployed today").
+- [ ] With your Claude key set: run `make demo-check` so the cached demo drafts are Claude's, not the template.
+- [ ] Record a screen capture of one rehearsal (QuickTime, Cmd+Shift+5) into `docs/demo/backup/`.
+- [ ] Re-run `make demo-backup` after any copy or data change.
+
+## Navigator upgrade (2026-11-13)
+- [ ] With your key set, try: "Why can't I get the GSG Emergency Fund?", "Tell me about PURF", "What matches my card?", "I'm on an F-1 visa", and nonsense. Check the tone of the "why not" answers.
+- [ ] Decision recorded in CLAUDE.md: students can now see why something doesn't fit, in plain words, from the rules engine.

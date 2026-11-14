@@ -103,8 +103,9 @@ def test_alerts_follow_the_clock(session, travel):
 
 def test_demo_personas_load_through_the_normal_card_api(travel):
     personas = client.get("/demo/personas").json()["personas"]
-    priya = next(p for p in personas if p["id"] == "priya-masters-research-conference")
+    marcus = next(p for p in personas if p["id"] == "marcus")
     # The demo goes through the same API; fields no approved rule uses are refused like any card.
-    facts = {k: v for k, v in priya["facts"].items() if k in ("level", "gsg_fee_paid")}
-    sid = new_card(facts=facts, needs=priya["needs"])["id"]
+    facts = {k: v for k, v in marcus["facts"].items() if k in ("level", "gsg_fee_paid")}
+    sid = new_card(facts=facts, needs=marcus["needs"], persona="marcus")["id"]
     assert [x["id"] for x in client.get(f"/students/{sid}/match").json()["yes"]] == ["gsg-travel-award"]
+    assert client.post("/students", json={"persona": "nobody"}).status_code == 422

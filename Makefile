@@ -2,7 +2,7 @@ API := apps/api
 PY := .venv/bin/python
 export PATH := /Applications/Postgres.app/Contents/Versions/latest/bin:$(PATH)
 
-.PHONY: setup db migrate import structure-rules export-approved admin approve-all test web-setup web watch watcher
+.PHONY: setup db migrate import structure-rules export-approved admin approve-all test web-setup web watch watcher demo-check demo-backup
 
 setup:
 	python3 -m venv $(API)/.venv && $(API)/.venv/bin/pip install -q -r $(API)/requirements.txt
@@ -51,3 +51,11 @@ watch:
 # The Watcher on a nightly schedule (3:00 America/Los_Angeles)
 watcher:
 	cd $(API) && PYTHONPATH=..:. $(PY) -m worker.watcher daemon
+
+# Demo readiness (CLAUDE.md "Demo mode"). Add ARGS=--offline to skip network checks.
+demo-check:
+	cd $(API) && $(PY) -m unclaimed.demo_check $(ARGS)
+
+# Click-through backup reel of the full demo (needs `make admin` and `make web` running)
+demo-backup:
+	cd apps/web && npm run demo-backup

@@ -30,7 +30,7 @@ export interface Resource {
   benefit: { label: string | null; value: number | null; period: string | null } | null;
   eligibility: Criterion[];
   relevance: string[];
-  deadline: { label: string } | null;
+  deadline: { label: string; date: string | null; closed: boolean; days_left: number | null } | null;
   conflicts: { field: string; versions: { source_url: string; value: string | number; quote: string }[] }[];
   academic_year: string | null;
   where: string | null;
@@ -105,6 +105,7 @@ export interface Alert {
 
 export interface Persona {
   id: string;
+  name: string;
   summary: string;
   facts: Record<string, FactValue>;
   needs: string[];
@@ -138,7 +139,7 @@ export interface Packet {
   verified_at: string;
   source_check: { status: "verified" | "changed" | "unreadable" | "unreachable" | "blocked"; detail: string };
   checklist: ChecklistItem[];
-  draft: { subject: string; greeting: string; closing: string; text: string; mode: "claude" | "template"; sentences: { text: string; cites: string[] }[] };
+  draft: { subject: string; greeting: string; closing: string; text: string; mode: "claude" | "claude-cached" | "template"; sentences: { text: string; cites: string[] }[] };
   catalog: Record<string, string>;
   grounding: { passed: boolean; checked: number };
   deadline: { label: string | null; date: string | null };
@@ -146,6 +147,7 @@ export interface Packet {
   reminder: { date: string | null; text: string };
   where: string | null;
   basis: string | null;
+  replayed_from?: string;
 }
 
 export interface NavReply {

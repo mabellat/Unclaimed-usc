@@ -3,6 +3,7 @@
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
+from unclaimed.deadlines import deadline_status
 from unclaimed.models import Resource
 
 APPROVED = Resource.status == "approved"
@@ -34,7 +35,7 @@ def public_dict(r: Resource) -> dict:
         } if r.benefit_label else None,
         "eligibility": r.eligibility,
         "relevance": r.relevance,
-        "deadline": {"label": r.deadline_label} if r.deadline_label else None,
+        "deadline": deadline_status(r.deadline_label),
         "academic_year": r.academic_year,
         "where": r.where,
         "steps": r.steps,

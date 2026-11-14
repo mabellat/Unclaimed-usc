@@ -32,7 +32,7 @@ interface StudentState {
   resources: Record<string, Resource>;
   fields: Record<string, FieldSpec>;
   skipped: string[];
-  start: (facts: Record<string, FactValue>, needs: string[]) => Promise<Card>;
+  start: (facts: Record<string, FactValue>, needs: string[], persona?: string) => Promise<Card>;
   answer: (field: string, value: FactValue) => Promise<void>;
   forget: (field: string) => Promise<void>;
   setNeeds: (needs: string[]) => Promise<void>;
@@ -90,8 +90,8 @@ export function StudentProvider({ children }: { children: React.ReactNode }) {
     };
     return {
       ready, error, card, match, resources, fields, skipped,
-      start: async (facts, needs) => {
-        const c = await api.createCard(facts, needs);
+      start: async (facts, needs, persona) => {
+        const c = await api.createCard(facts, needs, persona);
         writeId(c.id);
         setCard(c);
         setSkipped([]);
@@ -136,5 +136,6 @@ export function useStudent(): StudentState {
 }
 
 export function totalValue(match: MatchResult | null, resources: Record<string, Resource>): number {
-  return (match?.yes ?? []).reduce((n, m) => n + (resources[m.id]?.benefit?.value ?? 0), 0);
+  // Closed windows are not "waiting for you".
+  return (match?.yes ?? []).reduce((n, m) => n + (resources[m.id]?.deadline?.closed ? 0 : resources[m.id]?.benefit?.value ?? 0), 0);
 }

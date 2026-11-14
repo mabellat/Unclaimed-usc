@@ -1,0 +1,30 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Unclaimed demo backup</title><style>
+body{margin:0;background:#1A1210;color:#FFFCF5;font:16px/1.45 Inter,system-ui,sans-serif;display:flex;flex-direction:column;align-items:center;min-height:100vh}
+figure{margin:16px;display:flex;flex-direction:column;align-items:center;gap:12px;max-width:min(94vw,520px)}
+img{max-height:78vh;max-width:100%;border-radius:18px;box-shadow:0 0 0 2px #FFCC00}
+figcaption{text-align:center}b{color:#FFCC00;margin-right:6px}
+nav{display:flex;gap:10px;margin:8px 0 20px}button{min-height:44px;min-width:110px;border:2px solid #FFCC00;background:none;color:#FFCC00;border-radius:10px;font:600 15px Inter,sans-serif;cursor:pointer}
+p{color:#C9BFB4;font-size:13px;margin:12px}</style></head><body>
+<p>Backup of the live demo, recorded from the real app. Use the arrow keys or the buttons.</p>
+<figure data-i="0"><img src="frames/01.png" alt="Welcome. USC has set money and help aside; some of it is yours."><figcaption><b>1/17</b> Welcome. USC has set money and help aside; some of it is yours.</figcaption></figure>
+<figure data-i="1" hidden><img src="frames/02.png" alt="Five demo students, loaded through the same API as a real card."><figcaption><b>2/17</b> Five demo students, loaded through the same API as a real card.</figcaption></figure>
+<figure data-i="2" hidden><img src="frames/03.png" alt="Priya, a Dornsife junior: the rules engine checks every approved resource."><figcaption><b>3/17</b> Priya, a Dornsife junior: the rules engine checks every approved resource.</figcaption></figure>
+<figure data-i="3" hidden><img src="frames/04.png" alt="Her wallet. PURF is due soon, so it is marked urgent. One question could unlock two more."><figcaption><b>4/17</b> Her wallet. PURF is due soon, so it is marked urgent. One question could unlock two more.</figcaption></figure>
+<figure data-i="4" hidden><img src="frames/05.png" alt="She has a faculty mentor: SOAR and SURF flip from maybe to yes. Nothing was guessed."><figcaption><b>5/17</b> She has a faculty mentor: SOAR and SURF flip from maybe to yes. Nothing was guessed.</figcaption></figure>
+<figure data-i="5" hidden><img src="frames/06.png" alt="PURF ticket: why she qualifies (with what she told us), how to claim, and the source page."><figcaption><b>6/17</b> PURF ticket: why she qualifies (with what she told us), how to claim, and the source page.</figcaption></figure>
+<figure data-i="6" hidden><img src="frames/07.png" alt="The claim agent, live: re-checks the page, lists what she needs, drafts, and checks every statement."><figcaption><b>7/17</b> The claim agent, live: re-checks the page, lists what she needs, drafts, and checks every statement.</figcaption></figure>
+<figure data-i="7" hidden><img src="frames/08.png" alt="Claim packet: what to prepare, a draft where every sentence traces to the source, and a calendar file."><figcaption><b>8/17</b> Claim packet: what to prepare, a draft where every sentence traces to the source, and a calendar file.</figcaption></figure>
+<figure data-i="8" hidden><img src="frames/09.png" alt="Where each statement comes from: the source page or her own card."><figcaption><b>9/17</b> Where each statement comes from: the source page or her own card.</figcaption></figure>
+<figure data-i="9" hidden><img src="frames/10.png" alt="She sends it herself. Unclaimed never sends anything."><figcaption><b>10/17</b> She sends it herself. Unclaimed never sends anything.</figcaption></figure>
+<figure data-i="10" hidden><img src="frames/11.png" alt="Demo clock, Day 7: in review (simulated, and labelled so)."><figcaption><b>11/17</b> Demo clock, Day 7: in review (simulated, and labelled so).</figcaption></figure>
+<figure data-i="11" hidden><img src="frames/12.png" alt="Day 30: received. Only USC offices see real decisions; in the app, the student reports the outcome."><figcaption><b>12/17</b> Day 30: received. Only USC offices see real decisions; in the app, the student reports the outcome.</figcaption></figure>
+<figure data-i="12" hidden><img src="frames/13.png" alt="Alerts: reminders and follow-ups. Source changes reach students only after a person approves them."><figcaption><b>13/17</b> Alerts: reminders and follow-ups. Source changes reach students only after a person approves them.</figcaption></figure>
+<figure data-i="13" hidden><img src="frames/14.png" alt="Wei, an international student: the emergency loan is a maybe. Unknown is never treated as no."><figcaption><b>14/17</b> Wei, an international student: the emergency loan is a maybe. Unknown is never treated as no.</figcaption></figure>
+<figure data-i="14" hidden><img src="frames/15.png" alt="He has no U.S. Social Security number: only now does it say it doesn’t fit. Unknown was never treated as no."><figcaption><b>15/17</b> He has no U.S. Social Security number: only now does it say it doesn’t fit. Unknown was never treated as no.</figcaption></figure>
+<figure data-i="15" hidden><img src="frames/16.png" alt="The Navigator maps plain words to the card with tool calls, shown as chips."><figcaption><b>16/17</b> The Navigator maps plain words to the card with tool calls, shown as chips.</figcaption></figure>
+<figure data-i="16" hidden><img src="frames/17.png" alt="Ask why not: the rules engine's reason, in plain words and politely, with a pointer to the office."><figcaption><b>17/17</b> Ask why not: the rules engine's reason, in plain words and politely, with a pointer to the office.</figcaption></figure>
+<nav><button id="prev">Previous</button><button id="next">Next</button></nav>
+<script>let i=0;const f=[...document.querySelectorAll("figure")];function go(n){f[i].hidden=true;i=(n+f.length)%f.length;f[i].hidden=false;}
+document.getElementById("prev").onclick=()=>go(i-1);document.getElementById("next").onclick=()=>go(i+1);
+addEventListener("keydown",e=>{if(e.key==="ArrowRight")go(i+1);if(e.key==="ArrowLeft")go(i-1);});</script></body></html>

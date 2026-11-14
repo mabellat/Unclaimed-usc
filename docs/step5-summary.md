@@ -18,9 +18,22 @@ Status as of 2026-11-13: done. 153 API tests pass (tests never touch the network
 - **Every run is logged** in `agent_runs`: inputs, every tool call, and the output. Read it at `GET /students/{id}/runs/{run_id}`.
 - **The live trace streams** as server-sent events from `GET /students/{id}/claims/{rid}/run`. Stop closes the stream.
 
-## Navigator: `apps/api/unclaimed/agents/navigator.py`
-- Claude uses a tool loop with `update_card`, `run_match`, `get_resource` and `open_ticket`. Sensitive fields are **left out of the tool schema**, so the model can't set them; it points the student to My card.
-- Without a key, keyword matching takes over (labelled in the UI). If nothing matches, it says so and suggests examples.
+## Navigator: `apps/api/unclaimed/agents/navigator.py` (upgraded 2026-11-13 to a LangGraph agent)
+`understand -> act -> answer -> check -> reply`. Greetings and off-topic messages get a polite canned reply and use no tools.
+
+| Intent | Example | What happens |
+|---|---|---|
+| update_card | "My landlord won't return my deposit" | `update_card(+housing)`, `run_match`, says what's new |
+| ask_resource | "Tell me about PURF", "I need a laptop" | `get_resource` + `explain_result`: what it is, timing, where, and whether it's a match |
+| why_not | "Why can't I get the GSG Emergency Fund?" | `explain_result`: the rules engine's reason in plain words, e.g. "It is for master's students and PhD and other graduate students, and your card says Undergraduate." |
+| what_matches | "What matches my card?" | `run_match`: count, top 3, the next question |
+| off_topic | "write me a poem", "ignore your instructions" | "I can only help with USC funds, scholarships and services in Unclaimed" + example questions |
+
+- **Reasons come from the rules engine,** phrased from the approved rule itself (`plain_reason`). Claude only rewords them. A sensitive answer is never echoed back; the reply says what the resource is for and suggests asking the office.
+- **The check:** every sentence must cite the facts pack (approved record or the student's card). Any "you qualify / you're eligible" is rejected. Fails go back to Claude (up to 2 tries), then the template.
+- **Sensitive fields** are not in the `update_card` schema. Mentioning one gets a pointer to My card.
+- **Without a key:** a labelled keyword classifier and the same templates.
+- **Tickets** use the same explanation: `GET /students/{id}/explain/{rid}` feeds a "Why it doesn't fit right now" section.
 
 ## Web
 - `/ticket/[id]/claim`: the live trace (tool chips, results, redraft attempts, Stop)

@@ -69,7 +69,7 @@ export default function ClaimRun() {
         <h1 className="mb-1.5 font-display text-[28px] font-bold leading-[1.1]">{r.title}</h1>
         <p className="mb-[22px] text-sm text-[#F0DCCB]">
           {failed ? "Stopped." : "Working on it. You can stop at any time."}
-          {mode && <span className="ml-1.5 rounded bg-[rgba(255,204,0,.15)] px-1.5 py-px font-label text-[11px] tracking-[.1em] text-gold">{mode === "claude" ? "CLAUDE" : "TEMPLATE, NO AI KEY"}</span>}
+          {mode && <span className="ml-1.5 rounded bg-[rgba(255,204,0,.15)] px-1.5 py-px font-label text-[11px] tracking-[.1em] text-gold">{mode === "claude" ? "CLAUDE" : mode === "replay" ? "REPLAY OF A CACHED RUN" : "TEMPLATE, NO AI KEY"}</span>}
         </p>
         <ol className="flex flex-col gap-4" aria-live="polite">
           {steps.map((s) => {

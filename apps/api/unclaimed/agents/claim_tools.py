@@ -1,16 +1,12 @@
 """Claim Agent tools. There is deliberately no tool that sends, submits or emails anything."""
 
 import json
-import re
 from datetime import date, datetime, timedelta, timezone
 
 from unclaimed.agents import grounding
 from unclaimed.agents.llm import LLM
+from unclaimed.deadlines import parse_deadline
 from unclaimed.rules import load_fields
-
-MONTHS = "january february march april may june july august september october november december".split()
-DATE = re.compile(r"\b(" + "|".join(MONTHS) + r")\s+(\d{1,2}),\s*(\d{4})", re.I)
-DUE = re.compile(r"(due|deadline|closes?|by|before|until)\W+(\w+\W+){0,3}$", re.I)
 
 
 def list_requirements(resource: dict, item: dict, facts: dict) -> list[dict]:
@@ -83,18 +79,8 @@ def draft_document(llm: LLM, resource: dict, catalog: dict, requirements: list[d
 
 
 def deadline_date(label: str | None, today: date) -> date | None:
-    """A date only when the label states one unambiguously (month, day and year). Never guessed."""
-    if not label:
-        return None
-    found = []
-    for m in DATE.finditer(label):
-        try:
-            d = date(int(m.group(3)), MONTHS.index(m.group(1).lower()) + 1, int(m.group(2)))
-        except ValueError:
-            continue
-        found.append((d, bool(DUE.search(label[: m.start()]))))
-    due = [d for d, is_due in found if is_due]
-    pick = due[-1] if due else (found[0][0] if len(found) == 1 else None)
+    """The stated deadline, if it is still ahead. Never guessed (see unclaimed.deadlines)."""
+    pick = parse_deadline(label)
     return pick if pick and pick >= today else None
 
 

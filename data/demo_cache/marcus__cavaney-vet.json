@@ -1,0 +1,212 @@
+{
+ "persona": "marcus",
+ "resource_id": "cavaney-vet",
+ "data_version": 78,
+ "mode": "template",
+ "cached_at": "2026-11-14T02:58:37.185889+00:00",
+ "trace": [
+  {
+   "node": "plan",
+   "label": "Plan the claim",
+   "tools": [
+    {
+     "name": "get_profile",
+     "summary": "9 answers on your card"
+    },
+    {
+     "name": "get_resource",
+     "summary": "Cavaney Graduate Veteran Scholarship, data version 78"
+    }
+   ],
+   "result": "Plan ready for the Cavaney Graduate Veteran Scholarship: re-check the page, list what you need, draft, check.",
+   "at": "2026-11-14T02:58:37.039742+00:00"
+  },
+  {
+   "node": "verify_source",
+   "label": "Verify the source page",
+   "tools": [
+    {
+     "name": "fetch_source(priceschool.usc.edu)",
+     "summary": "verified"
+    }
+   ],
+   "result": "Page checked just now. It still matches the record a person approved.",
+   "at": "2026-11-14T02:58:37.176303+00:00",
+   "status": "verified"
+  },
+  {
+   "node": "gather_requirements",
+   "label": "Work out what you need",
+   "tools": [
+    {
+     "name": "list_requirements",
+     "summary": "4 items, each tied to the source"
+    }
+   ],
+   "result": "Nothing extra to prepare, 3 answers to confirm.",
+   "at": "2026-11-14T02:58:37.177868+00:00"
+  },
+  {
+   "node": "draft",
+   "label": "Draft your message",
+   "tools": [
+    {
+     "name": "draft_document",
+     "summary": "template"
+    }
+   ],
+   "result": "Draft written from your card and the source page (template, no AI).",
+   "at": "2026-11-14T02:58:37.179663+00:00",
+   "mode": "template"
+  },
+  {
+   "node": "groundedness_check",
+   "label": "Check every statement against the source",
+   "tools": [
+    {
+     "name": "groundedness_check",
+     "summary": "pass"
+    }
+   ],
+   "result": "All 6 statements trace to the source page or your card.",
+   "at": "2026-11-14T02:58:37.181020+00:00",
+   "passed": true,
+   "issues": []
+  },
+  {
+   "node": "present_packet",
+   "label": "Prepare your claim packet",
+   "tools": [
+    {
+     "name": "create_ics",
+     "summary": "2027-03-21"
+    },
+    {
+     "name": "set_reminder",
+     "summary": "2027-03-18"
+    }
+   ],
+   "result": "Your claim packet is ready. Review it, then send it yourself.",
+   "at": "2026-11-14T02:58:37.184124+00:00"
+  }
+ ],
+ "packet": {
+  "resource_id": "cavaney-vet",
+  "title": "Cavaney Graduate Veteran Scholarship",
+  "provider": "Price School of Public Policy",
+  "data_version": 78,
+  "source_url": "https://priceschool.usc.edu/admission/scholarships/graduate-scholarships/",
+  "verified_at": "2026-11-14T02:58:37.182224+00:00",
+  "source_check": {
+   "status": "verified",
+   "detail": "the approved evidence quote is still on the page",
+   "url": "https://priceschool.usc.edu/admission/scholarships/graduate-scholarships/"
+  },
+  "checklist": [
+   {
+    "kind": "confirm",
+    "field": "schools",
+    "text": "Confirm this is still true: Price (public policy) (Which USC schools are your majors or programs in? Pick all that apply.)",
+    "rule": "Price master's degree student",
+    "self_reported": true,
+    "office_verifies": true
+   },
+   {
+    "kind": "confirm",
+    "field": "level",
+    "text": "Confirm this is still true: Master's (What degree are you working toward?)",
+    "rule": "Price master's degree student",
+    "self_reported": true,
+    "office_verifies": true
+   },
+   {
+    "kind": "confirm",
+    "field": "communities",
+    "text": "Confirm this is still true: U.S. military veteran (Do any of these describe you? Pick any that apply, or skip.)",
+    "rule": "who is a U.S. military veteran",
+    "self_reported": true,
+    "office_verifies": false
+   },
+   {
+    "kind": "deadline",
+    "text": "Timing: opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID",
+    "evidence_quote": "A scholarship for a Price master's degree student who is a veteran",
+    "evidence_level": "record",
+    "source_url": "https://priceschool.usc.edu/admission/scholarships/graduate-scholarships/"
+   }
+  ],
+  "draft": {
+   "subject": "Question about the Cavaney Graduate Veteran Scholarship",
+   "greeting": "Hello,",
+   "sentences": [
+    {
+     "text": "I'm writing about the Cavaney Graduate Veteran Scholarship from Price School of Public Policy.",
+     "cites": [
+      "title",
+      "provider"
+     ]
+    },
+    {
+     "text": "I am a Price School student.",
+     "cites": [
+      "profile:schools"
+     ]
+    },
+    {
+     "text": "I am a master's student.",
+     "cites": [
+      "profile:level"
+     ]
+    },
+    {
+     "text": "I am a U.S. military veteran.",
+     "cites": [
+      "profile:communities"
+     ]
+    },
+    {
+     "text": "I saw this on your page about timing: opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID.",
+     "cites": [
+      "deadline"
+     ]
+    },
+    {
+     "text": "Could you confirm what I need to submit and whether you need anything else from me?",
+     "cites": []
+    }
+   ],
+   "closing": "Thank you for your time.",
+   "text": "Hello,\n\nI'm writing about the Cavaney Graduate Veteran Scholarship from Price School of Public Policy. I am a Price School student. I am a master's student. I am a U.S. military veteran. I saw this on your page about timing: opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID. Could you confirm what I need to submit and whether you need anything else from me?\n\nThank you for your time.",
+   "mode": "template"
+  },
+  "catalog": {
+   "title": "Cavaney Graduate Veteran Scholarship",
+   "quote": "A scholarship for a Price master's degree student who is a veteran",
+   "provider": "Price School of Public Policy",
+   "benefit": "up to $5,000",
+   "deadline": "opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID",
+   "note:1": "incoming or continuing",
+   "note:2": "preference for economic growth and job creation goals (preference only, not a rule)",
+   "profile:schools": "Which USC schools are your majors or programs in? Pick all that apply. Answer: Price (public policy). I am a Price School student.",
+   "profile:level": "What degree are you working toward? Answer: Master's. I am a master's student.",
+   "profile:communities": "Do any of these describe you? Pick any that apply, or skip. Answer: U.S. military veteran. I am a U.S. military veteran."
+  },
+  "grounding": {
+   "passed": true,
+   "issues": [],
+   "checked": 6
+  },
+  "deadline": {
+   "label": "opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID",
+   "date": "2027-03-21"
+  },
+  "has_calendar": true,
+  "reminder": {
+   "date": "2027-03-18",
+   "text": "Finish your Cavaney Graduate Veteran Scholarship application. The deadline is March 21, 2027."
+  },
+  "where": null,
+  "basis": "Based on what you told us. The office will confirm.",
+  "sent_by_agent": false
+ }
+}

@@ -1,16 +1,19 @@
 """HTTP endpoints for the agents. The Claim Agent streams its trace as server-sent events."""
 
 import json
-from datetime import date
+import time
+from datetime import date, datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.responses import Response, StreamingResponse
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 
-from unclaimed.agents import claim_tools
+from unclaimed import repo
+from unclaimed.agents import claim_tools, demo_cache
 from unclaimed.agents import llm as llm_mod
 from unclaimed.agents.claim_graph import STEPS, run_claim
+from unclaimed.agents import navigator as nav
 from unclaimed.agents.navigator import navigate
 from unclaimed.db import SessionLocal, get_session
 from unclaimed.models import AgentRun, Claim, Student
@@ -35,6 +38,25 @@ def _sse(event: str, data) -> str:
     return f"event: {event}\ndata: {json.dumps(data)}\n\n"
 
 
+def _replay(session: Session, student: Student, resource_id: str, cache: dict):
+    """Replay a cached demo run step by step (UNCLAIMED_DEMO_REPLAY=1). Labelled as a replay."""
+    run = AgentRun(kind="claim", student_id=student.id, resource_id=resource_id, status="running", mode="replay",
+                   inputs={"student_id": student.id, "resource_id": resource_id, "replay_of": cache["cached_at"]}, trace=[])
+    session.add(run)
+    session.commit()
+    for ev in cache["trace"]:
+        time.sleep(0.6)
+        yield _sse("step", ev | {"replayed": True})
+    packet = cache["packet"] | {"replayed_from": cache["cached_at"]}
+    claim = session.get(Claim, (student.id, resource_id)) or Claim(student_id=student.id, resource_id=resource_id, stage="drafted")
+    claim.packet, claim.data_version = packet, cache["data_version"]
+    session.add(claim)
+    run.status, run.trace, run.output = "done", cache["trace"], {"replayed": True}
+    run.finished_at = datetime.now(timezone.utc)
+    session.commit()
+    yield _sse("done", {"run_id": run.id})
+
+
 @router.get("/students/{student_id}/claims/{resource_id}/run")
 def run(student_id: str, resource_id: str):
     """Run the Claim Agent and stream each step. Closing the stream stops the run."""
@@ -44,9 +66,17 @@ def run(student_id: str, resource_id: str):
     def stream():
         # Own session: the request-scoped one closes before a streamed body finishes.
         with SessionLocal() as session:
+            student = session.get(Student, student_id)
+            live = repo.get_approved(session, resource_id)
+            cache = demo_cache.load(student.demo_persona, resource_id, live.data_version if live else None)
+            steps = [{"node": n, "label": l} for n, l in STEPS]
+            if cache and demo_cache.replay_enabled():
+                yield _sse("start", {"mode": "replay", "cached_at": cache["cached_at"], "steps": steps})
+                yield from _replay(session, student, resource_id, cache)
+                return
             llm = llm_mod.get_llm()
-            yield _sse("start", {"mode": "claude" if llm else "template", "steps": [{"node": n, "label": l} for n, l in STEPS]})
-            for item in run_claim(session, student_id, resource_id, llm):
+            yield _sse("start", {"mode": "claude" if llm else "template", "steps": steps})
+            for item in run_claim(session, student_id, resource_id, llm, cache=cache):
                 if "event" in item:
                     yield _sse("step", item["event"])
                 elif "done" in item:
@@ -105,3 +135,19 @@ def navigator(student_id: str, body: NavIn, session: Session = Depends(get_sessi
         raise HTTPException(422, "say something first")
     history = [t.model_dump() for t in body.history if t.role in ("user", "assistant")]
     return navigate(session, s, body.message.strip()[:2000], history, llm_mod.get_llm())
+
+
+@router.get("/students/{student_id}/explain/{resource_id}")
+def explain(student_id: str, resource_id: str, session: Session = Depends(get_session)):
+    """Why a resource is or isn't a match, in plain words, from the rules engine's own result.
+    The same wording the Navigator uses without an LLM; every sentence is grounded in the approved
+    record or the student's card."""
+    card = nav.Card(session, _student(session, student_id))
+    ex = card.explain(resource_id)
+    if "error" in ex:
+        raise HTTPException(404, ex["error"])
+    plan = {"resource_ids": [resource_id]}
+    acted = {"explain": {resource_id: ex}}
+    cat = nav.facts_pack(card, "why_not", plan, acted)
+    sentences = nav.template_answer("why_not", plan, acted, cat)
+    return {"status": ex["status"], "relevant": ex["relevant"], "sentences": [s["text"] for s in sentences]}

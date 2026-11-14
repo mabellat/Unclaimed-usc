@@ -69,3 +69,15 @@ export function hostOf(url: string): string {
     return url;
   }
 }
+
+/** The ticket pill for a deadline: closed, due soon (14 days or less), or the label as published. */
+export function deadlinePill(d: { label: string; date: string | null; closed: boolean; days_left: number | null } | null) {
+  if (!d) return { text: "No deadline posted", tone: "plain" as const };
+  if (d.closed) return { text: "Closed", tone: "closed" as const };
+  if (d.date && d.days_left !== null && d.days_left <= 14) {
+    const day = prettyDate(d.date).replace(/, \d{4}$/, "");
+    const left = d.days_left === 0 ? "today" : d.days_left === 1 ? "1 day left" : `${d.days_left} days left`;
+    return { text: `Due ${day} · ${left}`, tone: "urgent" as const };
+  }
+  return { text: d.label, tone: "plain" as const };
+}

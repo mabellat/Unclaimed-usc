@@ -30,7 +30,7 @@ export const api = {
   resources: () => call<{ data_version: number | null; resources: Resource[] }>("/resources"),
   fields: () => call<{ fields: Record<string, FieldSpec> }>("/profile/fields"),
   personas: () => call<{ personas: Persona[] }>("/demo/personas"),
-  createCard: (facts: Record<string, FactValue>, needs: string[]) => call<Card>("/students", json("POST", { facts, needs })),
+  createCard: (facts: Record<string, FactValue>, needs: string[], persona?: string) => call<Card>("/students", json("POST", { facts, needs, persona })),
   card: (id: string) => call<Card>(`/students/${id}`),
   deleteCard: (id: string) => call<void>(`/students/${id}`, json("DELETE")),
   setNeeds: (id: string, needs: string[]) => call<Card>(`/students/${id}/needs`, json("PUT", { needs })),
@@ -48,5 +48,7 @@ export const api = {
   claim: (id: string, rid: string) => call<{ stage: string; packet: Packet }>(`/students/${id}/claims/${rid}`),
   navigator: (id: string, message: string, history: { role: string; text: string }[]) =>
     call<NavReply>(`/students/${id}/navigator`, json("POST", { message, history })),
+  explain: (id: string, rid: string) =>
+    call<{ status: string; relevant: boolean; sentences: string[] }>(`/students/${id}/explain/${rid}`),
   alerts: (id: string) => call<{ demo_day: number; alerts: Alert[] }>(`/students/${id}/alerts`),
 };

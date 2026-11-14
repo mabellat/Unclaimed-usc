@@ -17,7 +17,7 @@ from langgraph.graph import END, START, StateGraph
 from sqlalchemy.orm import Session
 
 from unclaimed import match, repo
-from unclaimed.agents import claim_tools, grounding
+from unclaimed.agents import claim_tools, demo_cache, grounding
 from unclaimed.agents.llm import LLM, LLMError
 from unclaimed.agents.sources import check_source, http_fetch
 from unclaimed.models import AgentRun, Claim, Student, StudentFact
@@ -64,7 +64,7 @@ def _event(node: str, tools: list[dict], result: str, **extra) -> dict:
             "at": datetime.now(timezone.utc).isoformat(), **extra}
 
 
-def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | None = None):
+def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | None = None, cache: dict | None = None):
     today = today or date.today()
     fetch = fetch or http_fetch  # looked up at call time, so tests can replace it
 
@@ -83,6 +83,8 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
         item = next((m for m in result["yes"] if m["id"] == resource["id"]), None)
         if item is None:
             raise ClaimError("the claim agent only runs when your card is a yes for this resource")
+        if (resource.get("deadline") or {}).get("closed"):
+            raise ClaimError("this application window has closed, according to the source page")
         why_fields = [w["field"] for w in item["why"] if w.get("field")]
         return {"facts": facts, "resource": resource, "item": item, "why_fields": why_fields, "attempts": 0,
                 "feedback": None, "trace": [_event("plan", [
@@ -128,12 +130,18 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
             d, mode = None, "template"
             if llm is not None:
                 note = "Claude's drafts kept failing the check, so the template draft was used."
+        if d is None and attempts == 1 and (cached := demo_cache.cached_draft(cache)) \
+                and cache.get("data_version") == state["resource"]["data_version"]:
+            # Demo fallback: the Claude draft cached for this persona and data version. It is checked again below.
+            d, mode = cached, "claude-cached"
+            note = (("Claude couldn't be reached" if llm is not None else "No Claude key on this machine")
+                    + f", so this uses the Claude draft cached for this demo on {cache['cached_at'][:10]}.")
         if d is None:
             d = grounding.template_draft(state["resource"], state["catalog"], state["facts"], state["why_fields"])
         tool = "draft_document" + (f" (attempt {attempts})" if attempts > 1 else "")
         result = ("Draft written by Claude from your card and the source page." if mode == "claude"
                   else "Draft written from your card and the source page (template, no AI).")
-        return {"draft": d, "draft_mode": mode, "attempts": attempts if mode == "claude" else MAX_LLM_DRAFTS + 1,
+        return {"draft": d, "draft_mode": mode, "attempts": attempts if mode in ("claude", "claude-cached") else MAX_LLM_DRAFTS + 1,
                 "trace": [_event("draft", [{"name": tool, "summary": mode}], note or result, mode=mode)]}
 
     def groundedness_check(state: State) -> dict:
@@ -143,7 +151,9 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
             raise ClaimError("could not produce a draft that passes the groundedness check")
         result = (f"All {g['checked']} statements trace to the source page or your card." if g["passed"]
                   else f"{len(g['issues'])} problem{'s' if len(g['issues']) != 1 else ''} found. Redrafting.")
-        return {"grounding": g, "feedback": None if g["passed"] else {"draft": state["draft"], "issues": g["issues"]},
+        # A cached draft that no longer fits is not retried: the next draft is the template.
+        extra = {"attempts": MAX_LLM_DRAFTS} if not g["passed"] and state["draft_mode"] == "claude-cached" else {}
+        return {**extra, "grounding": g, "feedback": None if g["passed"] else {"draft": state["draft"], "issues": g["issues"]},
                 "trace": [_event("groundedness_check", [{"name": "groundedness_check", "summary": "pass" if g["passed"] else "fail"}],
                                  result, passed=g["passed"], issues=g["issues"])]}
 
@@ -192,7 +202,7 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
 
 
 def run_claim(session: Session, student_id: str, resource_id: str, llm: LLM | None, fetch=None,
-              today: date | None = None) -> Iterator[dict[str, Any]]:
+              today: date | None = None, cache: dict | None = None) -> Iterator[dict[str, Any]]:
     """Run the graph, yielding each trace event as it happens, then {"done": packet}.
     The run (inputs, every tool call, the output) is stored in agent_runs."""
     run = AgentRun(kind="claim", student_id=student_id, resource_id=resource_id, status="running",
@@ -200,7 +210,7 @@ def run_claim(session: Session, student_id: str, resource_id: str, llm: LLM | No
                    inputs={"student_id": student_id, "resource_id": resource_id}, trace=[])
     session.add(run)
     session.commit()
-    graph = build_graph(session, llm, fetch, today)
+    graph = build_graph(session, llm, fetch, today, cache)
     trace: list = []
     finished = False
     try:

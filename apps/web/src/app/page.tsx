@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Rings } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
+import type { Persona } from "@/lib/types";
 
 // Decorative tickets. Each one is an approved record, shown with its approved title and amount.
 const FLOATERS = [
@@ -20,13 +21,23 @@ export default function Welcome() {
   const { card, start, error } = useStudent();
   const [loading, setLoading] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
+  const [personas, setPersonas] = useState<Persona[] | null>(null);
 
-  async function loadDemo() {
+  async function showPersonas() {
+    setProblem(null);
+    try {
+      setPersonas((await api.personas()).personas);
+    } catch (e) {
+      setProblem(e instanceof Error ? e.message : "Could not load the demo students");
+    }
+  }
+
+  async function loadDemo(p: Persona) {
     setLoading(true);
     setProblem(null);
     try {
-      const persona = (await api.personas()).personas[0];
-      await start(persona.facts, persona.needs);
+      // Same API as a hand-built card; the persona id only links the card to its cached demo runs.
+      await start(p.facts, p.needs, p.id);
       router.push("/scan");
     } catch (e) {
       setProblem(e instanceof Error ? e.message : "Could not load the demo student");
@@ -77,9 +88,21 @@ export default function Welcome() {
         ) : (
           <Link href="/build" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink shadow-[0_4px_0_#5C0000]">Build my Trojan card</Link>
         )}
-        <button type="button" onClick={loadDemo} disabled={loading} className="mt-1.5 min-h-[44px] w-full text-sm font-medium text-[#FFE9D6] underline disabled:opacity-70">
-          {loading ? "Loading the demo student..." : "Skip: load a demo student"}
-        </button>
+        {personas ? (
+          <div className="mt-3 flex flex-col gap-2" role="group" aria-label="Demo students">
+            {personas.map((p) => (
+              <button key={p.id} type="button" onClick={() => loadDemo(p)} disabled={loading}
+                className="min-h-[44px] w-full rounded-xl border-2 border-gold bg-transparent px-3.5 py-2 text-left disabled:opacity-60">
+                <span className="block font-display text-[17px] font-bold text-gold">{p.name}</span>
+                <span className="block text-[13px] leading-snug text-[#FFE9D6]">{p.summary}</span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <button type="button" onClick={showPersonas} className="mt-1.5 min-h-[44px] w-full text-sm font-medium text-[#FFE9D6] underline">
+            Skip: load a demo student
+          </button>
+        )}
       </div>
     </main>
   );

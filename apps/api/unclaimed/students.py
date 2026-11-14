@@ -87,12 +87,15 @@ def _put_fact(session: Session, student_id: str, field: str, value) -> None:
 class CardIn(BaseModel):
     facts: dict[str, Any] = {}
     needs: list[str] = []
+    persona: str | None = None  # a demo persona id; the card is otherwise a normal card
 
 
 @router.post("/students", status_code=201)
 def create_student(body: CardIn | None = None, session: Session = Depends(get_session)):
     body = body or CardIn()
-    s = Student(id=secrets.token_urlsafe(9), needs=_check_needs(body.needs), demo_day=1)
+    if body.persona and body.persona not in {p["id"] for p in load_personas()}:
+        raise HTTPException(422, "unknown demo persona")
+    s = Student(id=secrets.token_urlsafe(9), needs=_check_needs(body.needs), demo_day=1, demo_persona=body.persona)
     session.add(s)
     session.flush()
     for field, value in body.facts.items():
@@ -315,7 +318,7 @@ def alerts(student_id: str, session: Session = Depends(get_session)):
     result = _match(session, s, [])
     by_id = {r["id"]: r for r in _approved(session)}
     claims = _claims(session, s)
-    total = sum(_value(by_id.get(m["id"])) or 0 for m in result["yes"])
+    total = sum(_value(by_id.get(m["id"])) or 0 for m in result["yes"] if not _closed(by_id.get(m["id"])))
     out = [{"key": "welcome", "day": 1, "tag": "WELCOME", "tone": "ink", "title": "Your wallet is ready",
             "body": f"{len(result['yes'])} tickets matched your Trojan card"
                     + (f", worth up to {_money(total)} in cash." if total else "."),
@@ -348,14 +351,21 @@ def alerts(student_id: str, session: Session = Depends(get_session)):
     return {"demo_day": day, "alerts": list(reversed(out))}
 
 
+def _closed(resource: dict | None) -> bool:
+    return bool(((resource or {}).get("deadline") or {}).get("closed"))
+
+
 def _value(resource: dict | None) -> float | None:
     return ((resource or {}).get("benefit") or {}).get("value")
 
 
 # --- demo -------------------------------------------------------------------------------
 
+def load_personas() -> list[dict]:
+    return json.loads((DATA / "demo_personas.json").read_text())["personas"]
+
+
 @router.get("/demo/personas")
 def demo_personas():
     """Demo students. Loading one creates a normal card through POST /students."""
-    profiles = json.loads((DATA / "golden_profiles.json").read_text())["profiles"]
-    return {"personas": [{k: p[k] for k in ("id", "summary", "facts", "needs")} for p in profiles if p.get("demo")]}
+    return {"personas": [{k: p.get(k) for k in ("id", "name", "summary", "facts", "needs", "moment")} for p in load_personas()]}

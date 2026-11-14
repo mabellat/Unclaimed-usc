@@ -1,0 +1,205 @@
+{
+ "persona": "sofia",
+ "resource_id": "trojan-food-pantry",
+ "data_version": 52,
+ "mode": "template",
+ "cached_at": "2026-11-14T02:58:37.403318+00:00",
+ "trace": [
+  {
+   "node": "plan",
+   "label": "Plan the claim",
+   "tools": [
+    {
+     "name": "get_profile",
+     "summary": "3 answers on your card"
+    },
+    {
+     "name": "get_resource",
+     "summary": "Trojan Food Pantry, data version 52"
+    }
+   ],
+   "result": "Plan ready for the Trojan Food Pantry: re-check the page, list what you need, draft, check.",
+   "at": "2026-11-14T02:58:37.204354+00:00"
+  },
+  {
+   "node": "verify_source",
+   "label": "Verify the source page",
+   "tools": [
+    {
+     "name": "fetch_source(studentbasicneeds.usc.edu)",
+     "summary": "verified"
+    }
+   ],
+   "result": "Page checked just now. It still matches the record a person approved.",
+   "at": "2026-11-14T02:58:37.389334+00:00",
+   "status": "verified"
+  },
+  {
+   "node": "gather_requirements",
+   "label": "Work out what you need",
+   "tools": [
+    {
+     "name": "list_requirements",
+     "summary": "6 items, each tied to the source"
+    }
+   ],
+   "result": "3 things to prepare, 1 answer to confirm.",
+   "at": "2026-11-14T02:58:37.391201+00:00"
+  },
+  {
+   "node": "draft",
+   "label": "Draft your message",
+   "tools": [
+    {
+     "name": "draft_document",
+     "summary": "template"
+    }
+   ],
+   "result": "Draft written from your card and the source page (template, no AI).",
+   "at": "2026-11-14T02:58:37.392980+00:00",
+   "mode": "template"
+  },
+  {
+   "node": "groundedness_check",
+   "label": "Check every statement against the source",
+   "tools": [
+    {
+     "name": "groundedness_check",
+     "summary": "pass"
+    }
+   ],
+   "result": "All 3 statements trace to the source page or your card.",
+   "at": "2026-11-14T02:58:37.395001+00:00",
+   "passed": true,
+   "issues": []
+  },
+  {
+   "node": "present_packet",
+   "label": "Prepare your claim packet",
+   "tools": [
+    {
+     "name": "create_ics",
+     "summary": "skipped: no date on the source page"
+    },
+    {
+     "name": "set_reminder",
+     "summary": "no date"
+    }
+   ],
+   "result": "Your claim packet is ready. Review it, then send it yourself.",
+   "at": "2026-11-14T02:58:37.400735+00:00"
+  }
+ ],
+ "packet": {
+  "resource_id": "trojan-food-pantry",
+  "title": "Trojan Food Pantry",
+  "provider": "Student Basic Needs",
+  "data_version": 52,
+  "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/",
+  "verified_at": "2026-11-14T02:58:37.397679+00:00",
+  "source_check": {
+   "status": "verified",
+   "detail": "the approved evidence quote is still on the page",
+   "url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+  },
+  "checklist": [
+   {
+    "kind": "step",
+    "text": "Intake form once per semester",
+    "evidence_quote": "Does not have an active dining hall meal plan",
+    "evidence_level": "record",
+    "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+   },
+   {
+    "kind": "step",
+    "text": "physical USCard at every visit",
+    "evidence_quote": "Does not have an active dining hall meal plan",
+    "evidence_level": "record",
+    "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+   },
+   {
+    "kind": "step",
+    "text": "bring a reusable bag",
+    "evidence_quote": "Does not have an active dining hall meal plan",
+    "evidence_level": "record",
+    "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+   },
+   {
+    "kind": "office",
+    "text": "The office checks: no active dining hall meal plan (students with 20 or fewer meals left may be considered)",
+    "evidence_quote": "Does not have an active dining hall meal plan",
+    "evidence_level": "record",
+    "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+   },
+   {
+    "kind": "office",
+    "text": "The office checks: experiencing food insecurity",
+    "evidence_quote": "Does not have an active dining hall meal plan",
+    "evidence_level": "record",
+    "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/"
+   },
+   {
+    "kind": "confirm",
+    "field": "enrolled",
+    "text": "Confirm this is still true: Yes (Are you a currently enrolled USC student?)",
+    "rule": "enrolled at USC in the term",
+    "self_reported": true,
+    "office_verifies": true
+   }
+  ],
+  "draft": {
+   "subject": "Question about the Trojan Food Pantry",
+   "greeting": "Hello,",
+   "sentences": [
+    {
+     "text": "I'm writing about the Trojan Food Pantry from Student Basic Needs.",
+     "cites": [
+      "title",
+      "provider"
+     ]
+    },
+    {
+     "text": "I am a currently enrolled USC student.",
+     "cites": [
+      "profile:enrolled"
+     ]
+    },
+    {
+     "text": "Could you confirm what I need to submit and whether you need anything else from me?",
+     "cites": []
+    }
+   ],
+   "closing": "Thank you for your time.",
+   "text": "Hello,\n\nI'm writing about the Trojan Food Pantry from Student Basic Needs. I am a currently enrolled USC student. Could you confirm what I need to submit and whether you need anything else from me?\n\nThank you for your time.",
+   "mode": "template"
+  },
+  "catalog": {
+   "title": "Trojan Food Pantry",
+   "quote": "Does not have an active dining hall meal plan",
+   "provider": "Student Basic Needs",
+   "benefit": "limited groceries per week, free",
+   "where": "Fall/Spring Tue/Wed/Thu 10:00 AM - 2:00 PM, about 15 weeks from the first week of classes to Classes End week; Summer Wednesdays 11:00 AM - 2:00 PM (first week of June to last week of July)",
+   "step:1": "Intake form once per semester",
+   "step:2": "physical USCard at every visit",
+   "step:3": "bring a reusable bag",
+   "profile:enrolled": "Are you a currently enrolled USC student? Answer: Yes. I am a currently enrolled USC student."
+  },
+  "grounding": {
+   "passed": true,
+   "issues": [],
+   "checked": 3
+  },
+  "deadline": {
+   "label": null,
+   "date": null
+  },
+  "has_calendar": false,
+  "reminder": {
+   "date": null,
+   "text": "No deadline is published, so there is no reminder date. We'll ask you for the outcome a week after you send it."
+  },
+  "where": "Fall/Spring Tue/Wed/Thu 10:00 AM - 2:00 PM, about 15 weeks from the first week of classes to Classes End week; Summer Wednesdays 11:00 AM - 2:00 PM (first week of June to last week of July)",
+  "basis": "Based on what you told us. The office will confirm.",
+  "sent_by_agent": false
+ }
+}

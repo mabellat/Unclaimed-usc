@@ -105,7 +105,7 @@ export default function PacketPage() {
 
           <Section title="Your draft message">
             <div className="-mt-1 mb-2 flex items-center justify-between gap-2">
-              <span className="text-[12.5px] text-muted">{p.draft.mode === "claude" ? "Drafted by Claude." : "Drafted from a template (no AI key configured)."} Subject: {p.draft.subject}</span>
+              <span className="text-[12.5px] text-muted">{p.draft.mode === "claude" ? "Drafted by Claude." : p.draft.mode === "claude-cached" ? "Drafted by Claude earlier and cached for this demo." : "Drafted from a template (no AI key configured)."}{p.replayed_from ? " Replayed from a cached run." : ""} Subject: {p.draft.subject}</span>
               <button type="button" onClick={copy} className="min-h-[44px] flex-none pl-3 text-sm font-semibold text-cardinal">{copied ? "Copied" : "Copy"}</button>
             </div>
             <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#2A1E1A]">{p.draft.text}</p>

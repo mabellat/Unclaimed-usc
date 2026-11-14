@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { capitalize, money, stubFor } from "@/lib/ui";
+import { capitalize, deadlinePill, money, stubFor } from "@/lib/ui";
 import type { Claim, Resource } from "@/lib/types";
 
 const PILL: Record<string, string> = {
@@ -16,7 +16,10 @@ export function TicketCard({ resource, claim, index }: { resource: Resource; cla
   const stub = stubFor(resource.category);
   const value = resource.benefit?.value;
   const period = resource.benefit?.period;
-  const pill = claim ? claim.stage : resource.deadline?.label ?? "No deadline posted";
+  const dl = deadlinePill(resource.deadline);
+  const pill = claim ? claim.stage : dl.text;
+  const pillClass = claim ? PILL[claim.stage] ?? PILL.Received
+    : dl.tone === "urgent" ? "bg-cardinal font-semibold text-ticket" : dl.tone === "closed" ? "bg-[#E6D9BD] font-medium text-muted" : "bg-[#F0E4C8] font-medium text-ink";
   return (
     <Link
       href={`/ticket/${resource.id}`}
@@ -37,7 +40,7 @@ export function TicketCard({ resource, claim, index }: { resource: Resource; cla
         <span className="mb-1 font-display text-lg font-bold leading-[1.15]">{resource.title}</span>
         <span className="mb-2.5 line-clamp-2 text-[13px] leading-[1.35] text-body">{capitalize(resource.benefit?.label ?? "")}</span>
         <span className="mt-auto flex items-center justify-between gap-2">
-          <span className={`max-w-[190px] truncate rounded px-2 py-[3px] text-xs ${claim ? PILL[claim.stage] : "bg-[#F0E4C8] font-medium text-ink"}`}>{pill}</span>
+          <span className={`max-w-[190px] truncate rounded px-2 py-[3px] text-xs ${pillClass}`}>{pill}</span>
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="flex-none">
             <path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="#990000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>

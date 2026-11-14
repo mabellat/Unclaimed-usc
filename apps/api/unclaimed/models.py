@@ -76,6 +76,7 @@ class Student(Base):
     id: Mapped[str] = mapped_column(Text, primary_key=True)
     needs: Mapped[list[str]] = mapped_column(ARRAY(Text), default=list)
     demo_day: Mapped[int] = mapped_column(Integer, default=1)  # SIMULATED demo clock
+    demo_persona: Mapped[str | None] = mapped_column(Text)  # set when loaded from data/demo_personas.json
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 

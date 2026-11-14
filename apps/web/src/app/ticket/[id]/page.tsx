@@ -22,6 +22,7 @@ export default function Ticket() {
   const router = useRouter();
   const { ready, card, match, resources, fields, answer, error } = useStudent();
   const [claim, setClaim] = useState<Claim | null>(null);
+  const [why, setWhy] = useState<string[] | null>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
@@ -30,6 +31,12 @@ export default function Ticket() {
   useEffect(() => {
     if (card) api.claims(card.id).then((c) => setClaim(c.claims.find((x) => x.resource_id === id) ?? null)).catch(() => {});
   }, [card, id]);
+
+  const shownStatus = match ? ([...match.yes, ...match.maybe, ...match.no].find((m) => m.id === id)?.status ?? "hidden") : null;
+  useEffect(() => {
+    // When it doesn't fit, explain why in plain words (the rules engine's own result).
+    if (card && (shownStatus === "no" || shownStatus === "hidden")) api.explain(card.id, id).then((e) => setWhy(e.sentences)).catch(() => setWhy(null));
+  }, [card, id, shownStatus]);
 
   if (error) return <ErrorBox message={error} />;
   if (!ready || !card || !match) return <Loading />;
@@ -99,9 +106,14 @@ export default function Ticket() {
           )}
 
           {(status === "no" || status === "hidden") && (
-            <div className="rounded-xl border-2 border-dashed border-sand p-4 text-sm leading-normal text-muted">
-              {status === "no" ? "Based on your card, this one doesn't fit right now." : "This doesn't match the situations on your card."} You can update your card any time.
-            </div>
+            <Section title="Why it doesn't fit right now">
+              {why && why.length > 0 ? (
+                <div className="flex flex-col gap-2 text-[15px] leading-[1.45]">{why.map((t, i) => <p key={i}>{t}</p>)}</div>
+              ) : (
+                <p className="text-[15px] leading-[1.45]">{status === "no" ? "Based on your card, this one doesn't fit right now." : "This doesn't match the situations on your card."}</p>
+              )}
+              <Link href="/card" className="mt-2 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">Update my card</Link>
+            </Section>
           )}
 
           {item && item.office_decides.length > 0 && (
@@ -131,7 +143,7 @@ export default function Ticket() {
             )}
             <div className="mt-3.5 flex flex-col gap-1 border-t border-dashed border-rule pt-3 text-sm text-body">
               {r.where && <div><strong className="font-semibold">Where:</strong> {r.where}</div>}
-              <div><strong className="font-semibold">When:</strong> {r.deadline?.label ?? "No deadline is published on the source page."}</div>
+              <div><strong className="font-semibold">When:</strong> {r.deadline?.label ?? "No deadline is published on the source page."}{r.deadline?.closed ? " (this date has passed)" : ""}</div>
             </div>
           </Section>
 
@@ -181,7 +193,12 @@ export default function Ticket() {
       </div>
 
       <div className="sticky bottom-0 flex flex-col gap-2 border-t border-rule bg-paper px-5 pb-5 pt-3">
-        {status === "yes" ? (
+        {status === "yes" && r.deadline?.closed && idx < 0 ? (
+          <>
+            <p className="text-center text-[13px] text-muted">The source page says this window has closed. Watch Alerts for the next one.</p>
+            <Link href="/wallet" className={`${primaryBtn} flex items-center justify-center`}>Back to my wallet</Link>
+          </>
+        ) : status === "yes" ? (
           idx < 0 ? <Link href={`/ticket/${id}/claim`} className={`${primaryBtn} flex items-center justify-center`}>Claim it for me</Link>
           : idx === 0 ? <Link href={`/ticket/${id}/packet`} className={`${primaryBtn} flex items-center justify-center`}>Open my claim packet</Link>
           : idx < 3 ? <Link href="/claims" className={`${primaryBtn} flex items-center justify-center`}>Track it in Claims</Link>
