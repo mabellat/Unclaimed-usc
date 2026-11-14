@@ -1,0 +1,326 @@
+{
+  "description": "Structured eligibility for each resource, built from the approved prose criteria (owner decisions 2026-11-13). Loaded by `make structure-rules`, which creates a NEW PENDING version of each approved record; nothing goes live until the owner approves it in /admin. Texts come from the approved record's prose criteria; where one was split, reworded or moved, the owner sees the change in the /admin diff before approving. kind=rule is evaluated by the matcher against a field in data/profile_fields.json. kind=office is a judgment the office makes; it is shown on the ticket as 'The office decides this' and does not block a yes. steps_add, docs_add and note_add move prose that is not eligibility (steps, limits, documents) out of the criteria.",
+  "resources": {
+    "viterbi-learning-program": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "viterbi", "text": "Viterbi undergraduate or pre-engineering students for tutoring; study rooms open to Viterbi undergrad and grad"}
+      ],
+      "note_add": ["the writing consultant is open to all USC students"]
+    },
+    "writing-center": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "all current USC students"}
+      ],
+      "note_add": ["one 50-minute or two 25-minute appointments per week", "no proofreading"]
+    },
+    "calfresh-navigation": {
+      "eligibility": [
+        {"kind": "office", "text": "decided by the county and state, NOT by USC"}
+      ],
+      "note_add": ["The page says participation does not affect financial aid and parental tax information is not required."]
+    },
+    "counseling-and-mental-health": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled USC student"}
+      ],
+      "note_add": ["Covered for students who pay the Student Health Fee. Required for students enrolled in 6+ units (Fall/Spring) and all international students. Single \"pay as you go\" visits are also possible: $20 medical, $10 mental health"]
+    },
+    "emergency-meal-swipes": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "currently enrolled undergraduate or graduate student"},
+        {"kind": "office", "text": "short-term food insecurity from an unforeseen circumstance"},
+        {"kind": "office", "text": "no reliable or immediate access to meals"}
+      ],
+      "steps_add": ["able to do a brief intake consultation with SBN staff"],
+      "note_add": ["Limited capacity; priority goes to the most urgent need."]
+    },
+    "its-laptop-loaner": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "currently enrolled student"}
+      ],
+      "docs_add": ["a valid USCard"]
+    },
+    "osas-accommodations": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled USC students"},
+        {"kind": "office", "text": "with a disability, with supporting documentation"}
+      ],
+      "docs_add": ["supporting documentation"]
+    },
+    "sbn-financial-navigation": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "students"}
+      ]
+    },
+    "sbn-housing-support": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "students"},
+        {"kind": "office", "text": "experiencing housing insecurity"}
+      ],
+      "steps_add": ["submit the housing contact form"]
+    },
+    "tommys-closet": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "students"}
+      ],
+      "steps_add": ["bring your USCard to check in"],
+      "note_add": ["Limit: one visit every 2 weeks; up to 15 minutes to browse and try things on"]
+    },
+    "tommys-table": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled students"}
+      ]
+    },
+    "trojan-food-pantry": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled at USC in the term"},
+        {"kind": "office", "text": "no active dining hall meal plan (students with 20 or fewer meals left may be considered)"},
+        {"kind": "office", "text": "experiencing food insecurity"}
+      ],
+      "steps_add": ["Intake form once per semester", "physical USCard at every visit", "bring a reusable bag"]
+    },
+    "career-advising-and-tools": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "students of all class levels and majors (drop-in); current students (Quinncia)"}
+      ]
+    },
+    "career-fest-2027": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "all USC students (all majors and class levels)"}
+      ]
+    },
+    "annenberg-emergency-aid": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "annenberg", "text": "Annenberg undergraduate or graduate student"},
+        {"kind": "office", "text": "must demonstrate financial need"}
+      ]
+    },
+    "csi-emergency-loan": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "currently enrolled"},
+        {"kind": "rule", "field": "has_ssn", "op": "eq", "value": true, "text": "U.S.-issued Social Security number"},
+        {"kind": "office", "text": "good financial standing (no negative balance in collections)"},
+        {"kind": "office", "text": "ability to repay"}
+      ],
+      "docs_add": ["documentation of the emergency"]
+    },
+    "financial-aid-appeal-grad": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "level graduate"},
+        {"kind": "rule", "field": "financial_aid", "op": "eq", "value": true, "text": "receives or applied for financial aid"},
+        {"kind": "office", "text": "has a change in circumstances"}
+      ]
+    },
+    "financial-aid-appeal-undergrad": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "eq", "value": "undergrad", "text": "level undergraduate"},
+        {"kind": "rule", "field": "financial_aid", "op": "eq", "value": true, "text": "receives or applied for financial aid"},
+        {"kind": "office", "text": "has a change in circumstances"}
+      ]
+    },
+    "gsg-caretaker-subsidy": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "USC graduate student (postdocs and undergraduates not eligible)"},
+        {"kind": "rule", "field": "gsg_fee_paid", "op": "eq", "value": true, "text": "paid the Graduate Student Programming Fee"},
+        {"kind": "office", "text": "primary caretaking responsibilities for a dependent (need not be the parent or legal guardian)"}
+      ]
+    },
+    "gsg-emergency-fund": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "graduate student"},
+        {"kind": "rule", "field": "gsg_fee_paid", "op": "eq", "value": true, "text": "paid the Graduate Student Programming Fee for the semester"}
+      ],
+      "steps_add": ["member of the GSG EngageSC group"],
+      "note_add": ["NOT covered: routine medical care, health insurance fees, basic needs (food, rent, utilities), tuition and fees"]
+    },
+    "gsg-empowerment-award": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "registered graduate student"},
+        {"kind": "rule", "field": "gsg_fee_paid", "op": "eq", "value": true, "text": "paid the Graduate Student Programming Fee"}
+      ],
+      "docs_add": ["for a past expense, the receipt must be dated within the last 6 months"],
+      "note_add": ["one award per academic year", "Secondary to other funding."]
+    },
+    "gsg-npe-fund": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "registered graduate student at request and disbursement"},
+        {"kind": "rule", "field": "gsg_fee_paid", "op": "eq", "value": true, "text": "paid the Graduate Student Programming Fee"}
+      ],
+      "steps_add": ["member of the GSG EngageSC group"],
+      "docs_add": ["costs documented on the provider's letterhead"]
+    },
+    "gsg-travel-award": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "in", "value": ["masters", "phd_or_other_grad"], "text": "registered graduate student at the time of request and disbursement"},
+        {"kind": "rule", "field": "gsg_fee_paid", "op": "eq", "value": true, "text": "paid the Graduate Student Programming Fee"}
+      ],
+      "note_add": ["maximum one award per year, one application per semester. Covers conference registration, travel, accommodation, abstract fees", "not tuition"]
+    },
+    "sbn-supplemental-funding": {
+      "eligibility": [
+        {"kind": "rule", "field": "units_load", "op": "in", "value": ["full_time", "half_time"], "text": "enrolled at least half time in the term funds are requested"},
+        {"kind": "office", "text": "sudden financial distress from unforeseen circumstances"},
+        {"kind": "office", "text": "$0 bill balance"},
+        {"kind": "office", "text": "Financial Aid approval (SBN contacts Financial Aid for you)"}
+      ],
+      "docs_add": ["able to supply bills or receipts"]
+    },
+    "first-generation-plus-success-center": {
+      "eligibility": [
+        {"kind": "rule", "field": "communities", "op": "includes_any", "value": ["first_gen", "transfer", "undocumented", "foster_youth"], "text": "first-generation (USC pages differ: \"parents do not have four-year degrees\" vs \"neither parent completed college\"), transfer, undocumented or former foster youth"}
+      ]
+    },
+    "ship-insurance-waiver": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled USC student"},
+        {"kind": "office", "text": "full-time, international and health-professions students are auto-enrolled"},
+        {"kind": "office", "text": "waiver needs a plan that meets USC criteria (minimum essential coverage, in-network access within about 50 miles, no healthcare-sharing plans, no out-of-state Medicaid for on-campus residents)"}
+      ]
+    },
+    "student-health-services": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "enrolled USC student"}
+      ],
+      "note_add": ["No co-pays for students who pay the Student Health Fee (6+ credits, all international, health professions students)"]
+    },
+    "ois-work-authorization-advising": {
+      "eligibility": [
+        {"kind": "rule", "field": "citizenship", "op": "eq", "value": "f1_j1", "text": "F-1 or J-1 students"}
+      ],
+      "note_add": ["CPT and OPT need OIS approval, and Viterbi students also need school verification"]
+    },
+    "federal-work-study": {
+      "eligibility": [
+        {"kind": "rule", "field": "citizenship", "op": "neq", "value": "f1_j1", "text": "Career Center page: international students are not eligible."},
+        {"kind": "office", "text": "\"demonstrate financial need, meet all application deadlines, be a U.S. citizen or eligible noncitizen and enroll for the number of units your financial aid award was based on\""},
+        {"kind": "office", "text": "Graduate page: enroll in at least 4 units each semester"},
+        {"kind": "office", "text": "work-study is limited to on-campus students and is not offered to online graduate programs"}
+      ]
+    },
+    "on-campus-jobs-handshake": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "any current student"}
+      ],
+      "steps_add": ["with a Handshake account"],
+      "note_add": ["international F-1 students use OIS rules for on-campus work and are not eligible for work-study"]
+    },
+    "free-legal-counseling": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "none stated beyond being a USC student"}
+      ]
+    },
+    "usc-immigration-clinic": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "members of the USC Trojan Family (students, staff)"},
+        {"kind": "office", "text": "who may be at risk of deportation, may be eligible for status, or have immigration questions"}
+      ]
+    },
+    "cavaney-vet": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "price", "text": "Price master's degree student"},
+        {"kind": "rule", "field": "level", "op": "eq", "value": "masters", "text": "Price master's degree student"},
+        {"kind": "rule", "field": "communities", "op": "includes", "value": "veteran", "text": "who is a U.S. military veteran"}
+      ],
+      "note_add": ["incoming or continuing", "preference for economic growth and job creation goals (preference only, not a rule)"]
+    },
+    "dornsife-continuing-student-scholarship": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "dornsife", "text": "declared Dornsife major"},
+        {"kind": "rule", "field": "level", "op": "eq", "value": "undergrad", "text": "full-time undergraduate (12+ units each semester)"},
+        {"kind": "rule", "field": "units_load", "op": "eq", "value": "full_time", "text": "full-time undergraduate (12+ units each semester)"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "cumulative USC GPA 3.0+"},
+        {"kind": "rule", "field": "continuing", "op": "eq", "value": true, "text": "continuing students only (fall graduates of the awarded year may apply)"}
+      ]
+    },
+    "exl-award": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "dornsife", "text": "declared Dornsife major"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "3.0+ USC GPA"},
+        {"kind": "rule", "field": "units_load", "op": "eq", "value": "full_time", "text": "full-time"},
+        {"kind": "rule", "field": "expected_graduation_term", "op": "neq", "value": "dec_2026", "text": "not graduating Dec 2026"},
+        {"kind": "rule", "field": "under_144_units", "op": "eq", "value": true, "text": "under 144 units"},
+        {"kind": "office", "text": "demonstrated financial need"}
+      ],
+      "note_add": ["activity is not for course credit", "not concurrently funded by SOAR, SURF, PURF or other USC research, internship or travel funding"]
+    },
+    "half-century-trojans": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "eq", "value": "undergrad", "text": "continuing undergraduate"},
+        {"kind": "rule", "field": "continuing", "op": "eq", "value": true, "text": "continuing undergraduate"},
+        {"kind": "rule", "field": "usc_legacy_50yr", "op": "eq", "value": true, "text": "grandchild or great-grandchild of a USC alumnus from 50+ years ago (or of someone with a USC graduate degree and an undergraduate degree from 50+ years ago)"}
+      ],
+      "steps_add": ["interview for finalists"]
+    },
+    "purf": {
+      "eligibility": [
+        {"kind": "rule", "field": "level", "op": "eq", "value": "undergrad", "text": "undergraduate enrolled in 12 or more units at USC in the grant term (Spring 2027) in a program leading to an undergraduate degree"},
+        {"kind": "rule", "field": "units_load", "op": "eq", "value": "full_time", "text": "undergraduate enrolled in 12 or more units at USC in the grant term (Spring 2027) in a program leading to an undergraduate degree"},
+        {"kind": "rule", "field": "progressive_degree", "op": "eq", "value": false, "text": "Progressive Degree students are ineligible"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "USC cumulative GPA 3.0 or better (preference for 3.5 or better)"}
+      ],
+      "note_add": ["prior research with a research-active USC faculty member is preferred"]
+    },
+    "skull-and-dagger": {
+      "eligibility": [
+        {"kind": "rule", "field": "continuing", "op": "eq", "value": true, "text": "continuing USC students, graduate or undergraduate"},
+        {"kind": "office", "text": "significant campus or community leadership"}
+      ],
+      "steps_add": ["interview for semifinalists"]
+    },
+    "soar": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "dornsife", "text": "declared Dornsife major"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "3.0 cumulative USC GPA"},
+        {"kind": "rule", "field": "units_load", "op": "eq", "value": "full_time", "text": "full-time enrollment"},
+        {"kind": "rule", "field": "has_dornsife_faculty_mentor", "op": "eq", "value": true, "text": "Dornsife faculty mentor"}
+      ],
+      "note_add": ["not funded together with PURF"]
+    },
+    "surf-shure": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "dornsife", "text": "declared Dornsife major"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "minimum 3.0 cumulative USC GPA"},
+        {"kind": "rule", "field": "units_load", "op": "eq", "value": "full_time", "text": "full-time enrollment (12+ units each semester)"},
+        {"kind": "rule", "field": "expected_graduation_term", "op": "not_in", "value": ["summer_2027", "fall_2027"], "text": "not a senior graduating Summer/Fall 2027 and under 144 total units"},
+        {"kind": "rule", "field": "under_144_units", "op": "eq", "value": true, "text": "not a senior graduating Summer/Fall 2027 and under 144 total units"},
+        {"kind": "rule", "field": "has_dornsife_faculty_mentor", "op": "eq", "value": true, "text": "has an eligible Dornsife faculty mentor"}
+      ],
+      "note_add": ["no overlapping PURF/ExL/Rose Hills funding"]
+    },
+    "town-and-gown": {
+      "eligibility": [
+        {"kind": "rule", "field": "citizenship", "op": "in", "value": ["us_citizen", "permanent_resident"], "text": "U.S. citizen or permanent resident of Southern California"},
+        {"kind": "rule", "field": "socal_resident", "op": "eq", "value": true, "text": "U.S. citizen or permanent resident of Southern California"},
+        {"kind": "rule", "field": "gpa_band", "op": "eq", "value": "3_4_plus", "text": "minimum unweighted GPA 3.4"},
+        {"kind": "rule", "field": "continuing", "op": "eq", "value": true, "text": "open to continuing students"}
+      ],
+      "steps_add": ["interview required"]
+    },
+    "viterbi-continuing-undergrad": {
+      "eligibility": [
+        {"kind": "rule", "field": "schools", "op": "includes", "value": "viterbi", "text": "continuing Viterbi undergraduate"},
+        {"kind": "rule", "field": "level", "op": "eq", "value": "undergrad", "text": "continuing Viterbi undergraduate"},
+        {"kind": "rule", "field": "continuing", "op": "eq", "value": true, "text": "continuing Viterbi undergraduate"},
+        {"kind": "rule", "field": "gpa_band", "op": "in", "value": ["3_0_to_3_39", "3_4_plus"], "text": "minimum GPA 3.0"}
+      ],
+      "note_add": ["open to international students", "financial need not required"]
+    },
+    "campus-support-and-intervention": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "any current student"}
+      ]
+    },
+    "metro-u-pass": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "current USC students"}
+      ],
+      "note_add": ["cannot hold a USC semester parking permit at the same time", "one pass per student"]
+    },
+    "usc-lyft-rides": {
+      "eligibility": [
+        {"kind": "rule", "field": "enrolled", "op": "eq", "value": true, "text": "current USC students (also faculty and staff)"}
+      ],
+      "note_add": ["inside designated zones"]
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Approve all pending{% endblock %}
+{% block heading %}{% if done %}Bulk approval done{% else %}Approve all pending{% endif %}{% endblock %}
+{% block body %}
+<style>
+.big{font-family:Oswald,sans-serif;font-weight:600;font-size:40px;line-height:1;color:var(--cardinal)}
+ul{margin:8px 0 0;padding-left:20px}
+li{margin:4px 0}
+.reason{color:var(--cardinal);font-weight:600}
+</style>
+<p><a href="/admin">Back to the queue</a></p>
+{% if error %}<div class="error" role="alert">{{ error }}</div>{% endif %}
+
+<div class="card" style="margin-bottom:16px">
+{% if done %}
+  <div class="big">{{ ready|length }}</div>
+  <p style="margin:6px 0 0">records approved by <b>{{ entry.actor }}</b> at {{ entry.at.strftime("%Y-%m-%d %H:%M:%S UTC") }}, logged as bulk action #{{ entry.id }}. Each one got its own data version.</p>
+{% elif ready %}
+  <div class="big">{{ ready|length }}</div>
+  <p style="margin:6px 0 14px">pending records will be approved and stamped with your name, the time and a new data version each. Rejected records are not touched.{% if skipped %} {{ skipped|length }} will be skipped (listed below).{% endif %}</p>
+  <form method="post" action="/admin/approve-all">
+    {% for r in ready %}<input type="hidden" name="key" value="{{ r.id }}|{{ r.version }}">{% endfor %}
+    <button class="btn primary" type="submit">Approve {{ ready|length }} records</button>
+    <a class="btn secondary" href="/admin" style="display:inline-flex;align-items:center;text-decoration:none;margin-left:8px">Cancel</a>
+  </form>
+{% else %}
+  <p style="margin:0">No pending records are ready to approve.</p>
+{% endif %}
+</div>
+
+{% if skipped %}
+<div class="card" style="background:#FFF1B8;margin-bottom:16px">
+  <h2>Skipped ({{ skipped|length }}), fix these first</h2>
+  <ul>{% for r, reason in skipped %}
+    <li><a href="/admin/resources/{{ r.id }}/{{ r.version }}">{{ r.title or r.id }}</a> ({{ r.id }} v{{ r.version }}): <span class="reason">{{ reason }}</span></li>
+  {% endfor %}</ul>
+</div>
+{% endif %}
+
+{% if ready %}
+<details class="card"><summary class="label" style="cursor:pointer;min-height:44px;display:flex;align-items:center">{% if done %}Approved{% else %}Will be approved{% endif %} ({{ ready|length }})</summary>
+  <ul>{% for r in ready %}<li>{{ r.title or r.id }} ({{ r.id }} v{{ r.version }}){% if done %} · data version {{ r.data_version }}{% endif %}</li>{% endfor %}</ul>
+</details>
+{% endif %}
+{% endblock %}

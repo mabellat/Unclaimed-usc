@@ -1,0 +1,2381 @@
+{
+ "data_version": 90,
+ "resources": [
+  {
+   "id": "annenberg-emergency-aid",
+   "title": "Annenberg Student Emergency Aid Fund",
+   "provider": "Annenberg",
+   "category": "cash",
+   "benefit": {
+    "label": "average award $1,000 (awards vary); bridge funding for students with unforeseen circumstances affecting tuition or living expenses",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "Annenberg undergraduate or graduate student",
+     "field": "schools",
+     "value": "annenberg",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "must demonstrate financial need",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://annenberg.usc.edu/current-students/resources/annenberg-scholarships-and-awards",
+   "evidence_quote": "Must demonstrate financial need",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.202606-08:00",
+   "data_version": 69
+  },
+  {
+   "id": "calfresh-navigation",
+   "title": "CalFresh navigation",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "help applying for CalFresh (California's SNAP/EBT food assistance), which helps stretch your food budget",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "kind": "office",
+     "text": "decided by the county and state, NOT by USC",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "food"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "https://www.getcalfresh.org (per the Student Basic Needs food insecurity page)",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": "The page says participation does not affect financial aid and parental tax information is not required.",
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/",
+   "evidence_quote": "parental tax information is not required to apply",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.197277-08:00",
+   "data_version": 64
+  },
+  {
+   "id": "campus-support-and-intervention",
+   "title": "Campus Support and Intervention",
+   "provider": "Campus Support and Intervention",
+   "category": "support_office",
+   "benefit": {
+    "label": "one-stop consultation for academic, personal or crisis problems; resource referrals; professor notifications; health leave of absence",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "any current student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [],
+   "deadline": null,
+   "academic_year": null,
+   "where": "ongoing; 213-740-0411, uscsupport@usc.edu, TCC Suite 421; email answered within one business day",
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://campussupport.usc.edu/",
+   "evidence_quote": "one-stop shop for care and support, troubleshooting, and advocacy",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.221987-08:00",
+   "data_version": 88
+  },
+  {
+   "id": "career-advising-and-tools",
+   "title": "Career Center advising and interview practice",
+   "provider": "Career Center",
+   "category": "career",
+   "benefit": {
+    "label": "free resume, CV and cover letter critique at drop-in advising (about 15 minutes); 24/7 interview practice with Big Interview (students and alumni) and Quinncia (current students, mock interviews based on your resume)",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "students of all class levels and majors (drop-in); current students (Quinncia)",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "job"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "drop-in Fall and Spring, Monday-Friday 1:00 - 3:30 PM, Student Union 110; Summer: 15-minute resume reviews by appointment on Handshake",
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://careers.usc.edu/channels/appointments/",
+   "evidence_quote": "Drop-in advising is available in-person in STU 110 from 1:00-3:30 pm",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.187917-08:00",
+   "data_version": 55
+  },
+  {
+   "id": "career-fest-2027",
+   "title": "Career Fest and Employer Resume Review",
+   "provider": "Career Center",
+   "category": "career",
+   "benefit": {
+    "label": "week of workshops and panels; Employer Resume Review lets recruiters review your resume",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "all USC students (all majors and class levels)",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "job"
+   ],
+   "deadline": {
+    "label": "Career Fest Mon Jan 25 - Fri Jan 29, 2027; Employer Resume Review Mon Jan 25, 2027, 9:00 AM - 12:00 PM PT, TCC Ballroom"
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://careers.usc.edu/channels/career-fest/",
+   "evidence_quote": "Career Fest will take place the week of Monday, January 25",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.189073-08:00",
+   "data_version": 56
+  },
+  {
+   "id": "cavaney-vet",
+   "title": "Cavaney Graduate Veteran Scholarship",
+   "provider": "Price School of Public Policy",
+   "category": "scholarship",
+   "benefit": {
+    "label": "up to $5,000",
+    "value": 5000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "Price master's degree student",
+     "field": "schools",
+     "value": "price",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "Price master's degree student",
+     "field": "level",
+     "value": "masters",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "who is a U.S. military veteran",
+     "field": "communities",
+     "value": "veteran",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": {
+    "label": "opens December 1, 2026; deadline March 21, 2027; apply in Scholarship Universe with USC Net ID"
+   },
+   "academic_year": "2026-2027 cycle",
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "incoming or continuing\npreference for economic growth and job creation goals (preference only, not a rule)",
+   "source_url": "https://priceschool.usc.edu/admission/scholarships/graduate-scholarships/",
+   "evidence_quote": "A scholarship for a Price master's degree student who is a veteran",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.212688-08:00",
+   "data_version": 78
+  },
+  {
+   "id": "counseling-and-mental-health",
+   "title": "USC Counseling and Mental Health Services",
+   "provider": "Student Health",
+   "category": "basics",
+   "benefit": {
+    "label": "individual and group counseling, crisis intervention, psychiatry, workshops, provided through the Student Health Fee; 24/7 phone line 213-740-9355",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled USC student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "wellbeing"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "Covered for students who pay the Student Health Fee. Required for students enrolled in 6+ units (Fall/Spring) and all international students. Single \"pay as you go\" visits are also possible: $20 medical, $10 mental health",
+   "source_url": "https://studenthealth.usc.edu/fees-deadlines/",
+   "evidence_quote": "provided through the Student Health Fee",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.199346-08:00",
+   "data_version": 66
+  },
+  {
+   "id": "csi-emergency-loan",
+   "title": "CSI Emergency Loan",
+   "provider": "Campus Support and Intervention",
+   "category": "cash",
+   "benefit": {
+    "label": "up to $1,000; one loan per semester; repay within 90 days (10% annual interest after, then collections and a registration hold)",
+    "value": 1000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "currently enrolled",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "U.S.-issued Social Security number",
+     "field": "has_ssn",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "good financial standing (no negative balance in collections)",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "ability to repay",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [
+    {
+     "text": "documentation of the emergency",
+     "evidence_quote": null
+    }
+   ],
+   "note": null,
+   "source_url": "https://campussupport.usc.edu/students/basic-needs/emergency-loan-application/",
+   "evidence_quote": "CSI may approve loans of up to $1000 per student.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.170062-08:00",
+   "data_version": 46
+  },
+  {
+   "id": "dornsife-continuing-student-scholarship",
+   "title": "Dornsife Continuing Student Scholarship",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "$1,000 to $6,000 per year",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "declared Dornsife major",
+     "field": "schools",
+     "value": "dornsife",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "full-time undergraduate (12+ units each semester)",
+     "field": "level",
+     "value": "undergrad",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "full-time undergraduate (12+ units each semester)",
+     "field": "units_load",
+     "value": "full_time",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "cumulative USC GPA 3.0+",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing students only (fall graduates of the awarded year may apply)",
+     "field": "continuing",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": "2027-2028",
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://dornsife.usc.edu/css/css-application/",
+   "evidence_quote": "will be available in January 2027",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.207361-08:00",
+   "data_version": 74
+  },
+  {
+   "id": "emergency-meal-swipes",
+   "title": "Emergency Meal Swipe Program",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "a limited number of meal swipes loaded onto your USCard, redeemable at the residential dining halls (EVK, Parkside, USC Village) during the current semester",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "currently enrolled undergraduate or graduate student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "short-term food insecurity from an unforeseen circumstance",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "no reliable or immediate access to meals",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "food"
+   ],
+   "deadline": {
+    "label": "none; reviewed on a rolling basis"
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "able to do a brief intake consultation with SBN staff",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": "Limited capacity; priority goes to the most urgent need.",
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/emergency-meal-swipe/",
+   "evidence_quote": "short-term food insecurity due to an unforeseen circumstance",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.194284-08:00",
+   "data_version": 61
+  },
+  {
+   "id": "exl-award",
+   "title": "Dornsife ExL Award",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "up to $1,500 per academic year",
+    "value": 1500.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "declared Dornsife major",
+     "field": "schools",
+     "value": "dornsife",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "3.0+ USC GPA",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "full-time",
+     "field": "units_load",
+     "value": "full_time",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "neq",
+     "kind": "rule",
+     "text": "not graduating Dec 2026",
+     "field": "expected_graduation_term",
+     "value": "dec_2026",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "under 144 units",
+     "field": "under_144_units",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "demonstrated financial need",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": {
+    "label": "Spring 2027, December 3, 2026 to January 14, 2027"
+   },
+   "academic_year": "2026-2027",
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "activity is not for course credit\nnot concurrently funded by SOAR, SURF, PURF or other USC research, internship or travel funding",
+   "source_url": "https://dornsife.usc.edu/css/exl-award/",
+   "evidence_quote": "Up to $1,500 can be awarded per academic year",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.208931-08:00",
+   "data_version": 75
+  },
+  {
+   "id": "federal-work-study",
+   "title": "Federal Work-Study",
+   "provider": "Financial Aid",
+   "category": "jobs",
+   "benefit": {
+    "label": "$500 to $4,750 per year",
+    "value": 4750.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "neq",
+     "kind": "rule",
+     "text": "Career Center page: international students are not eligible.",
+     "field": "citizenship",
+     "value": "f1_j1",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "\"demonstrate financial need, meet all application deadlines, be a U.S. citizen or eligible noncitizen and enroll for the number of units your financial aid award was based on\"",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "Graduate page: enroll in at least 4 units each semester",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "work-study is limited to on-campus students and is not offered to online graduate programs",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money",
+    "job"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://financialaid.usc.edu/next-steps/",
+   "evidence_quote": "Work-study awards range from $500 to $4,750 per year.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.216573-08:00",
+   "data_version": 82
+  },
+  {
+   "id": "financial-aid-appeal-grad",
+   "title": "Financial aid special circumstances appeal (graduate)",
+   "provider": "Financial Aid",
+   "category": "cash",
+   "benefit": {
+    "label": "A re-evaluation of your budget. For graduate students a budget increase is usually funded with loans, not grants.",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "level graduate",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "receives or applied for financial aid",
+     "field": "financial_aid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "has a change in circumstances",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "submit the appeal and supporting documents through the \"Required Info and Forms\" page of your FAST portal; each appeal is reviewed once and decisions are final; submit at least 30 days before the end of the term. Examples that may qualify: significant involuntary loss of income, death of a parent or spouse, divorce after the FAFSA, extraordinary out-of-pocket medical costs, budget increases for things like childcare, books, rent above the standard budget.",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://financialaid.usc.edu/graduate-professional-financial-aid/admitted-and-continuing-students/special-circumstances-and-appeals/",
+   "evidence_quote": "you can submit an appeal through your FAST portal",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.203560-08:00",
+   "data_version": 70
+  },
+  {
+   "id": "financial-aid-appeal-undergrad",
+   "title": "Financial aid special circumstances appeal (undergraduate)",
+   "provider": "Financial Aid",
+   "category": "cash",
+   "benefit": {
+    "label": "If approved, you may receive supplemental grant funding; it may not cover the full need.",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "level undergraduate",
+     "field": "level",
+     "value": "undergrad",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "receives or applied for financial aid",
+     "field": "financial_aid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "has a change in circumstances",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "submit the appeal and supporting documents through the \"Required Info and Forms\" page of your FAST portal; each appeal is reviewed once and decisions are final; submit at least 30 days before the end of the term. Examples that may qualify: significant involuntary loss of income, death of a parent or spouse, divorce after the FAFSA, extraordinary out-of-pocket medical costs, budget increases for things like childcare, books, rent above the standard budget.",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://financialaid.usc.edu/undergraduate-financial-aid/admitted-and-continuing-students/special-circumstances-and-appeals-undergaduate-continuing/",
+   "evidence_quote": "you can submit an appeal through your FAST portal",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.204351-08:00",
+   "data_version": 71
+  },
+  {
+   "id": "first-generation-plus-success-center",
+   "title": "First Generation Plus Success Center",
+   "provider": "First Generation Plus Success Center",
+   "category": "community",
+   "benefit": {
+    "label": "resource hub, mentorship and programs for first-generation, transfer, undocumented and former foster youth students",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes_any",
+     "kind": "rule",
+     "text": "first-generation (USC pages differ: \"parents do not have four-year degrees\" vs \"neither parent completed college\"), transfer, undocumented or former foster youth",
+     "field": "communities",
+     "value": [
+      "first_gen",
+      "transfer",
+      "undocumented",
+      "foster_youth"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "community"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "ongoing; TCC 224, firstgen@usc.edu",
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://firstgenplussc.usc.edu/populations-and-services/",
+   "evidence_quote": "resource hub for first-generation, transfer, undocumented, and former foster youth students",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.222932-08:00",
+   "data_version": 89
+  },
+  {
+   "id": "free-legal-counseling",
+   "title": "Free legal counseling (USG and GSG)",
+   "provider": "USG and GSG",
+   "category": "legal",
+   "benefit": {
+    "label": "free 30-minute consultation; provided jointly by the undergraduate and graduate student governments, for USC students",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "none stated beyond being a USC student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "legal",
+    "housing"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "Mondays 4:00 PM - 9:00 PM, at the USG Office, TCC Suite 224",
+   "steps": [
+    {
+     "text": "call USG at (213) 740-5620, or walk in (per USG page); older pages also say pre-registration is required",
+     "evidence_quote": null
+    },
+    {
+     "text": "https://docs.google.com/forms/d/e/1FAIpQLSfjrhPHhAlu-AcqUKyWsruoVKJWikSXXoaNCw2uSaXPO0WTjw/viewform (Google Form, not a usc.edu domain; used as a link only, never crawled)",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://usg.usc.edu/",
+   "evidence_quote": "Free Legal Counseling Services",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.185787-08:00",
+   "data_version": 53
+  },
+  {
+   "id": "gsg-caretaker-subsidy",
+   "title": "GSG Caretaker Subsidy Grant",
+   "provider": "Graduate Student Government",
+   "category": "cash",
+   "benefit": {
+    "label": "up to $1,000 per semester, max $2,000 per year",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "USC graduate student (postdocs and undergraduates not eligible)",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "paid the Graduate Student Programming Fee",
+     "field": "gsg_fee_paid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "primary caretaking responsibilities for a dependent (need not be the parent or legal guardian)",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "caregiver"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://engage.usc.edu/gsg/caretaker-grant/",
+   "evidence_quote": "Have primary caretaking responsibilities for a dependent.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.178573-08:00",
+   "data_version": 49
+  },
+  {
+   "id": "gsg-emergency-fund",
+   "title": "GSG Emergency Fund Grant",
+   "provider": "Graduate Student Government",
+   "category": "cash",
+   "benefit": {
+    "label": "up to $1,000 per student per academic year; paid in one lump sum, 6-8 weeks after approval (international students up to 3 months)",
+    "value": 1000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "graduate student",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "paid the Graduate Student Programming Fee for the semester",
+     "field": "gsg_fee_paid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": {
+    "label": "Fund applications are open September 9-30."
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "member of the GSG EngageSC group",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": "NOT covered: routine medical care, health insurance fees, basic needs (food, rent, utilities), tuition and fees",
+   "source_url": "https://engage.usc.edu/gsg/er-fund/",
+   "evidence_quote": "The funding limit is $1,000 per student per academic year.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.176674-08:00",
+   "data_version": 48
+  },
+  {
+   "id": "gsg-empowerment-award",
+   "title": "GSG Empowerment Award",
+   "provider": "Graduate Student Government",
+   "category": "cash",
+   "benefit": {
+    "label": "up to $250 per student per academic year",
+    "value": 250.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "registered graduate student",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "paid the Graduate Student Programming Fee",
+     "field": "gsg_fee_paid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "conference"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [
+    {
+     "text": "for a past expense, the receipt must be dated within the last 6 months",
+     "evidence_quote": null
+    }
+   ],
+   "note": "one award per academic year\nSecondary to other funding.",
+   "source_url": "https://engage.usc.edu/Gsg/gsg-ea/",
+   "evidence_quote": "$250 per student per academic year",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.182567-08:00",
+   "data_version": 51
+  },
+  {
+   "id": "gsg-npe-fund",
+   "title": "GSG Neuropsychological Evaluation (NPE) Fund",
+   "provider": "Graduate Student Government",
+   "category": "cash",
+   "benefit": {
+    "label": "grants of up to $600 for a neuropsychological evaluation; max one award per academic year; reimbursement for NPEs in the current academic year is also allowed; secondary to other funding",
+    "value": 600.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "registered graduate student at request and disbursement",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "paid the Graduate Student Programming Fee",
+     "field": "gsg_fee_paid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "accessibility",
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "member of the GSG EngageSC group",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [
+    {
+     "text": "costs documented on the provider's letterhead",
+     "evidence_quote": null
+    }
+   ],
+   "note": null,
+   "source_url": "https://engage.usc.edu/gsg/npe/",
+   "evidence_quote": "provides grants of up to $600 to graduate students undergoing an NPE",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.201489-08:00",
+   "data_version": 68
+  },
+  {
+   "id": "gsg-travel-award",
+   "title": "GSG Travel Award",
+   "provider": "Graduate Student Government",
+   "category": "cash",
+   "benefit": {
+    "label": "$500 per student per academic year (AY Aug 2026 - May 2027); last-resort funding",
+    "value": 500.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "registered graduate student at the time of request and disbursement",
+     "field": "level",
+     "value": [
+      "masters",
+      "phd_or_other_grad"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "paid the Graduate Student Programming Fee",
+     "field": "gsg_fee_paid",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "conference"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "maximum one award per year, one application per semester. Covers conference registration, travel, accommodation, abstract fees\nnot tuition",
+   "source_url": "https://engage.usc.edu/Gsg/gsg-ta/",
+   "evidence_quote": "$500 per student per academic year",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.180245-08:00",
+   "data_version": 50
+  },
+  {
+   "id": "half-century-trojans",
+   "title": "Half Century Trojans Scholarship",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "amount not stated",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing undergraduate",
+     "field": "level",
+     "value": "undergrad",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing undergraduate",
+     "field": "continuing",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "grandchild or great-grandchild of a USC alumnus from 50+ years ago (or of someone with a USC graduate degree and an undergraduate degree from 50+ years ago)",
+     "field": "usc_legacy_50yr",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": {
+    "label": "deadline February 16, 2027; opening date not stated"
+   },
+   "academic_year": "not stated",
+   "where": null,
+   "steps": [
+    {
+     "text": "interview for finalists",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://dornsife.usc.edu/css/other-scholarship-applications/",
+   "evidence_quote": "Application deadline: Tues. February 16, 2027",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.211660-08:00",
+   "data_version": 77
+  },
+  {
+   "id": "its-laptop-loaner",
+   "title": "ITS Laptop Loaner Program",
+   "provider": "USC IT Services",
+   "category": "basics",
+   "benefit": {
+    "label": "free laptop for up to 4 hours at Leavey Library (Ahmanson Information Commons); late fee $20 per 30 minutes up to replacement cost",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "currently enrolled student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [
+    {
+     "text": "a valid USCard",
+     "evidence_quote": null
+    }
+   ],
+   "note": null,
+   "source_url": "https://itservices.usc.edu/usc-computing-center-laptop-loaner-program/",
+   "evidence_quote": "only available to currently enrolled USC students with a valid USC Card",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.190031-08:00",
+   "data_version": 57
+  },
+  {
+   "id": "metro-u-pass",
+   "title": "Metro U-Pass",
+   "provider": "USC Transportation",
+   "category": "transportation",
+   "benefit": {
+    "label": "free LA Metro bus and rail pass",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "current USC students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "transport"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "sign up each term, then tap the card on a Metro reader within the activation period",
+   "steps": [],
+   "docs": [],
+   "note": "cannot hold a USC semester parking permit at the same time\none pass per student",
+   "source_url": "https://transnet.usc.edu/",
+   "evidence_quote": "All students are eligible for a FREE U-pass",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.220208-08:00",
+   "data_version": 86
+  },
+  {
+   "id": "ois-work-authorization-advising",
+   "title": "OIS work authorization advising",
+   "provider": "Office of International Services",
+   "category": "international",
+   "benefit": {
+    "label": "advising on CPT and OPT work authorization, reduced course load and other F-1 steps; weekly drop-in advising; OPT information sessions",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "F-1 or J-1 students",
+     "field": "citizenship",
+     "value": "f1_j1",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "international",
+    "job"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "ongoing; CPT is requested each semester",
+   "steps": [],
+   "docs": [],
+   "note": "CPT and OPT need OIS approval, and Viterbi students also need school verification",
+   "source_url": "https://viterbigrad.usc.edu/academic-verifications-for-international-students/",
+   "evidence_quote": "F-1 students must have OIS approval for work authorization",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.223811-08:00",
+   "data_version": 90
+  },
+  {
+   "id": "on-campus-jobs-handshake",
+   "title": "On-campus jobs on Handshake",
+   "provider": "Career Center",
+   "category": "jobs",
+   "benefit": {
+    "label": "paid on-campus student jobs (work-study and non-work-study) listed in Handshake",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "any current student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "job"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "with a Handshake account",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": "international F-1 students use OIS rules for on-campus work and are not eligible for work-study",
+   "source_url": "https://careers.usc.edu/on-campus-jobs/",
+   "evidence_quote": "International students are not eligible for work-study positions.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.217454-08:00",
+   "data_version": 83
+  },
+  {
+   "id": "osas-accommodations",
+   "title": "Office of Student Accessibility Services (OSAS)",
+   "provider": "Office of Student Accessibility Services",
+   "category": "basics",
+   "benefit": {
+    "label": "academic and other accommodations through an interactive review; accommodation letters you generate in MyOSAS and give to instructors each term; approvals are not retroactive",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled USC students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "with a disability, with supporting documentation",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "accessibility"
+   ],
+   "deadline": {
+    "label": "students may register at any time; register early so accommodations are in place from the start of the term"
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "online Student Application, then upload documentation, then meet your OSAS Specialist; contact OSAS front desk 213-740-0776, GFS 120",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [
+    {
+     "text": "supporting documentation",
+     "evidence_quote": null
+    }
+   ],
+   "note": null,
+   "source_url": "https://osas.usc.edu/new-students/when-how-to-register/",
+   "evidence_quote": "Enrolled USC students may register with OSAS at any time.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.200196-08:00",
+   "data_version": 67
+  },
+  {
+   "id": "purf",
+   "title": "Provost's Undergraduate Research Fellowship (PURF)",
+   "provider": "Academic Programs",
+   "category": "scholarship",
+   "benefit": {
+    "label": "stipend of $1,000 for Fall or Spring, $3,000 for Summer (this resolves the earlier disagreement between pages)",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "undergraduate enrolled in 12 or more units at USC in the grant term (Spring 2027) in a program leading to an undergraduate degree",
+     "field": "level",
+     "value": "undergrad",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "undergraduate enrolled in 12 or more units at USC in the grant term (Spring 2027) in a program leading to an undergraduate degree",
+     "field": "units_load",
+     "value": "full_time",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "Progressive Degree students are ineligible",
+     "field": "progressive_degree",
+     "value": false,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "USC cumulative GPA 3.0 or better (preference for 3.5 or better)",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "research"
+   ],
+   "deadline": {
+    "label": "applications open Tuesday, October 20, 2026; due Tuesday, November 19, 2026, 11:59 pm; decisions announced around mid-January 2027"
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "prior research with a research-active USC faculty member is preferred",
+   "source_url": "https://academicprograms.usc.edu/services/undergraduate-research-and-experiential-learning/usc-provosts-undergraduate-research-fellowships/",
+   "evidence_quote": "USC cumulative GPA of 3.0 or better.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.193346-08:00",
+   "data_version": 60
+  },
+  {
+   "id": "sbn-financial-navigation",
+   "title": "Financial Navigation Consultations",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "free one-on-one sessions to build a personal budget, plan around financial aid disbursements, and find campus and community resources",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/economic-support/",
+   "evidence_quote": "one-on-one sessions to help students create personalized budgets",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.205223-08:00",
+   "data_version": 72
+  },
+  {
+   "id": "sbn-housing-support",
+   "title": "Student Basic Needs Housing Support",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "navigation help (not housing placement): the Community Resource Guide, off-campus housing referrals, USC Off-Campus Housing 101, rental assistance through the Supplemental Funding Award (record 2), and a possible referral to DePaul USA's Dax Program",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "experiencing housing insecurity",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "housing"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "submit the housing contact form",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/housing-support/",
+   "evidence_quote": "does not provide direct housing placement",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.198360-08:00",
+   "data_version": 65
+  },
+  {
+   "id": "sbn-supplemental-funding",
+   "title": "Student Basic Needs Supplemental Funding",
+   "provider": "Student Basic Needs",
+   "category": "cash",
+   "benefit": {
+    "label": "one-time financial assistance for housing, food, or medical/dental costs; amount NOT stated on the page -> null",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "enrolled at least half time in the term funds are requested",
+     "field": "units_load",
+     "value": [
+      "full_time",
+      "half_time"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "sudden financial distress from unforeseen circumstances",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "$0 bill balance",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "Financial Aid approval (SBN contacts Financial Aid for you)",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money",
+    "housing",
+    "food"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [
+    {
+     "text": "able to supply bills or receipts",
+     "evidence_quote": null
+    }
+   ],
+   "note": null,
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/economic-support/",
+   "evidence_quote": "Have a $0 bill balance with the university",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.175032-08:00",
+   "data_version": 47
+  },
+  {
+   "id": "ship-insurance-waiver",
+   "title": "SHIP insurance waiver",
+   "provider": "Student Health",
+   "category": "health",
+   "benefit": {
+    "label": "waive the default SHIP/Aetna plan (charged on the tuition bill) if you hold qualifying insurance",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled USC student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "full-time, international and health-professions students are auto-enrolled",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "waiver needs a plan that meets USC criteria (minimum essential coverage, in-network access within about 50 miles, no healthcare-sharing plans, no out-of-state Medicaid for on-campus residents)",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://sites.usc.edu/new-student-health-requirements/costs/insurance-waiver-requirements/",
+   "evidence_quote": "Waivers must be submitted every year in the fall semester",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.214781-08:00",
+   "data_version": 80
+  },
+  {
+   "id": "skull-and-dagger",
+   "title": "Skull and Dagger Scholarship",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "$5,000 per award; six awards",
+    "value": 5000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing USC students, graduate or undergraduate",
+     "field": "continuing",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "significant campus or community leadership",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": "2027-2028",
+   "where": null,
+   "steps": [
+    {
+     "text": "interview for semifinalists",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://dornsife.usc.edu/css/other-scholarship-applications/",
+   "evidence_quote": "six $5,000 scholarships will be awarded to continuing USC students",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.210476-08:00",
+   "data_version": 76
+  },
+  {
+   "id": "soar",
+   "title": "Student Opportunities for Academic Research (SOAR)",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "up to $1,000 per academic year for fall/spring research assistance with a Dornsife faculty member",
+    "value": 1000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "declared Dornsife major",
+     "field": "schools",
+     "value": "dornsife",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "3.0 cumulative USC GPA",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "full-time enrollment",
+     "field": "units_load",
+     "value": "full_time",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "Dornsife faculty mentor",
+     "field": "has_dornsife_faculty_mentor",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "research"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "not funded together with PURF",
+   "source_url": "https://dornsife.usc.edu/css/research-travel-internship/",
+   "evidence_quote": "up to $1,000 in funding through the SOAR program",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.192363-08:00",
+   "data_version": 59
+  },
+  {
+   "id": "student-health-services",
+   "title": "Student Health medical care",
+   "provider": "Student Health",
+   "category": "health",
+   "benefit": {
+    "label": "primary care and specialist visits (specialists by referral) covered by the Student Health Fee, no co-pays",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled USC student",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "wellbeing"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "ongoing; phone 213-740-9355",
+   "steps": [],
+   "docs": [],
+   "note": "No co-pays for students who pay the Student Health Fee (6+ credits, all international, health professions students)",
+   "source_url": "https://sites.usc.edu/new-student-health-requirements/general-faqs/",
+   "evidence_quote": "no co-pays or other out-of-pocket visit fees",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.215669-08:00",
+   "data_version": 81
+  },
+  {
+   "id": "surf-shure",
+   "title": "Summer Undergraduate Research Fund (SURF) / SHURE",
+   "provider": "Dornsife",
+   "category": "scholarship",
+   "benefit": {
+    "label": "up to $3,000 for summer research with a Dornsife faculty mentor",
+    "value": 3000.0,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "declared Dornsife major",
+     "field": "schools",
+     "value": "dornsife",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "minimum 3.0 cumulative USC GPA",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "full-time enrollment (12+ units each semester)",
+     "field": "units_load",
+     "value": "full_time",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "not_in",
+     "kind": "rule",
+     "text": "not a senior graduating Summer/Fall 2027 and under 144 total units",
+     "field": "expected_graduation_term",
+     "value": [
+      "summer_2027",
+      "fall_2027"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "not a senior graduating Summer/Fall 2027 and under 144 total units",
+     "field": "under_144_units",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "has an eligible Dornsife faculty mentor",
+     "field": "has_dornsife_faculty_mentor",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "research"
+   ],
+   "deadline": {
+    "label": "Summer 2027 regular window Thursday March 4 - Thursday April 8, 2027. Window for approved Problems Without Passports courses: Oct 1 - Nov 5, 2026 (extended to Nov 9, 2026 for Fall 2026 admits only); that window has now passed."
+   },
+   "academic_year": null,
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "no overlapping PURF/ExL/Rose Hills funding",
+   "source_url": "https://dornsife.usc.edu/css/surf/",
+   "evidence_quote": "up to $3,000 for the summer",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.191280-08:00",
+   "data_version": 58
+  },
+  {
+   "id": "tommys-closet",
+   "title": "Tommy's Closet (free clothing)",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "free professional and everyday clothing for interviews, internships and campus life",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "job"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "Mondays and Fridays 1:00 - 3:00 PM at King Hall KOH 103 (next to the USC Pharmacy); about 15 weeks in Fall and Spring (first week of classes to Classes End week); about 10 weeks in Summer (June to July)",
+   "steps": [
+    {
+     "text": "https://studentbasicneeds.usc.edu/contact/",
+     "evidence_quote": null
+    },
+    {
+     "text": "bring your USCard to check in",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": "Limit: one visit every 2 weeks; up to 15 minutes to browse and try things on",
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/tommys-closet/",
+   "evidence_quote": "ONCE BI-WEEKLY (every 2 weeks)",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.196305-08:00",
+   "data_version": 63
+  },
+  {
+   "id": "tommys-table",
+   "title": "Tommy's Table (surplus event food)",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "free surplus food from private campus events; availability limited, first come first served",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "food"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": null,
+   "steps": [
+    {
+     "text": "https://studentbasicneeds.usc.edu/contact/ (submit your details there)",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/",
+   "evidence_quote": "Enrolled students receive alerts when food is available",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.195392-08:00",
+   "data_version": 62
+  },
+  {
+   "id": "town-and-gown",
+   "title": "Town and Gown Scholarship",
+   "provider": "Price School of Public Policy",
+   "category": "scholarship",
+   "benefit": {
+    "label": "Undergraduates $10,000 per year; graduate students $15,000 per year (tuition)",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "U.S. citizen or permanent resident of Southern California",
+     "field": "citizenship",
+     "value": [
+      "us_citizen",
+      "permanent_resident"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "U.S. citizen or permanent resident of Southern California",
+     "field": "socal_resident",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "minimum unweighted GPA 3.4",
+     "field": "gpa_band",
+     "value": "3_4_plus",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "open to continuing students",
+     "field": "continuing",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": {
+    "label": "opened July 1, 2026; deadline November 15, 2026"
+   },
+   "academic_year": "2026-2027 cycle",
+   "where": null,
+   "steps": [
+    {
+     "text": "interview required",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://priceschool.usc.edu/admission/scholarships/undergraduate-scholarships/",
+   "evidence_quote": "An interview is required.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.206279-08:00",
+   "data_version": 73
+  },
+  {
+   "id": "trojan-food-pantry",
+   "title": "Trojan Food Pantry",
+   "provider": "Student Basic Needs",
+   "category": "basics",
+   "benefit": {
+    "label": "limited groceries per week, free",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "enrolled at USC in the term",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "no active dining hall meal plan (students with 20 or fewer meals left may be considered)",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "experiencing food insecurity",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "food"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "Fall/Spring Tue/Wed/Thu 10:00 AM - 2:00 PM, about 15 weeks from the first week of classes to Classes End week; Summer Wednesdays 11:00 AM - 2:00 PM (first week of June to last week of July)",
+   "steps": [
+    {
+     "text": "Intake form once per semester",
+     "evidence_quote": null
+    },
+    {
+     "text": "physical USCard at every visit",
+     "evidence_quote": null
+    },
+    {
+     "text": "bring a reusable bag",
+     "evidence_quote": null
+    }
+   ],
+   "docs": [],
+   "note": null,
+   "source_url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/",
+   "evidence_quote": "Does not have an active dining hall meal plan",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.184208-08:00",
+   "data_version": 52
+  },
+  {
+   "id": "usc-immigration-clinic",
+   "title": "USC Immigration Clinic (Gould School of Law)",
+   "provider": "USC Gould School of Law",
+   "category": "legal",
+   "benefit": {
+    "label": "free legal consultations, assistance and referrals through the Immigrant Legal Assistance Center (ILAC); also DACA renewal help (USC First Generation Plus Success Center pays the renewal filing fee for current students, per the page)",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "members of the USC Trojan Family (students, staff)",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "kind": "office",
+     "text": "who may be at risk of deportation, may be eligible for status, or have immigration questions",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "legal"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "iclinic@law.usc.edu; 213-821-5987 (main), 213-821-9627 (ILAC and DACA); schedule at https://calendly.com/usc-ilac; Mon-Fri 9:00 AM - 5:00 PM",
+   "steps": [],
+   "docs": [],
+   "note": null,
+   "source_url": "https://uscimmigrationclinic.org/",
+   "evidence_quote": "serves members of the USC Trojan Family",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.186851-08:00",
+   "data_version": 54
+  },
+  {
+   "id": "usc-lyft-rides",
+   "title": "USC Lyft rides",
+   "provider": "USC Transportation",
+   "category": "transportation",
+   "benefit": {
+    "label": "free shared Lyft rides around University Park and Health Sciences campuses in the evening",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "current USC students (also faculty and staff)",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "transport"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "evening hours (summer hours listed as about 8 PM to 2 AM); fall hours not confirmed",
+   "steps": [],
+   "docs": [],
+   "note": "inside designated zones",
+   "source_url": "https://transnet.usc.edu/",
+   "evidence_quote": "free Shared rides around each campus",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.221099-08:00",
+   "data_version": 87
+  },
+  {
+   "id": "viterbi-continuing-undergrad",
+   "title": "Viterbi Continuing Undergraduate Scholarship",
+   "provider": "Viterbi School of Engineering",
+   "category": "scholarship",
+   "benefit": {
+    "label": "amount varies",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "continuing Viterbi undergraduate",
+     "field": "schools",
+     "value": "viterbi",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing Viterbi undergraduate",
+     "field": "level",
+     "value": "undergrad",
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "continuing Viterbi undergraduate",
+     "field": "continuing",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    },
+    {
+     "op": "in",
+     "kind": "rule",
+     "text": "minimum GPA 3.0",
+     "field": "gpa_band",
+     "value": [
+      "3_0_to_3_39",
+      "3_4_plus"
+     ],
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "money"
+   ],
+   "deadline": null,
+   "academic_year": "not stated",
+   "where": null,
+   "steps": [],
+   "docs": [],
+   "note": "open to international students\nfinancial need not required",
+   "source_url": "https://awardsdatabase.usc.edu/app/detail.asp?FellowshipID=283",
+   "evidence_quote": "Each year, continuing undergraduates should be re-evaluating their need",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.213627-08:00",
+   "data_version": 79
+  },
+  {
+   "id": "viterbi-learning-program",
+   "title": "Viterbi Learning Program",
+   "provider": "Viterbi School of Engineering",
+   "category": "academic_support",
+   "benefit": {
+    "label": "free certified tutoring, peer mentoring, study rooms, workshops",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "includes",
+     "kind": "rule",
+     "text": "Viterbi undergraduate or pre-engineering students for tutoring; study rooms open to Viterbi undergrad and grad",
+     "field": "schools",
+     "value": "viterbi",
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "academics"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "RTH 222, Monday to Friday 9 to 5; Fall 2026 writing drop-in Tue/Wed 12 to 5",
+   "steps": [],
+   "docs": [],
+   "note": "the writing consultant is open to all USC students",
+   "source_url": "https://viterbiundergrad.usc.edu/viterbilearningprogram/",
+   "evidence_quote": "All VLP services are 100% FREE for Viterbi students.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.219287-08:00",
+   "data_version": 85
+  },
+  {
+   "id": "writing-center",
+   "title": "Writing Center",
+   "provider": "Dornsife Writing Center",
+   "category": "academic_support",
+   "benefit": {
+    "label": "free one-on-one writing consultations and workshops",
+    "value": null,
+    "period": null
+   },
+   "eligibility": [
+    {
+     "op": "eq",
+     "kind": "rule",
+     "text": "all current USC students",
+     "field": "enrolled",
+     "value": true,
+     "source_url": null,
+     "evidence_quote": null
+    }
+   ],
+   "relevance": [
+    "academics"
+   ],
+   "deadline": null,
+   "academic_year": null,
+   "where": "ongoing during the term",
+   "steps": [],
+   "docs": [],
+   "note": "one 50-minute or two 25-minute appointments per week\nno proofreading",
+   "source_url": "https://dornsife.usc.edu/writingcenter/about-us/",
+   "evidence_quote": "All of the Writing Center's services are free.",
+   "last_verified": "2026-11-13",
+   "status": "approved",
+   "approved_by": "manoj",
+   "approved_at": "2026-11-13T12:24:20.218369-08:00",
+   "data_version": 84
+  }
+ ]
+}

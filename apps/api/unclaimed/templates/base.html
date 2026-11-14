@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Review{% endblock %} · Unclaimed admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cardinal:#990000;--dark:#5C0000;--gold:#FFCC00;--paper:#F3EDE1;--ticket:#FFFCF5;--ink:#1A1210;--muted:#5E524C;--rule:#D8CDB8}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.45 Inter,system-ui,sans-serif}
+a{color:var(--cardinal)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+header{background:var(--dark);color:var(--ticket);padding:18px 20px}
+header a{color:var(--ticket);text-decoration:none}
+.label{font-family:Oswald,sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase}
+header .label{color:var(--gold)}
+h1,h2{font-family:Fraunces,serif;font-weight:700;margin:0;line-height:1.15}
+h1{font-size:26px}
+h2{font-size:19px;margin-bottom:8px}
+main{max-width:1180px;margin:0 auto;padding:20px 16px 40px}
+.card{background:var(--ticket);border-radius:12px;padding:16px 18px;box-shadow:0 1px 0 var(--rule)}
+.pill{display:inline-block;border-radius:12px;padding:2px 9px;font-size:12px;font-weight:600}
+.pill.pending{background:#FFF1B8;color:var(--ink)}
+.pill.approved{background:#DDF0DD;color:#14501F}
+.pill.rejected,.pill.superseded{background:#FBE1DE;color:#6B0F0A}
+.pill.warn{background:var(--ink);color:var(--gold)}
+.pill.proposed{background:var(--gold);color:var(--ink)}
+.btn{min-height:44px;padding:0 18px;border:0;border-radius:10px;font:600 15px Inter,sans-serif;cursor:pointer}
+.btn.primary{background:var(--cardinal);color:var(--ticket);box-shadow:0 3px 0 var(--dark)}
+.btn.secondary{background:var(--ticket);color:var(--ink);border:2px solid var(--ink)}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.error{background:#FBE1DE;color:#6B0F0A;border-radius:10px;padding:10px 14px;margin-bottom:14px}
+.foot{font-size:12px;color:var(--muted);text-align:center;margin-top:28px}
+</style>
+</head>
+<body>
+<header><div class="label">Unclaimed · Owner review</div><a href="/admin"><h1>{% block heading %}Review queue{% endblock %}</h1></a></header>
+<main>
+{% block body %}{% endblock %}
+<p class="foot">Sample data from public usc.edu pages. Not official or USC-affiliated. Only approved records reach students.</p>
+</main>
+</body>
+</html>

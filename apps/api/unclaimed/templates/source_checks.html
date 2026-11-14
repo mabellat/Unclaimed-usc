@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Source checks{% endblock %}
+{% block heading %}Source page checks{% endblock %}
+{% block body %}
+<p><a href="/admin">Back to the queue</a></p>
+<p class="hint" style="font-size:13px;color:var(--muted)">When the Claim Agent re-reads a source page and the approved quote is missing, it records it here and keeps using the approved version. "Unreadable" usually means the page loads with JavaScript. A real change needs a new pending version (the nightly re-check creates one).</p>
+{% if not rows %}<div class="card">Nothing flagged.</div>{% endif %}
+{% for c in rows %}
+<div class="card" style="margin-bottom:10px;display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+  <div style="flex:1;min-width:240px">
+    <div><b><a href="/admin?status=approved">{{ c.resource_id }}</a></b> · data version {{ c.data_version }} · <span class="pill warn">{{ c.status }}</span>{% if c.reviewed %} <span class="pill approved">reviewed</span>{% endif %}</div>
+    <div style="font-size:13px;margin-top:4px">{{ c.detail }}</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:4px"><a href="{{ c.url }}" target="_blank" rel="noopener">{{ c.url }}</a> · {{ c.checked_at.strftime("%Y-%m-%d %H:%M UTC") }}</div>
+  </div>
+  {% if not c.reviewed %}<form method="post" action="/admin/source-checks/{{ c.id }}/reviewed"><button class="btn secondary" type="submit">Mark reviewed</button></form>{% endif %}
+</div>
+{% endfor %}
+{% endblock %}

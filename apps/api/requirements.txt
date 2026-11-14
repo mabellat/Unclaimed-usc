@@ -1,0 +1,14 @@
+fastapi==0.162.7
+uvicorn==0.54.0
+SQLAlchemy==2.1.8
+psycopg[binary]==3.3.9
+alembic==1.20.1
+Jinja2==3.1.6
+python-multipart==0.0.33
+pydantic==2.14.3
+pytest==9.2.0
+httpx==0.28.1
+hypothesis==6.140.0
+anthropic==2.8.0
+langgraph==1.2.22
+apscheduler==3.11.0

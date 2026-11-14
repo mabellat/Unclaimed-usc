@@ -1,0 +1,241 @@
+{
+  "description": "Student profile fields. A field exists only because an approved rule in data/eligibility_rules.json uses it (CLAUDE.md non-negotiable 4); tests fail on an unused field. Approved by the owner 2026-11-13. Every answer is self-reported and tri-state: a missing answer is unknown, never false. `statements` are the exact sentences a no-LLM draft may use for an answer; a value with no statement (e.g. undocumented) is never written into a draft.",
+  "fields": {
+    "enrolled": {
+      "type": "bool",
+      "question": "Are you a currently enrolled USC student?",
+      "office_verifies": true,
+      "statements": {
+        "true": "I am a currently enrolled USC student."
+      }
+    },
+    "level": {
+      "type": "enum",
+      "values": [
+        "undergrad",
+        "masters",
+        "phd_or_other_grad"
+      ],
+      "labels": {
+        "undergrad": "Undergraduate",
+        "masters": "Master's",
+        "phd_or_other_grad": "PhD or other graduate degree"
+      },
+      "question": "What degree are you working toward?",
+      "office_verifies": true,
+      "statements": {
+        "undergrad": "I am an undergraduate student.",
+        "masters": "I am a master's student.",
+        "phd_or_other_grad": "I am a graduate student."
+      }
+    },
+    "schools": {
+      "type": "multi",
+      "values": [
+        "dornsife",
+        "viterbi",
+        "annenberg",
+        "price",
+        "other"
+      ],
+      "labels": {
+        "dornsife": "Dornsife (letters, arts and sciences)",
+        "viterbi": "Viterbi (engineering)",
+        "annenberg": "Annenberg (communication, journalism)",
+        "price": "Price (public policy)",
+        "other": "Another USC school"
+      },
+      "question": "Which USC schools are your majors or programs in? Pick all that apply.",
+      "office_verifies": true,
+      "statements": {
+        "dornsife": "I am a Dornsife student.",
+        "viterbi": "I am a Viterbi student.",
+        "annenberg": "I am an Annenberg student.",
+        "price": "I am a Price School student."
+      }
+    },
+    "units_load": {
+      "type": "enum",
+      "values": [
+        "full_time",
+        "half_time",
+        "less_than_half_time"
+      ],
+      "labels": {
+        "full_time": "Full time (12+ units as an undergrad)",
+        "half_time": "At least half time, but not full time",
+        "less_than_half_time": "Less than half time"
+      },
+      "question": "How many units are you taking this term?",
+      "office_verifies": true,
+      "statements": {
+        "full_time": "I am enrolled full time.",
+        "half_time": "I am enrolled at least half time."
+      }
+    },
+    "gpa_band": {
+      "type": "enum",
+      "values": [
+        "under_3_0",
+        "3_0_to_3_39",
+        "3_4_plus"
+      ],
+      "labels": {
+        "under_3_0": "Under 3.0",
+        "3_0_to_3_39": "3.0 to 3.39",
+        "3_4_plus": "3.4 or higher"
+      },
+      "question": "What is your cumulative USC GPA?",
+      "office_verifies": true,
+      "statements": {
+        "3_0_to_3_39": "My cumulative USC GPA is between 3.0 and 3.39.",
+        "3_4_plus": "My cumulative USC GPA is 3.4 or higher."
+      }
+    },
+    "continuing": {
+      "type": "bool",
+      "question": "Are you a continuing student (you have already completed at least one term at USC)?",
+      "office_verifies": true,
+      "statements": {
+        "true": "I am a continuing USC student."
+      }
+    },
+    "gsg_fee_paid": {
+      "type": "bool",
+      "question": "Have you paid the Graduate Student Programming Fee this semester? It is on your USC bill.",
+      "office_verifies": true,
+      "statements": {
+        "true": "I have paid the Graduate Student Programming Fee this semester."
+      }
+    },
+    "citizenship": {
+      "type": "enum",
+      "values": [
+        "us_citizen",
+        "permanent_resident",
+        "f1_j1",
+        "other"
+      ],
+      "labels": {
+        "us_citizen": "U.S. citizen",
+        "permanent_resident": "Permanent resident",
+        "f1_j1": "F-1 or J-1 visa",
+        "other": "Other"
+      },
+      "question": "What is your citizenship or visa status?",
+      "sensitive": true,
+      "why": "Some funds and jobs are limited by citizenship or visa type. We only use this to show what you can apply for. You can skip it or delete it at any time.",
+      "office_verifies": true,
+      "statements": {
+        "us_citizen": "I am a U.S. citizen.",
+        "permanent_resident": "I am a permanent resident.",
+        "f1_j1": "I am on an F-1 or J-1 visa."
+      }
+    },
+    "has_ssn": {
+      "type": "bool",
+      "question": "Do you have a U.S.-issued Social Security number? Just yes or no; we never ask for the number.",
+      "sensitive": true,
+      "why": "The CSI Emergency Loan requires one. We store only yes or no, never the number. You can skip it or delete it at any time.",
+      "statements": {
+        "true": "I have a U.S.-issued Social Security number."
+      }
+    },
+    "financial_aid": {
+      "type": "bool",
+      "question": "Do you receive, or have you applied for, financial aid at USC?",
+      "sensitive": true,
+      "why": "A financial aid appeal is only open to students who receive or applied for aid. You can skip it or delete it at any time.",
+      "office_verifies": true,
+      "statements": {
+        "true": "I receive or have applied for financial aid at USC."
+      }
+    },
+    "communities": {
+      "type": "multi",
+      "values": [
+        "first_gen",
+        "transfer",
+        "undocumented",
+        "foster_youth",
+        "veteran"
+      ],
+      "labels": {
+        "first_gen": "First-generation college student",
+        "transfer": "Transfer student",
+        "undocumented": "Undocumented",
+        "foster_youth": "Former foster youth",
+        "veteran": "U.S. military veteran"
+      },
+      "question": "Do any of these describe you? Pick any that apply, or skip.",
+      "sensitive": true,
+      "why": "Some centers and scholarships are set up for these communities. We never guess this. You can skip it or delete it at any time.",
+      "statements": {
+        "first_gen": "I am a first-generation college student.",
+        "transfer": "I am a transfer student.",
+        "foster_youth": "I am a former foster youth.",
+        "veteran": "I am a U.S. military veteran."
+      }
+    },
+    "has_dornsife_faculty_mentor": {
+      "type": "bool",
+      "question": "Do you have a Dornsife faculty member who has agreed to mentor your project?",
+      "statements": {
+        "true": "A Dornsife faculty member has agreed to mentor my project."
+      }
+    },
+    "under_144_units": {
+      "type": "bool",
+      "question": "Have you completed fewer than 144 units in total?",
+      "office_verifies": true,
+      "statements": {
+        "true": "I have completed fewer than 144 units."
+      }
+    },
+    "expected_graduation_term": {
+      "type": "enum",
+      "values": [
+        "dec_2026",
+        "spring_2027",
+        "summer_2027",
+        "fall_2027",
+        "later"
+      ],
+      "labels": {
+        "dec_2026": "December 2026",
+        "spring_2027": "Spring 2027",
+        "summer_2027": "Summer 2027",
+        "fall_2027": "Fall 2027",
+        "later": "Later"
+      },
+      "question": "When do you expect to graduate?",
+      "statements": {
+        "dec_2026": "I expect to graduate in December 2026.",
+        "spring_2027": "I expect to graduate in Spring 2027.",
+        "summer_2027": "I expect to graduate in Summer 2027.",
+        "fall_2027": "I expect to graduate in Fall 2027."
+      }
+    },
+    "usc_legacy_50yr": {
+      "type": "bool",
+      "question": "Are you a grandchild or great-grandchild of someone who earned a USC degree 50 or more years ago?",
+      "statements": {
+        "true": "My grandparent or great-grandparent earned a USC degree 50 or more years ago."
+      }
+    },
+    "socal_resident": {
+      "type": "bool",
+      "question": "Are you a resident of Southern California?",
+      "statements": {
+        "true": "I am a resident of Southern California."
+      }
+    },
+    "progressive_degree": {
+      "type": "bool",
+      "question": "Are you in a USC Progressive Degree program?",
+      "statements": {
+        "false": "I am not in a USC Progressive Degree program."
+      }
+    }
+  }
+}

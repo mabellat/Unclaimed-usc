@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Motion and focus styles from reference/prototype.html */
+button:focus-visible { outline: 3px solid #FFCC00; outline-offset: 2px; box-shadow: 0 0 0 5px #1A1210; }
+a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offset: 2px; }
+
+@keyframes ustamp { 0% { transform: rotate(-14deg) scale(2.2); opacity: 0 } 60% { transform: rotate(-14deg) scale(.94); opacity: 1 } 100% { transform: rotate(-14deg) scale(1); opacity: .95 } }
+.ustamp { animation: ustamp .45s cubic-bezier(.2,.9,.3,1) both; }
+@keyframes upulse { 0%, 100% { opacity: .35 } 50% { opacity: 1 } }
+.upulse { animation: upulse 1s ease-in-out infinite; }
+@keyframes uin { from { opacity: 0; transform: translateY(16px) } to { opacity: 1; transform: none } }
+.uin { animation: uin .5s cubic-bezier(.2,.8,.3,1) both; }
+@keyframes umarq { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+.umarq { display: flex; width: max-content; animation: umarq 26s linear infinite; }
+@keyframes ufloat { 0%, 100% { transform: translateY(0) rotate(var(--r)) } 50% { transform: translateY(-7px) rotate(var(--r)) } }
+.ufloat { animation: ufloat 5s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .ustamp, .upulse, .umarq, .ufloat, .uin { animation: none; } }
+
+.barcode { background: repeating-linear-gradient(90deg, #FFCC00 0 2px, transparent 2px 4px, #FFCC00 4px 5px, transparent 5px 9px, #FFCC00 9px 12px, transparent 12px 14px); opacity: .9; }
+.flip { background: linear-gradient(#2E0000 0%, #2E0000 49%, #190000 50%, #3A0000 100%); box-shadow: 0 2px 0 #000; }

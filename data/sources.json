@@ -1,0 +1,287 @@
+{
+  "description": "Crawler allowlist. Only usc.edu and its subdomains may be fetched, plus the owner-approved exceptions below. Links students follow (Google Forms, getcalfresh.org, calendly.com) are never crawled and are not listed.",
+  "allowed_domains": [
+    "usc.edu"
+  ],
+  "exceptions": [
+    {
+      "domain": "uscimmigrationclinic.org",
+      "note": "owner-approved exception",
+      "used_by": [
+        "usc-immigration-clinic"
+      ],
+      "reason": "Staffed by USC Gould School of Law and supported by the Provost; no usc.edu page carries the same details.",
+      "approved_on": "2026-11-13"
+    }
+  ],
+  "sources": [
+    {
+      "url": "https://academicprograms.usc.edu/services/undergraduate-research-and-experiential-learning/usc-provosts-undergraduate-research-fellowships/",
+      "resource_ids": [
+        "purf"
+      ]
+    },
+    {
+      "url": "https://annenberg.usc.edu/current-students/resources/annenberg-scholarships-and-awards",
+      "resource_ids": [
+        "annenberg-emergency-aid"
+      ]
+    },
+    {
+      "url": "https://awardsdatabase.usc.edu/app/detail.asp?FellowshipID=283",
+      "resource_ids": [
+        "viterbi-continuing-undergrad"
+      ]
+    },
+    {
+      "url": "https://campussupport.usc.edu/",
+      "resource_ids": [
+        "campus-support-and-intervention"
+      ]
+    },
+    {
+      "url": "https://campussupport.usc.edu/students/basic-needs/emergency-loan-application/",
+      "resource_ids": [
+        "csi-emergency-loan"
+      ]
+    },
+    {
+      "url": "https://careers.usc.edu/channels/appointments/",
+      "resource_ids": [
+        "career-advising-and-tools"
+      ]
+    },
+    {
+      "url": "https://careers.usc.edu/channels/career-fest/",
+      "resource_ids": [
+        "career-fest-2027"
+      ]
+    },
+    {
+      "url": "https://careers.usc.edu/on-campus-jobs/",
+      "resource_ids": [
+        "on-campus-jobs-handshake"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/css/css-application/",
+      "resource_ids": [
+        "dornsife-continuing-student-scholarship"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/css/exl-award/",
+      "resource_ids": [
+        "exl-award"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/css/other-scholarship-applications/",
+      "resource_ids": [
+        "half-century-trojans",
+        "skull-and-dagger"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/css/research-travel-internship/",
+      "resource_ids": [
+        "soar"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/css/surf/",
+      "resource_ids": [
+        "surf-shure"
+      ]
+    },
+    {
+      "url": "https://dornsife.usc.edu/writingcenter/about-us/",
+      "resource_ids": [
+        "writing-center"
+      ]
+    },
+    {
+      "url": "https://engage.usc.edu/Gsg/gsg-ea/",
+      "resource_ids": [
+        "gsg-empowerment-award"
+      ]
+    },
+    {
+      "url": "https://engage.usc.edu/Gsg/gsg-ta/",
+      "resource_ids": [
+        "gsg-travel-award"
+      ]
+    },
+    {
+      "url": "https://engage.usc.edu/gsg/caretaker-grant/",
+      "resource_ids": [
+        "gsg-caretaker-subsidy"
+      ]
+    },
+    {
+      "url": "https://engage.usc.edu/gsg/er-fund/",
+      "resource_ids": [
+        "gsg-emergency-fund"
+      ]
+    },
+    {
+      "url": "https://engage.usc.edu/gsg/npe/",
+      "resource_ids": [
+        "gsg-npe-fund"
+      ]
+    },
+    {
+      "url": "https://financialaid.usc.edu/graduate-professional-financial-aid/admitted-and-continuing-students/special-circumstances-and-appeals/",
+      "resource_ids": [
+        "financial-aid-appeal-grad"
+      ]
+    },
+    {
+      "url": "https://financialaid.usc.edu/graduate-professional-financial-aid/prospective-students/types-of-aid/",
+      "resource_ids": [
+        "federal-work-study"
+      ]
+    },
+    {
+      "url": "https://financialaid.usc.edu/next-steps/",
+      "resource_ids": [
+        "federal-work-study"
+      ]
+    },
+    {
+      "url": "https://financialaid.usc.edu/undergraduate-financial-aid/admitted-and-continuing-students/special-circumstances-and-appeals-undergaduate-continuing/",
+      "resource_ids": [
+        "financial-aid-appeal-undergrad"
+      ]
+    },
+    {
+      "url": "https://firstgenplussc.usc.edu/populations-and-services/",
+      "resource_ids": [
+        "first-generation-plus-success-center"
+      ]
+    },
+    {
+      "url": "https://gsg.usc.edu/student-resources/",
+      "resource_ids": [
+        "free-legal-counseling"
+      ]
+    },
+    {
+      "url": "https://itservices.usc.edu/usc-computing-center-laptop-loaner-program/",
+      "resource_ids": [
+        "its-laptop-loaner"
+      ]
+    },
+    {
+      "url": "https://osas.usc.edu/new-students/when-how-to-register/",
+      "resource_ids": [
+        "osas-accommodations"
+      ]
+    },
+    {
+      "url": "https://priceschool.usc.edu/admission/scholarships/graduate-scholarships/",
+      "resource_ids": [
+        "cavaney-vet"
+      ]
+    },
+    {
+      "url": "https://priceschool.usc.edu/admission/scholarships/undergraduate-scholarships/",
+      "resource_ids": [
+        "town-and-gown"
+      ]
+    },
+    {
+      "url": "https://sites.usc.edu/new-student-health-requirements/costs/insurance-waiver-requirements/",
+      "resource_ids": [
+        "ship-insurance-waiver"
+      ]
+    },
+    {
+      "url": "https://sites.usc.edu/new-student-health-requirements/general-faqs/",
+      "resource_ids": [
+        "student-health-services"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/economic-support/",
+      "resource_ids": [
+        "sbn-financial-navigation",
+        "sbn-supplemental-funding"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/",
+      "resource_ids": [
+        "calfresh-navigation",
+        "tommys-table"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/emergency-meal-swipe/",
+      "resource_ids": [
+        "emergency-meal-swipes"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/food-support/trojan-food-pantry/",
+      "resource_ids": [
+        "trojan-food-pantry"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/housing-support/",
+      "resource_ids": [
+        "sbn-housing-support"
+      ]
+    },
+    {
+      "url": "https://studentbasicneeds.usc.edu/programs-and-services/tommys-closet/",
+      "resource_ids": [
+        "tommys-closet"
+      ]
+    },
+    {
+      "url": "https://studenthealth.usc.edu/fees-deadlines/",
+      "resource_ids": [
+        "counseling-and-mental-health"
+      ]
+    },
+    {
+      "url": "https://transnet.usc.edu/",
+      "resource_ids": [
+        "metro-u-pass",
+        "usc-lyft-rides"
+      ]
+    },
+    {
+      "url": "https://transnet.usc.edu/index.php/student-u-pass/",
+      "resource_ids": [
+        "metro-u-pass"
+      ]
+    },
+    {
+      "url": "https://uscimmigrationclinic.org/",
+      "resource_ids": [
+        "usc-immigration-clinic"
+      ]
+    },
+    {
+      "url": "https://usg.usc.edu/",
+      "resource_ids": [
+        "free-legal-counseling"
+      ]
+    },
+    {
+      "url": "https://viterbigrad.usc.edu/academic-verifications-for-international-students/",
+      "resource_ids": [
+        "ois-work-authorization-advising"
+      ]
+    },
+    {
+      "url": "https://viterbiundergrad.usc.edu/viterbilearningprogram/",
+      "resource_ids": [
+        "viterbi-learning-program"
+      ]
+    }
+  ]
+}

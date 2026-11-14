@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+.counts{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.count{background:var(--ink);color:var(--gold);border-radius:10px;padding:10px 16px;min-width:120px;text-decoration:none}
+.count b{display:block;font-family:Oswald,sans-serif;font-weight:600;font-size:34px;line-height:1}
+.count.on{outline:3px solid var(--gold)}
+.row{display:flex;gap:14px;align-items:center;text-decoration:none;color:var(--ink);margin-bottom:10px;min-height:44px}
+.row .ref{font-family:Oswald,sans-serif;font-size:12px;color:var(--muted);width:150px;flex:none}
+.row .main{flex:1;min-width:0}
+.row .title{font-family:Fraunces,serif;font-weight:700;font-size:17px}
+.row .meta{font-size:13px;color:var(--muted)}
+.row .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:640px){.row{flex-wrap:wrap}.row .ref{width:auto}}
+</style>
+<div class="counts">
+  {% for s in ["pending", "approved", "rejected", "superseded"] %}
+  <a class="count {% if status == s %}on{% endif %}" href="/admin?status={{ s }}"><b>{{ counts.get(s, 0) }}</b><span class="label">{{ s }}</span></a>
+  {% endfor %}
+  <a class="count {% if not status %}on{% endif %}" href="/admin?status="><b>{{ counts.values()|sum }}</b><span class="label">all</span></a>
+</div>
+{% if flagged %}<p style="margin:0 0 16px"><a href="/admin/source-checks" class="pill warn" style="text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:0 14px">{{ flagged }} source page check{{ "s" if flagged != 1 }} to review</a></p>{% endif %}
+{% if counts.get("pending", 0) %}
+<p style="margin:0 0 16px"><a class="btn primary" href="/admin/approve-all" style="display:inline-flex;align-items:center;text-decoration:none">Approve all pending</a> <span class="hint" style="font-size:13px;color:var(--muted)">You confirm the count on the next screen.</span></p>
+{% endif %}
+{% if not rows %}<div class="card">Nothing here.</div>{% endif %}
+{% for r in rows %}
+<a class="card row" href="/admin/resources/{{ r.id }}/{{ r.version }}">
+  <span class="ref">{{ r.candidate_ref or "" }}<br>v{{ r.version }}</span>
+  <span class="main">
+    <span class="title">{{ r.title or r.id }}</span>
+    <span class="meta"><br>{{ r.id }} · {{ r.category or "no category" }}</span>
+  </span>
+  <span class="tags">
+    {% if not r.deadline_label %}<span class="pill warn">No deadline</span>{% endif %}
+    {% if r.flags %}<span class="pill warn">Flags</span>{% endif %}
+    {% if r.proposed_fields %}<span class="pill proposed">Proposed: {{ r.proposed_fields|join(", ") }}</span>{% endif %}
+    <span class="pill {{ r.status }}">{{ r.status }}</span>
+  </span>
+</a>
+{% endfor %}
+{% endblock %}
