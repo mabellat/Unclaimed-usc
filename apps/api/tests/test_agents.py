@@ -426,3 +426,55 @@ def test_deadline_status(label, closed, date_):
     from unclaimed.deadlines import deadline_status
     s = deadline_status(label, TODAY)
     assert s["closed"] is closed and s["date"] == date_
+
+
+@pytest.mark.parametrize("change", ["unknown", "no", "irrelevant", "unapproved", "closed"])
+def test_demo_replay_still_enforces_current_eligibility(setup, tmp_path, monkeypatch, change):
+    from unclaimed.agents import demo_cache
+    from unclaimed.models import Resource
+    monkeypatch.setattr(demo_cache, "CACHE_DIR", tmp_path)
+    monkeypatch.setenv("UNCLAIMED_DEMO_REPLAY", "1")
+    monkeypatch.setattr("unclaimed.agents_api.time.sleep", lambda s: None)
+    events = run(setup)
+    packet = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
+    demo_cache.save("marcus", "gsg-travel-award", packet["data_version"], "template", [e["event"] for e in events if "event" in e], packet)
+    student = setup.get(Student, "stu1")
+    student.demo_persona = "marcus"
+    if change == "unknown":
+        setup.delete(setup.get(StudentFact, ("stu1", "gsg_fee_paid")))
+    elif change == "no":
+        setup.get(StudentFact, ("stu1", "gsg_fee_paid")).value = False
+    elif change == "irrelevant":
+        student.needs = []
+    elif change == "unapproved":
+        setup.query(Resource).one().status = "superseded"
+    else:
+        setup.query(Resource).one().deadline_label = "deadline November 1, 2020"
+    setup.query(Claim).delete()
+    setup.commit()
+    body = client.get("/students/stu1/claims/gsg-travel-award/run").text
+    assert "event: failed" in body and "event: done" not in body
+    setup.expire_all()
+    assert setup.get(Claim, ("stu1", "gsg-travel-award")) is None
+
+
+def test_demo_replay_rebuilds_when_a_passing_answer_changes(setup, tmp_path, monkeypatch):
+    from unclaimed.agents import demo_cache
+    monkeypatch.setattr(demo_cache, "CACHE_DIR", tmp_path)
+    monkeypatch.setenv("UNCLAIMED_DEMO_REPLAY", "1")
+    monkeypatch.setattr("unclaimed.agents_api.time.sleep", lambda s: None)
+    monkeypatch.setattr(claim_graph, "http_fetch", fetch_ok)
+    monkeypatch.setattr(llm_mod, "get_llm", lambda: None)
+    events = run(setup)
+    packet = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
+    demo_cache.save("marcus", "gsg-travel-award", packet["data_version"], "template", [e["event"] for e in events if "event" in e], packet)
+    setup.get(Student, "stu1").demo_persona = "marcus"
+    setup.get(StudentFact, ("stu1", "level")).value = "phd_or_other_grad"
+    setup.query(Claim).delete()
+    setup.commit()
+    body = client.get("/students/stu1/claims/gsg-travel-award/run").text
+    assert "event: done" in body and '"mode": "replay"' not in body
+    setup.expire_all()
+    updated = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
+    assert "PhD or other graduate" in updated["catalog"]["profile:level"]
+    assert "master's" not in updated["draft"]["text"]

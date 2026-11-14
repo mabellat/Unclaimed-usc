@@ -3,32 +3,31 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Rings } from "@/components/bits";
+import { Note, Scallop } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 import type { Persona } from "@/lib/types";
 
-// Decorative tickets. Each one is an approved record, shown with its approved title and amount.
-const FLOATERS = [
-  { r: "-9deg", left: 22, top: 34, delay: "0s", stub: ["#FFCC00", "#1A1210"], cat: "CASH", big: "$1,000", provider: "CAMPUS SUPPORT", title: "CSI Emergency Loan" },
-  { r: "6deg", left: 150, top: 86, delay: "-1.6s", stub: ["#1A1210", "#FFCC00"], cat: "LEGAL", big: "HELP", provider: "USG AND GSG", title: "Free legal counseling" },
-  { r: "-4deg", left: 42, top: 150, delay: "-3.2s", stub: ["#F1C6C0", "#5C0000"], cat: "SCHOLAR", big: "$3,000", provider: "DORNSIFE", title: "SURF / SHURE research" },
-];
-const MARQUEE = "EMERGENCY LOANS · LEGAL HELP · TRAVEL AWARDS · RESEARCH FELLOWSHIPS · LAPTOP LOANS · FOOD PANTRY · RESUME REVIEW · ";
-
 export default function Welcome() {
   const router = useRouter();
-  const { card, start, error } = useStudent();
+  const { ready, card, start, error } = useStudent();
   const [loading, setLoading] = useState(false);
+  const [loadingPersonas, setLoadingPersonas] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
   const [personas, setPersonas] = useState<Persona[] | null>(null);
+  const [showDemo, setShowDemo] = useState(false);
 
-  async function showPersonas() {
+  async function toggleDemo() {
+    setShowDemo(!showDemo);
+    if (personas || showDemo) return;
+    setLoadingPersonas(true);
     setProblem(null);
     try {
       setPersonas((await api.personas()).personas);
-    } catch (e) {
-      setProblem(e instanceof Error ? e.message : "Could not load the demo students");
+    } catch {
+      setProblem("Demo students couldn't load. Close this section and try again.");
+    } finally {
+      setLoadingPersonas(false);
     }
   }
 
@@ -36,73 +35,61 @@ export default function Welcome() {
     setLoading(true);
     setProblem(null);
     try {
-      // Same API as a hand-built card; the persona id only links the card to its cached demo runs.
       await start(p.facts, p.needs, p.id);
-      router.push("/scan");
-    } catch (e) {
-      setProblem(e instanceof Error ? e.message : "Could not load the demo student");
+      router.push("/wallet");
+    } catch {
+      setProblem("We couldn't load this student. Please try again.");
       setLoading(false);
     }
   }
 
   return (
-    <main className="relative flex min-h-dvh flex-col overflow-hidden bg-cardinal text-ticket">
-      <Rings size={520} radii={[60, 100, 140, 180, 220]} className="-right-[230px] -top-[150px]" />
-      <div className="relative px-[26px] pt-[30px]">
-        <div className="mb-[18px] flex items-center gap-2.5">
-          <svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><path d="M2 2h26v6a3 3 0 0 0 0 6v6H2v-6a3 3 0 0 0 0-6z" fill="#FFCC00" /><path d="M10 4v14" stroke="#990000" strokeWidth="1.5" strokeDasharray="2 2" /></svg>
-          <span className="font-label text-[13px] uppercase tracking-[.2em] text-gold">For USC students</span>
-        </div>
-        <h1 className="m-0 font-display text-[68px] font-bold leading-[.95] tracking-[-0.035em]">Unclaimed<span className="text-gold">.</span></h1>
-      </div>
+    <main className="flex min-h-dvh flex-col">
+      <header className="bg-cardinal px-6 pb-8 pt-8 text-ticket sm:px-8">
+        <p className="mb-5 font-label text-xs uppercase tracking-[.18em] text-gold">For USC students</p>
+        <h1 className="font-display text-[clamp(3rem,13vw,4.25rem)] font-bold leading-none tracking-[-.035em]">Unclaimed<span className="text-gold">.</span></h1>
+      </header>
+      <Scallop color="#990000" />
 
-      <div className="relative mt-1.5 h-[250px]" aria-hidden="true">
-        {FLOATERS.map((f) => (
-          <div key={f.title} className="ufloat absolute flex h-[92px] w-[196px] overflow-hidden rounded-lg shadow-[0_12px_20px_rgba(0,0,0,.3)]"
-            style={{ left: f.left, top: f.top, transform: `rotate(${f.r})`, animationDelay: f.delay, ["--r" as string]: f.r }}>
-            <div className="flex w-[68px] flex-col items-center justify-center" style={{ background: f.stub[0], color: f.stub[1] }}>
-              <span className="font-label text-[10px] tracking-[.14em]">{f.cat}</span>
-              <span className="font-label text-[22px] font-semibold">{f.big}</span>
-            </div>
-            <div className="flex-1 bg-ticket p-3 text-ink">
-              <div className="font-label text-[10px] tracking-[.12em] text-cardinal">{f.provider}</div>
-              <div className="mt-1 font-display text-[15px] font-bold leading-[1.1]">{f.title}</div>
-            </div>
-          </div>
-        ))}
-      </div>
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-9 sm:px-8">
+        <h2 className="max-w-sm font-display text-4xl font-medium leading-[1.12] tracking-[-.025em]">Find support.<br /><span className="text-cardinal">Take the next step.</span></h2>
+        <p className="mt-4 max-w-md text-base leading-relaxed text-muted">Explore USC funds, scholarships and services that fit your situation. Get help preparing the paperwork.</p>
 
-      <div className="-mx-5 -rotate-3 overflow-hidden border-y-2 border-ink bg-gold text-ink" aria-hidden="true">
-        <div className="umarq">
-          {[0, 1].map((i) => <span key={i} className="whitespace-nowrap py-[9px] font-label text-[17px] font-semibold tracking-[.12em]">{MARQUEE}</span>)}
-        </div>
-      </div>
+        <ol className="my-8 divide-y divide-dashed divide-rule rounded-xl border border-rule bg-ticket px-5" aria-label="How it works">
+          {[
+            ["Build your card", "Share what you're studying and what you need."],
+            ["Explore your matches", "See why each resource fits your answers."],
+            ["Prepare your application", "Get a checklist and draft. You review and send."],
+          ].map(([title, detail], i) => (
+            <li key={title} className="flex gap-4 py-4">
+              <span className="font-label text-lg text-cardinal" aria-hidden="true">0{i + 1}</span>
+              <div><h3 className="text-sm font-semibold">{title}</h3><p className="mt-1 text-sm leading-relaxed text-muted">{detail}</p></div>
+            </li>
+          ))}
+        </ol>
 
-      <div className="flex-1" />
-      <div className="relative px-[26px] pb-[22px] pt-6">
-        <h2 className="mb-2 font-display text-[25px] font-medium leading-[1.15] tracking-[-0.01em]">USC has set money and help aside. <span className="italic text-gold">Some of it is yours.</span></h2>
-        <p className="mb-4 text-[14.5px] leading-normal text-blush">Build your card once. We match you to every fund, clinic and service you qualify for, then an AI agent does the paperwork.</p>
-        {(error || problem) && <p role="alert" className="mb-3 rounded-lg bg-cardinal-dark p-3 text-sm">Can't reach the Unclaimed API: {problem ?? error}</p>}
-        {card ? (
-          <Link href="/wallet" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink shadow-[0_4px_0_#5C0000]">Open my wallet</Link>
-        ) : (
-          <Link href="/build" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink shadow-[0_4px_0_#5C0000]">Build my Trojan card</Link>
-        )}
-        {personas ? (
-          <div className="mt-3 flex flex-col gap-2" role="group" aria-label="Demo students">
-            {personas.map((p) => (
-              <button key={p.id} type="button" onClick={() => loadDemo(p)} disabled={loading}
-                className="min-h-[44px] w-full rounded-xl border-2 border-gold bg-transparent px-3.5 py-2 text-left disabled:opacity-60">
-                <span className="block font-display text-[17px] font-bold text-gold">{p.name}</span>
-                <span className="block text-[13px] leading-snug text-[#FFE9D6]">{p.summary}</span>
+        <div className="mt-auto">
+          {(error || problem) && <p role="alert" className="mb-4 rounded-lg border border-rule bg-ticket p-3 text-sm text-cardinal">{problem ?? "We couldn't connect. Please refresh to try again."}</p>}
+          {ready ? (
+            <Link href={card ? "/wallet" : "/build"} className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-cardinal px-4 text-base font-semibold text-ticket">
+              {card ? "Open my wallet" : "Find my matches"}
+            </Link>
+          ) : <p role="status" className="py-4 text-center text-sm text-muted">Getting things ready…</p>}
+          <p className="mt-3 text-center text-xs leading-relaxed text-muted">No USC login needed. Skip any question.</p>
+          <button type="button" onClick={toggleDemo} disabled={loading || loadingPersonas} aria-expanded={showDemo} aria-controls="demo-students" className="mt-3 min-h-[44px] w-full text-sm font-medium text-cardinal underline underline-offset-4 disabled:opacity-60">
+            {loadingPersonas ? "Loading demo students…" : showDemo ? "Hide demo students" : "Try a demo student"}
+          </button>
+          {showDemo && <div id="demo-students" className="mt-2 flex flex-col gap-2" role="group" aria-label="Demo students" aria-busy={loading}>
+            {personas?.map((p) => (
+              <button key={p.id} type="button" onClick={() => loadDemo(p)} disabled={loading} className="min-h-[44px] rounded-xl border border-rule bg-ticket px-4 py-3 text-left disabled:opacity-60">
+                <span className="block text-sm font-semibold">{p.name}</span>
+                <span className="mt-1 block text-sm leading-relaxed text-muted">{p.summary}</span>
               </button>
             ))}
-          </div>
-        ) : (
-          <button type="button" onClick={showPersonas} className="mt-1.5 min-h-[44px] w-full text-sm font-medium text-[#FFE9D6] underline">
-            Skip: load a demo student
-          </button>
-        )}
+            {loading && <p role="status" className="text-sm text-muted">Finding this student's matches…</p>}
+          </div>}
+          <Note className="mt-5" />
+        </div>
       </div>
     </main>
   );

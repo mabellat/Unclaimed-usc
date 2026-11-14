@@ -84,21 +84,26 @@ export function QuestionCard({ field, spec, count, onAnswer, onSkip }: {
   onSkip: () => Promise<void>;
 }) {
   const [busy, setBusy] = useState(false);
+  const [problem, setProblem] = useState<string | null>(null);
   const run = (fn: () => Promise<void>) => async () => {
     setBusy(true);
+    setProblem(null);
     try {
       await fn();
+    } catch {
+      setProblem("We couldn't update your matches. Please try again.");
     } finally {
       setBusy(false);
     }
   };
   return (
-    <section aria-label="One question" className="mb-[22px] rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#1A1210]">
+    <section aria-label="One question" aria-busy={busy} className="mb-5 rounded-xl border border-rule bg-[#FFF1B8] p-5">
       <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em] text-ink">One question</div>
       <div className="mb-1 font-display text-[22px] font-bold leading-[1.15] text-ink">{spec.question}</div>
       <div className="mb-3.5 text-sm text-ink">Answering could unlock {count} more.</div>
       {spec.why && <p className="-mt-2 mb-3.5 text-[13px] leading-snug text-ink"><b>Why we ask:</b> {spec.why}</p>}
       <AnswerControls key={field} spec={spec} busy={busy} onAnswer={(v) => run(() => onAnswer(v))()} onSkip={run(onSkip)} />
+      {problem && <p role="alert" className="mt-3 text-sm text-cardinal">{problem}</p>}
     </section>
   );
 }

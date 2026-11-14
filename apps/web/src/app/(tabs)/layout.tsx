@@ -22,7 +22,7 @@ export default function TabsLayout({ children }: { children: React.ReactNode }) 
     api.alerts(card.id).then((a) => { const seen = seenAlerts(card.id); setUnseen(a.alerts.filter((x) => !seen.has(x.key)).length); }).catch(() => {});
   }, [card, children]);
 
-  if (error) return <ErrorBox message={`Can't reach the Unclaimed API (${error}). Start it with make admin.`} />;
+  if (error) return <ErrorBox message="We couldn't load your wallet. Please refresh to try again." />;
   if (!ready || !card) return <Loading />;
   return (
     <div className="flex min-h-dvh flex-col">

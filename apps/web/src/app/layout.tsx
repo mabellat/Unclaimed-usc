@@ -9,7 +9,7 @@ const oswald = Oswald({ subsets: ["latin"], weight: ["500", "600"], variable: "-
 
 export const metadata: Metadata = {
   title: "Unclaimed",
-  description: "USC has set money and help aside. Unclaimed finds what's yours, then an AI agent does the paperwork.",
+  description: "Find USC funds, scholarships and services that fit your situation, with help preparing your application.",
 };
 
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#990000" };
@@ -19,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${fraunces.variable} ${inter.variable} ${oswald.variable}`}>
       <body className="m-0 bg-[#E9E1D2] font-sans text-ink antialiased">
         <StudentProvider>
-          <div className="relative mx-auto flex min-h-dvh w-full max-w-[430px] flex-col overflow-x-hidden bg-paper shadow-[0_0_40px_rgba(60,20,10,.12)]">
+          <div className="relative mx-auto flex min-h-dvh w-full max-w-[560px] flex-col bg-paper shadow-[0_0_40px_rgba(60,20,10,.12)]">
             {children}
           </div>
         </StudentProvider>

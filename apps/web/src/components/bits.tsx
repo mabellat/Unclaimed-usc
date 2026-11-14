@@ -73,7 +73,7 @@ export function Chip({ on, onClick, children }: { on: boolean; onClick: () => vo
   );
 }
 
-export const primaryBtn = "w-full min-h-[54px] rounded-xl bg-cardinal text-[17px] font-semibold text-ticket shadow-[0_4px_0_#5C0000] disabled:opacity-60";
+export const primaryBtn = "w-full min-h-[54px] rounded-xl bg-cardinal px-4 text-base font-semibold text-ticket disabled:opacity-60";
 export const outlineBtn = "w-full min-h-[46px] rounded-xl border-2 border-ink bg-ticket text-[15px] font-semibold text-ink";
 
 /** The four-stop claim progress track. */
@@ -95,13 +95,14 @@ export function Track({ index, labels = ["Drafted", "Sent", "In review", "Receiv
 }
 
 export function Loading({ dark = false }: { dark?: boolean }) {
-  return <div className={`upulse p-8 text-center font-label tracking-[.16em] ${dark ? "text-gold" : "text-cardinal"}`}>LOADING</div>;
+  return <div role="status" className={`p-8 text-center text-sm ${dark ? "text-gold" : "text-muted"}`}>Loading…</div>;
 }
 
 export function ErrorBox({ message }: { message: string }) {
   return (
     <div role="alert" className="m-5 rounded-xl border-2 border-cardinal bg-ticket p-4 text-sm">
       <b>Something went wrong.</b> {message}
+      <button type="button" onClick={() => window.location.reload()} className="mt-3 block min-h-[44px] rounded-lg bg-cardinal px-4 font-semibold text-ticket">Try again</button>
     </div>
   );
 }
