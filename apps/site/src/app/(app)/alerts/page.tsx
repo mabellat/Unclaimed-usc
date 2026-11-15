@@ -12,9 +12,9 @@ import { Reveal } from "@site/components/Motion";
 import { Band, WRAP } from "@site/components/Shell";
 
 const TONE: Record<string, string> = {
-  ink: "bg-ink text-gold", gold: "bg-[#FFE680] text-ink", cardinal: "bg-cardinal text-ticket", green: "bg-[#DDF0DD] text-[#14501F]",
+  ink: "bg-ink text-gold", gold: "bg-[#D4EEE4] text-ink", cardinal: "bg-cardinal text-ticket", green: "bg-[#DDF0DD] text-[#14501F]",
 };
-const EDGE: Record<string, string> = { ink: "#1A1210", gold: "#FFCC00", cardinal: "#990000", green: "#2E7D3A" };
+const EDGE: Record<string, string> = { ink: "#182522", gold: "#BDE6D9", cardinal: "#245F58", green: "#2E7D3A" };
 const OUTCOMES: [("received" | "denied" | "waiting"), string][] = [["received", "Got it"], ["denied", "Turned down"], ["waiting", "Still waiting"]];
 
 export default function Alerts() {
@@ -48,7 +48,7 @@ export default function Alerts() {
         <div className="max-w-[720px]">
           <div className="mb-2 font-label text-[13px] uppercase tracking-[.16em] text-gold">Alerts</div>
           <h1 className="mb-3 font-display text-[40px] font-bold leading-[1.08] md:text-[48px]">We keep watching so you don't have to.</h1>
-          <p className="text-base leading-normal text-[#F0DCCB]">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
+          <p className="text-base leading-normal text-[#CFE4D8]">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
         </div>
       </Band>
 
@@ -62,7 +62,7 @@ export default function Alerts() {
         <div className="gap-5 md:columns-2">
           {(alerts ?? []).map((a, i) => (
             <Reveal key={a.key} delay={(i % 4) * 80} className="mb-5 break-inside-avoid">
-            <div className="break-inside-avoid overflow-hidden rounded-2xl bg-ticket shadow-[0_1px_0_#D8CDB8,0_10px_24px_rgba(60,20,10,.06)]">
+            <div className="break-inside-avoid overflow-hidden rounded-2xl bg-ticket shadow-[0_1px_0_#D9E3DD,0_10px_24px_rgba(60,20,10,.06)]">
               <div className="h-1.5" style={{ background: EDGE[a.tone] ?? EDGE.ink }} />
               <div className="px-6 py-5">
                 <div className="mb-2.5 flex items-center justify-between gap-2">
@@ -94,7 +94,7 @@ export default function Alerts() {
                     ))}
                   </div>
                 )}
-                {a.quote && <p className="mt-3 rounded-lg bg-paper px-4 py-3 font-display text-[15px] italic leading-normal text-[#2A1E1A]">{a.quote}</p>}
+                {a.quote && <p className="mt-3 rounded-lg bg-paper px-4 py-3 font-display text-[15px] italic leading-normal text-[#23332E]">{a.quote}</p>}
                 {a.ask_outcome && (
                   thanks[a.key] ? <p className="mt-3 text-sm font-medium text-[#14501F]">{thanks[a.key]}</p> : (
                     <div className="mt-3 flex flex-wrap gap-2">

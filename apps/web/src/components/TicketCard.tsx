@@ -5,7 +5,7 @@ import { capitalize, deadlinePill, money, stubFor } from "@/lib/ui";
 import type { Claim, Resource } from "@/lib/types";
 
 const PILL: Record<string, string> = {
-  Drafted: "bg-[#FFE680] text-ink",
+  Drafted: "bg-[#D4EEE4] text-ink",
   Sent: "bg-ink text-gold",
   "In review": "bg-ink text-gold",
   Received: "bg-cardinal text-ticket",
@@ -19,12 +19,12 @@ export function TicketCard({ resource, claim, index }: { resource: Resource; cla
   const dl = deadlinePill(resource.deadline);
   const pill = claim ? claim.stage : dl.text;
   const pillClass = claim ? PILL[claim.stage] ?? PILL.Received
-    : dl.tone === "urgent" ? "bg-cardinal font-semibold text-ticket" : dl.tone === "closed" ? "bg-[#E6D9BD] font-medium text-muted" : "bg-[#F0E4C8] font-medium text-ink";
+    : dl.tone === "urgent" ? "bg-cardinal font-semibold text-ticket" : dl.tone === "closed" ? "bg-[#E3EBE5] font-medium text-muted" : "bg-[#E6EEE8] font-medium text-ink";
   return (
     <Link
       href={`/ticket/${resource.id}`}
       aria-label={`${resource.title}. ${resource.benefit?.label ?? ""}. Open claim details.`}
-      className="uin relative mb-3.5 flex w-full rounded-[10px] bg-ticket text-left text-ink shadow-[0_1px_0_#D8CDB8,0_8px_16px_rgba(60,20,10,.10)]"
+      className="uin relative mb-3.5 flex w-full rounded-[10px] bg-ticket text-left text-ink shadow-[0_1px_0_#D9E3DD,0_8px_16px_rgba(60,20,10,.10)]"
       style={{ animationDelay: `${Math.min(index, 10) * 70}ms` }}
     >
       <span className="box-border flex w-[92px] flex-none flex-col items-center justify-center rounded-l-[10px] px-2 py-2.5 text-center" style={{ background: stub.bg, color: stub.fg }}>
@@ -42,7 +42,7 @@ export function TicketCard({ resource, claim, index }: { resource: Resource; cla
         <span className="mt-auto flex items-center justify-between gap-2">
           <span className={`max-w-[190px] truncate rounded px-2 py-[3px] text-xs ${pillClass}`}>{pill}</span>
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" className="flex-none">
-            <path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="#990000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="#245F58" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </span>
       </span>

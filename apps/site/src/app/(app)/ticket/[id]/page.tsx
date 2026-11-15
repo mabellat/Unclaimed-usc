@@ -51,8 +51,8 @@ export default function Ticket() {
 
   return (
     <main>
-      <Band color="#990000">
-        <Link href="/wallet" className="mb-5 inline-flex min-h-[44px] items-center gap-1.5 pr-3 text-[15px] text-[#FFE9D6] hover:underline">
+      <Band color="#245F58">
+        <Link href="/wallet" className="mb-5 inline-flex min-h-[44px] items-center gap-1.5 pr-3 text-[15px] text-[#E5F2EB] hover:underline">
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3L5 9l6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
           Back to my wallet
         </Link>
@@ -90,7 +90,7 @@ export default function Ticket() {
               <div className="grid gap-3 sm:grid-cols-2">
                 {[...new Set(item!.why.map((w) => w.text))].map((text) => (
                   <div key={text} className="flex items-start gap-3 rounded-xl bg-paper px-4 py-3 text-[15px] leading-[1.4]">
-                    <span className="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-cardinal"><Check color="#FFFCF5" size={14} width={2.4} /></span>
+                    <span className="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-cardinal"><Check color="#FFFFFF" size={14} width={2.4} /></span>
                     <span>{capitalize(text)}</span>
                   </div>
                 ))}
@@ -138,7 +138,7 @@ export default function Ticket() {
           )}
 
           {r.note && (
-            <div className="rounded-2xl bg-[#FFF1B8] px-6 py-4 text-[15px] leading-normal text-ink">
+            <div className="rounded-2xl bg-[#E6F4EE] px-6 py-4 text-[15px] leading-normal text-ink">
               <strong className="font-semibold">Heads up.</strong>{" "}
               {r.note.split("\n").map((l) => capitalize(l.trim())).map((l) => (/[.!?]$/.test(l) ? l : l + ".")).join(" ")}
             </div>

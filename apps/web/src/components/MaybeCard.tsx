@@ -26,7 +26,7 @@ export function MaybeCard({ item, resource }: { item: MatchItem; resource: Resou
   return (
     <div className="mb-3 rounded-[10px] border-2 border-dashed border-sand px-4 py-3.5">
       <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="flex min-h-[44px] w-full items-start gap-3 text-left">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" className="mt-0.5 flex-none"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="#5E524C" strokeWidth="1.8" /><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="#5E524C" strokeWidth="1.8" /></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" className="mt-0.5 flex-none"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="#5B6D65" strokeWidth="1.8" /><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="#5B6D65" strokeWidth="1.8" /></svg>
         <span>
           <span className="mb-[3px] block font-display text-[17px] font-bold leading-[1.2] text-body">{resource.title}</span>
           <span className="block text-[13px] leading-[1.4] text-muted">{depends ? `Depends on ${depends}.` : "Needs a check by the office."} {spec ? (open ? "" : "Tap to answer.") : ""}</span>

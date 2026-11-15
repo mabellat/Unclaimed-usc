@@ -69,7 +69,7 @@ export default function ClaimRun() {
       <div className="flex-1 px-6 pb-3 pt-5">
         <div className="mb-2.5 font-label text-[13px] uppercase tracking-[.16em] text-gold">Claim agent</div>
         <h1 className="mb-1.5 font-display text-[28px] font-bold leading-[1.1]">{r.title}</h1>
-        <p className="mb-[22px] text-sm text-[#F0DCCB]">
+        <p className="mb-[22px] text-sm text-[#CFE4D8]">
           {failed ? "Stopped." : "Working on it. You can stop at any time."}
           {mode && <span className="ml-1.5 rounded bg-[rgba(255,204,0,.15)] px-1.5 py-px font-label text-[11px] tracking-[.1em] text-gold">{mode === "ai" ? (aiName ?? "AI").toUpperCase() : mode === "replay" ? "REPLAY OF A CACHED RUN" : "TEMPLATE, NO AI KEY"}</span>}
         </p>
@@ -81,7 +81,7 @@ export default function ClaimRun() {
             return (
               <li key={s.node} className="flex items-start gap-3.5">
                 <span className={`mt-px inline-flex h-6 w-6 flex-none items-center justify-center rounded-full ${done ? "bg-gold" : cur ? "upulse border-2 border-gold" : "border-2 border-[#8A4A44]"}`}>
-                  {done && <Check color="#5C0000" size={14} width={2.4} />}
+                  {done && <Check color="#183F3B" size={14} width={2.4} />}
                 </span>
                 <div className="min-w-0">
                   <div className={`text-base font-medium ${done || cur ? "text-ticket" : "text-[#C9A99A]"}`}>

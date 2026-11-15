@@ -64,7 +64,7 @@ export default function Wallet() {
         </div>
         <p className="relative mt-1.5 text-xs text-[#E9D3C0]">Counts only amounts the source pages state.</p>
       </header>
-      <Scallop color="#5C0000" />
+      <Scallop color="#183F3B" />
 
       <div className="px-5 pb-2 pt-[18px]">
         {question && <QuestionNudge count={q!.count} />}

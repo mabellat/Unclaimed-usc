@@ -8,7 +8,7 @@ export default function Build() {
     <div className="grid min-h-dvh lg:grid-cols-[minmax(0,1fr)_560px]">
       <section className="relative hidden overflow-hidden bg-cardinal px-14 py-12 text-ticket lg:flex lg:flex-col">
         <svg width="720" height="720" viewBox="0 0 720 720" aria-hidden="true" className="pointer-events-none absolute -bottom-[320px] -left-[260px]">
-          <g fill="none" stroke="#FFCC00" strokeOpacity="0.18" strokeWidth="2">{[90, 150, 210, 270, 330].map((r) => <circle key={r} cx="360" cy="360" r={r} />)}</g>
+          <g fill="none" stroke="#BDE6D9" strokeOpacity="0.18" strokeWidth="2">{[90, 150, 210, 270, 330].map((r) => <circle key={r} cx="360" cy="360" r={r} />)}</g>
         </svg>
         <Logo />
         <div className="relative my-auto max-w-[520px]">

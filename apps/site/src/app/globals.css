@@ -8,13 +8,13 @@ html { scroll-behavior: smooth; }
 
 /* Faint paper grain so large areas never read as flat and empty. */
 .paper-grain {
-  background-color: #F3EDE1;
+  background-color: #F5F7F4;
   background-image: radial-gradient(rgba(92, 0, 0, .05) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
 /* A dashed perforation line across a full-width band. */
-.perf { background: repeating-linear-gradient(90deg, #D8CDB8 0 10px, transparent 10px 18px); height: 2px; }
+.perf { background: repeating-linear-gradient(90deg, #D9E3DD 0 10px, transparent 10px 18px); height: 2px; }
 
 @keyframes udrift { 0%, 100% { transform: translateY(0) rotate(var(--r)) } 50% { transform: translateY(-12px) rotate(var(--r)) } }
 .udrift { animation: udrift 7s ease-in-out infinite; }
@@ -45,7 +45,7 @@ html { scroll-behavior: smooth; }
 /* Wallet tickets lift and glint on hover. */
 /* translate/rotate (not transform) so the shared entry animation cannot override them. */
 .ticket-grid > a { transition: translate .2s ease-out, rotate .2s ease-out, box-shadow .2s ease-out; }
-.ticket-grid > a:hover { translate: 0 -4px; rotate: -.4deg; box-shadow: 0 2px 0 #D8CDB8, 0 18px 30px rgba(60, 20, 10, .16); }
+.ticket-grid > a:hover { translate: 0 -4px; rotate: -.4deg; box-shadow: 0 2px 0 #D9E3DD, 0 18px 30px rgba(60, 20, 10, .16); }
 
 /* The CLAIMED stamp lands when its card scrolls into view. */
 .is-in .stamp-on-view { animation: ustamp .5s cubic-bezier(.2,.9,.3,1) .5s both; }
@@ -64,3 +64,13 @@ html { scroll-behavior: smooth; }
   .inside-timer { display: none; }
   .ticket-grid > a, .ticket-grid > a:hover { transition: none; translate: none; rotate: none; }
 }
+
+/* Desktop follows the same restrained visual language as the phone app. */
+.paper-grain { background: #F5F7F4; }
+.reveal { opacity: 1; transform: none; transition: none; }
+.rise > span, .ripple circle, .draw path, .draw line,
+.is-in .stamp-on-view, .inside-timer { animation: none; }
+.draw path, .draw line { stroke-dashoffset: 0; }
+.tilt, .tilt:hover { transform: none; transition: none; }
+.glint::after { display: none; }
+.ticket-grid > a:hover { translate: none; rotate: none; }

@@ -35,7 +35,7 @@ function Stat({ value, label, tone }: { value: number; label: string; tone: stri
   return (
     <div className="min-w-[132px] rounded-xl border border-[rgba(255,204,0,.25)] bg-[rgba(0,0,0,.18)] px-4 py-3">
       <div className={`font-label text-[34px] font-semibold leading-none ${tone}`}>{value}</div>
-      <div className="mt-1.5 text-[13px] leading-snug text-[#F0DCCB]">{label}</div>
+      <div className="mt-1.5 text-[13px] leading-snug text-[#CFE4D8]">{label}</div>
     </div>
   );
 }
@@ -130,7 +130,7 @@ export default function Wallet() {
             <Reveal as="section" className="mt-12">
               <div className="mb-1 flex items-center gap-3">
                 <h2 className="font-display text-[26px] font-bold leading-tight text-body">Might be yours</h2>
-                <span className="rounded-full bg-[#E6D9BD] px-2.5 py-0.5 font-label text-sm text-ink">{maybe.length}</span>
+                <span className="rounded-full bg-[#E3EBE5] px-2.5 py-0.5 font-label text-sm text-ink">{maybe.length}</span>
               </div>
               <p className="mb-4 text-[15px] text-muted">Each one needs one answer from you. Click a card to answer right there.</p>
               <div className="grid gap-x-5 md:grid-cols-2">

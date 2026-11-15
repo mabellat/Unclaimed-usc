@@ -43,11 +43,11 @@ export default function Ask() {
         <Kicker className="mb-1 text-gold">Navigator</Kicker>
         <h1 className="font-display text-2xl font-bold leading-[1.1]">Tell me what's going on.</h1>
       </header>
-      <Scallop color="#5C0000" />
+      <Scallop color="#183F3B" />
       <div className="flex flex-1 flex-col justify-end gap-2.5 px-4 pb-2 pt-3" aria-live="polite">
         {chat.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div className={`box-border max-w-[86%] rounded-[14px] px-3.5 py-2.5 ${m.role === "user" ? "bg-cardinal text-ticket" : "bg-ticket text-ink shadow-[0_1px_0_#D8CDB8]"}`}>
+            <div className={`box-border max-w-[86%] rounded-[14px] px-3.5 py-2.5 ${m.role === "user" ? "bg-cardinal text-ticket" : "bg-ticket text-ink shadow-[0_1px_0_#D9E3DD]"}`}>
               <div className="text-[14.5px] leading-[1.45]">{m.text}</div>
               {m.ticket && resources[m.ticket] && (
                 <Link href={`/ticket/${m.ticket}`} className="mt-1.5 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">Open {resources[m.ticket].title}</Link>

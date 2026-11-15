@@ -12,7 +12,7 @@ import { capitalize, hostOf } from "@/lib/ui";
 import type { Claim } from "@/lib/types";
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D8CDB8]">
+  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D9E3DD]">
     <h2 className="mb-3 font-label text-xs font-normal uppercase tracking-[.16em] text-cardinal">{title}</h2>
     {children}
   </section>
@@ -60,7 +60,7 @@ export default function Ticket() {
             <div className="ustamp absolute bottom-4 right-[18px] rounded-lg border-4 border-gold bg-[rgba(92,0,0,.55)] px-3 py-1 font-label text-[30px] font-semibold tracking-[.12em] text-gold">CLAIMED</div>
           )}
         </header>
-        <Scallop color="#990000" />
+        <Scallop color="#245F58" />
 
         <div className="flex flex-col gap-4 px-5 pb-2.5 pt-[18px]">
           {status === "yes" && (
@@ -77,7 +77,7 @@ export default function Ticket() {
               <div className="flex flex-col gap-2">
                 {[...new Set(item!.why.map((w) => w.text))].map((text) => (
                   <div key={text} className="flex items-start gap-2.5 text-[15px] leading-[1.4]">
-                    <span className="mt-[3px]"><Check color="#990000" /></span>
+                    <span className="mt-[3px]"><Check color="#245F58" /></span>
                     <span>{capitalize(text)}</span>
                   </div>
                 ))}
@@ -146,7 +146,7 @@ export default function Ticket() {
           )}
 
           {r.note && (
-            <div className="rounded-xl bg-[#FFF1B8] px-[18px] py-3.5 text-sm leading-normal text-ink">
+            <div className="rounded-xl bg-[#E6F4EE] px-[18px] py-3.5 text-sm leading-normal text-ink">
               <strong className="font-semibold">Heads up.</strong>{" "}
               {r.note.split("\n").map((l) => capitalize(l.trim())).map((l) => (/[.!?]$/.test(l) ? l : l + ".")).join(" ")}
             </div>

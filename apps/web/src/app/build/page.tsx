@@ -68,7 +68,7 @@ export default function Build() {
               const on = level === v;
               return (
                 <button key={v} type="button" aria-pressed={on} onClick={() => { setLevel(v); setStep(1); }}
-                  className={`flex min-h-[62px] items-center justify-between rounded-[14px] border-2 px-[18px] text-left ${on ? "border-cardinal bg-cardinal text-ticket" : "border-ink bg-ticket text-ink shadow-[3px_3px_0_#FFCC00]"}`}>
+                  className={`flex min-h-[62px] items-center justify-between rounded-[14px] border-2 px-[18px] text-left ${on ? "border-cardinal bg-cardinal text-ticket" : "border-ink bg-ticket text-ink shadow-[3px_3px_0_#BDE6D9]"}`}>
                   <span className="font-display text-xl font-bold">{shortLabel(levelSpec?.labels?.[v] ?? v)}</span>
                   <span className="text-[13px] opacity-80">{LEVEL_SUB[v]}</span>
                 </button>
