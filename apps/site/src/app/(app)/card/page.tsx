@@ -36,18 +36,18 @@ export default function MyCard() {
   return (
     <main aria-busy={busy}>
       <Band>
-        <div className="mb-2 font-label text-[13px] uppercase tracking-[.16em] text-gold">Your Trojan card</div>
-        <h1 className="font-display text-[40px] font-bold leading-[1.08] md:text-[48px]">Life changes. Your card keeps up.</h1>
+        <div className="mb-2 font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-white/60">Your Trojan card</div>
+        <h1 className="font-display text-[40px] font-bold leading-[1.02] tracking-[-0.04em] md:text-[52px]">Life changes. Your card keeps up.</h1>
       </Band>
 
       <div className={`${WRAP} grid gap-8 pb-14 pt-8 lg:grid-cols-[360px_minmax(0,1fr)]`}>
         <aside className="flex flex-col gap-4 lg:sticky lg:top-[84px] lg:self-start">
-          <Tilt className="rounded-2xl shadow-[0_12px_24px_rgba(92,0,0,.28)]" max={10}><TrojanCard card={card} fields={fields} /></Tilt>
-          <div className="rounded-2xl bg-gold px-5 py-4 text-[15px] leading-[1.4] shadow-[4px_4px_0_#1A1210]">
+          <Tilt className="rounded-[20px]" max={8}><TrojanCard card={card} fields={fields} /></Tilt>
+          <div className="rounded-2xl bg-gold px-5 py-4 text-[15px] leading-[1.4] shadow-[0_1px_2px_rgba(0,0,0,.06),0_8px_24px_rgba(0,0,0,.06)]">
             <span className="font-label text-[28px] font-semibold">{match?.yes.length ?? 0}</span> tickets match your card right now. Change anything here and your wallet updates.
           </div>
           <button type="button" onClick={restart} disabled={busy} className={outlineBtn}>Delete my card and restart</button>
-          <Note>Your card is stored under a random id, with no name, email or USC login.</Note>
+          <Note>Your card is private to you. Delete it any time.</Note>
         </aside>
 
         <div className="flex min-w-0 flex-col gap-5">

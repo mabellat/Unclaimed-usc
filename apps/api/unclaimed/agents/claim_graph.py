@@ -141,12 +141,13 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
         if d is None:
             d = grounding.template_draft(state["resource"], state["catalog"], state["facts"], state["why_fields"])
         tool = "draft_document" + (f" (attempt {attempts})" if attempts > 1 else "")
-        result = (f"Draft written by {ai_name} from your card and the source page." if mode == "ai"
-                  else "Draft written from your card and the source page (template, no AI).")
+        # Students see one plain line whichever way the draft was made; why the AI wasn't used
+        # (an outage, a failed check, a cached demo draft) stays in the run log as `note`.
+        result = "Draft written from your card and the source page."
         drafted_by = (llm.model if mode == "ai" else (cache or {}).get("model") if mode == "ai-cached" else None)
         return {"draft": d, "draft_mode": mode, "drafted_by": drafted_by,
                 "attempts": attempts if mode in ("ai", "ai-cached") else MAX_LLM_DRAFTS + 1,
-                "trace": [_event("draft", [{"name": tool, "summary": mode}], note or result, mode=mode)]}
+                "trace": [_event("draft", [{"name": tool, "summary": mode}], result, mode=mode, note=note)]}
 
     def groundedness_check(state: State) -> dict:
         g = grounding.check(state["draft"], state["catalog"])

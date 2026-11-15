@@ -1,4 +1,4 @@
-// Copy and visual mappings shared by screens. Colors come from the prototype tokens.
+// Copy and visual mappings shared by screens. Category colours are the minimal theme's accents.
 
 import type { FactValue, FieldSpec } from "./types";
 
@@ -24,19 +24,20 @@ export const needLabel = (n: string) => NEED_LABELS.find(([k]) => k === n)?.[1] 
 
 type Stub = { bg: string; fg: string; label: string; word: string };
 // Stub colour, stub label, and the word shown when no amount is published (never an invented amount).
+// Every category colour is a shade of USC cardinal, gold or black, so the wallet stays on brand.
 export const CATEGORY: Record<string, Stub> = {
-  cash: { bg: "#FFCC00", fg: "#1A1210", label: "CASH", word: "FUNDS" },
-  scholarship: { bg: "#F1C6C0", fg: "#5C0000", label: "SCHOLAR", word: "AWARD" },
-  legal: { bg: "#1A1210", fg: "#FFCC00", label: "LEGAL", word: "HELP" },
-  career: { bg: "#990000", fg: "#FFFCF5", label: "CAREER", word: "HELP" },
-  basics: { bg: "#E6D9BD", fg: "#5C0000", label: "BASICS", word: "HELP" },
-  health: { bg: "#DDF0DD", fg: "#14501F", label: "HEALTH", word: "CARE" },
-  jobs: { bg: "#5C0000", fg: "#FFCC00", label: "JOBS", word: "WORK" },
-  academic_support: { bg: "#E6D9BD", fg: "#1A1210", label: "STUDY", word: "HELP" },
-  transportation: { bg: "#1A1210", fg: "#FFFCF5", label: "TRANSIT", word: "RIDES" },
-  support_office: { bg: "#F0E4C8", fg: "#5C0000", label: "SUPPORT", word: "HELP" },
-  community: { bg: "#FFE680", fg: "#1A1210", label: "COMMUNITY", word: "HUB" },
-  international: { bg: "#1A1210", fg: "#FFE9A8", label: "INTL", word: "HELP" },
+  cash: { bg: "#FFC72C", fg: "#111111", label: "CASH", word: "Funds" },
+  scholarship: { bg: "#9D2235", fg: "#FFFFFF", label: "SCHOLAR", word: "Award" },
+  legal: { bg: "#111111", fg: "#FFFFFF", label: "LEGAL", word: "Legal help" },
+  career: { bg: "#C8475E", fg: "#FFFFFF", label: "CAREER", word: "Career help" },
+  basics: { bg: "#D9A400", fg: "#111111", label: "BASICS", word: "Basics" },
+  health: { bg: "#6E1423", fg: "#FFFFFF", label: "HEALTH", word: "Care" },
+  jobs: { bg: "#FFDF7A", fg: "#111111", label: "JOBS", word: "Paid work" },
+  academic_support: { bg: "#4A4A4A", fg: "#FFFFFF", label: "STUDY", word: "Study help" },
+  transportation: { bg: "#8C8C8C", fg: "#FFFFFF", label: "TRANSIT", word: "Rides" },
+  support_office: { bg: "#E6A3B0", fg: "#111111", label: "SUPPORT", word: "Support" },
+  community: { bg: "#B8860B", fg: "#FFFFFF", label: "COMMUNITY", word: "Community" },
+  international: { bg: "#5A0F1C", fg: "#FFC72C", label: "INTL", word: "Intl help" },
 };
 export const stubFor = (category: string): Stub => CATEGORY[category] ?? CATEGORY.basics;
 

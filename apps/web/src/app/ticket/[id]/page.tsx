@@ -5,14 +5,14 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnswerControls } from "@/components/Answer";
 import { HowToClaim } from "@/components/HowToClaim";
-import { BackButton, Check, ErrorBox, Loading, Rings, Scallop, Track, primaryBtn } from "@/components/bits";
+import { BackButton, Check, ErrorBox, Loading, Track, primaryBtn } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 import { capitalize, hostOf } from "@/lib/ui";
 import type { Claim } from "@/lib/types";
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D8CDB8]">
+  <section className="rounded-xl bg-ticket px-[18px] py-4">
     <h2 className="mb-3 font-label text-xs font-normal uppercase tracking-[.16em] text-cardinal">{title}</h2>
     {children}
   </section>
@@ -50,17 +50,15 @@ export default function Ticket() {
   return (
     <main className="flex min-h-dvh flex-col">
       <div className="flex-1">
-        <header className="relative overflow-hidden bg-cardinal px-5 pb-[22px] pt-2.5 text-ticket">
-          <Rings size={200} radii={[30, 55, 80, 105]} className="-right-[70px] -top-[60px]" />
+        <header className="relative overflow-hidden bg-ink px-5 pb-[22px] pt-2.5 text-white">
           <BackButton href="/wallet" label="Back" light />
-          <div className="relative mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">{r.provider}</div>
+          <div className="relative mb-2 font-label text-[11px] font-medium uppercase tracking-[.12em] text-gold">{r.provider}</div>
           <h1 className="relative mb-2 font-display text-[29px] font-bold leading-[1.1] tracking-[-0.01em]">{r.title}</h1>
           <div className="relative text-base font-medium text-cream">{capitalize(r.benefit?.label ?? "")}</div>
           {idx === 3 && (
-            <div className="ustamp absolute bottom-4 right-[18px] rounded-lg border-4 border-gold bg-[rgba(92,0,0,.55)] px-3 py-1 font-label text-[30px] font-semibold tracking-[.12em] text-gold">CLAIMED</div>
+            <div className="ustamp absolute bottom-4 right-[18px] rounded-lg border-4 border-gold bg-[rgba(0,0,0,.55)] px-3 py-1 font-label text-[30px] font-semibold tracking-[.12em] text-gold">CLAIMED</div>
           )}
         </header>
-        <Scallop color="#990000" />
 
         <div className="flex flex-col gap-4 px-5 pb-2.5 pt-[18px]">
           {status === "yes" && (
@@ -77,7 +75,7 @@ export default function Ticket() {
               <div className="flex flex-col gap-2">
                 {[...new Set(item!.why.map((w) => w.text))].map((text) => (
                   <div key={text} className="flex items-start gap-2.5 text-[15px] leading-[1.4]">
-                    <span className="mt-[3px]"><Check color="#990000" /></span>
+                    <span className="mt-[3px]"><Check color="#9D2235" /></span>
                     <span>{capitalize(text)}</span>
                   </div>
                 ))}
@@ -154,9 +152,9 @@ export default function Ticket() {
 
           {status === "yes" && idx < 0 && (
             <div className="rounded-xl bg-ink px-[18px] py-4 text-ticket">
-              <div className="mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">Your claim agent</div>
+              <div className="mb-2 font-label text-[11px] font-medium uppercase tracking-[.12em] text-gold">Your claim agent</div>
               <div className="mb-2.5 font-display text-[19px] font-bold leading-[1.2]">Let it do the paperwork.</div>
-              <ol className="flex flex-col gap-[7px] text-sm leading-[1.4] text-[#EFE3D2]">
+              <ol className="flex flex-col gap-[7px] text-sm leading-[1.4] text-white/65">
                 <li>1. Re-checks the source page right now</li>
                 <li>2. Works out exactly what you need to prepare</li>
                 <li>3. Drafts your message from your card</li>

@@ -20,7 +20,7 @@ export function TabBar({ badges = {} }: { badges?: Record<string, number> }) {
         const badge = badges[href] ?? 0;
         return (
           <Link key={href} href={href} aria-current={on ? "page" : undefined} aria-label={label + (badge ? `, ${badge} new` : "")}
-            className={`flex min-h-[56px] flex-1 flex-col items-center justify-center gap-[3px] ${on ? "text-gold" : "text-[#C9BFB4]"}`}>
+            className={`flex min-h-[56px] flex-1 flex-col items-center justify-center gap-[3px] ${on ? "text-gold" : "text-[#B5B5AF]"}`}>
             <span className="relative inline-flex">
               <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round"><path d={icon} /></svg>
               {badge > 0 && !on && (

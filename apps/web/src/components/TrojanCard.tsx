@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { Rings } from "./bits";
 import { needLabel, shortLabel } from "@/lib/ui";
 import type { Card, FieldSpec } from "@/lib/types";
 
@@ -30,20 +29,26 @@ export function TrojanCard({ card, level, schools, needs, fields }: {
   const tags = nd.slice(0, 3).map(needLabel).concat(nd.length > 3 ? [`+${nd.length - 3} more`] : []);
 
   const front = (
-    <div className="relative box-border h-full w-full overflow-hidden rounded-2xl bg-cardinal px-[18px] pb-3.5 pt-4 text-left text-ticket shadow-[0_12px_24px_rgba(92,0,0,.28)]">
-      <Rings size={170} radii={[30, 50, 70, 90]} opacity={0.28} className="-right-[50px] -top-[60px]" />
+    <div className="relative box-border h-full w-full overflow-hidden rounded-[20px] bg-ink px-5 pb-4 pt-[18px] text-left text-white shadow-[0_18px_40px_rgba(0,0,0,.22)]">
+      <span aria-hidden="true" className="absolute -right-10 -top-16 h-44 w-44 rounded-full border border-white/10" />
+      <span aria-hidden="true" className="absolute -right-2 -top-6 h-24 w-24 rounded-full border border-white/10" />
       <div className="relative flex items-center justify-between">
-        <span className="font-label text-xs tracking-[.18em] text-gold">TROJAN CARD</span>
-        <span className="font-label text-xs tracking-[.12em] text-blush">{serial(card?.id)}</span>
+        <span className="inline-flex items-center gap-2 font-label text-[11px] font-medium tracking-[.14em] text-white/70">
+          <span aria-hidden="true" className="h-2 w-2 rounded-full bg-cardinal" />TROJAN CARD
+        </span>
+        <span className="font-label text-[11px] tracking-[.1em] text-white/50">{serial(card?.id)}</span>
       </div>
-      <div className={`relative mb-0.5 mt-3.5 font-display text-[26px] font-bold leading-[1.1] ${lv ? "text-ticket" : "text-[#E9B9B2]"}`}>{levelText}</div>
-      <div className="relative text-sm text-blush">{schoolText}</div>
-      <div className="relative mt-3 flex min-h-[26px] flex-wrap gap-1.5">
+      <div className={`relative mb-0.5 mt-5 font-display text-[28px] font-bold leading-[1.05] ${lv ? "text-white" : "text-white/55"}`}>{levelText}</div>
+      <div className="relative text-sm text-white/60">{schoolText}</div>
+      <div className="relative mt-4 flex min-h-[26px] flex-wrap gap-1.5">
         {tags.map((t) => (
-          <span key={t} className="rounded-[13px] border border-gold px-2.5 py-[3px] text-xs font-medium text-gold">{t}</span>
+          <span key={t} className="rounded-full bg-white/10 px-2.5 py-1 text-xs font-medium text-white/90">{t}</span>
         ))}
       </div>
-      <div aria-hidden="true" className="barcode relative mt-3.5 h-5" />
+      <div aria-hidden="true" className="relative mt-4 flex items-center gap-2">
+        <span className="h-[18px] w-[26px] rounded-[4px] bg-gold/90" />
+        <span className="barcode h-3 flex-1" />
+      </div>
     </div>
   );
   if (!card || level !== undefined) return front;
@@ -59,26 +64,26 @@ export function TrojanCard({ card, level, schools, needs, fields }: {
   return (
     <button type="button" onClick={() => setFlipped(!flipped)} aria-pressed={flipped}
       aria-label={flipped ? "Trojan card details. Click to flip back." : "Trojan card. Click to see your details."}
-      className={`flip-card block w-full rounded-2xl ${flipped ? "is-flipped" : ""}`}>
+      className={`flip-card block w-full rounded-[20px] ${flipped ? "is-flipped" : ""}`}>
       <span className="flip-inner relative block">
         <span className="flip-face block">{front}</span>
         <span className="flip-face flip-back absolute inset-0 block">
-          <span className="relative box-border flex h-full w-full flex-col overflow-hidden rounded-2xl bg-cardinal-dark px-[18px] pb-3.5 pt-4 text-left text-ticket shadow-[0_12px_24px_rgba(92,0,0,.28)]">
+          <span className="relative box-border flex h-full w-full flex-col overflow-hidden rounded-[20px] bg-[#1C1C1C] px-5 pb-4 pt-[18px] text-left text-white shadow-[0_18px_40px_rgba(0,0,0,.22)]">
             <span className="relative flex items-center justify-between">
-              <span className="font-label text-xs tracking-[.18em] text-gold">STUDENT DETAILS</span>
-              <span className="font-label text-xs tracking-[.12em] text-blush">{serial(card.id)}</span>
+              <span className="font-label text-[11px] font-medium tracking-[.14em] text-white/70">STUDENT DETAILS</span>
+              <span className="font-label text-[11px] tracking-[.1em] text-white/50">{serial(card.id)}</span>
             </span>
             <span className="relative mt-3.5 grid grid-cols-[88px_minmax(0,1fr)] gap-x-3 gap-y-2 text-[13px] leading-snug">
               {rows.map(([k, v]) => (
                 <span key={k} className="contents">
-                  <span className="font-label text-[11px] uppercase tracking-[.14em] text-gold">{k}</span>
-                  <span className="truncate text-ticket" title={v}>{v}</span>
+                  <span className="font-label text-[10.5px] uppercase tracking-[.1em] text-white/50">{k}</span>
+                  <span className="truncate text-white" title={v}>{v}</span>
                 </span>
               ))}
             </span>
-            <span className="relative mt-auto flex items-center justify-between pt-2 text-[11px] text-blush">
+            <span className="relative mt-auto flex items-center justify-between pt-2 text-[11px] text-white/50">
               <span>{others ? `${others} more answer${others > 1 ? "s" : ""} on My card` : "Answers live on My card"}</span>
-              <span className="font-label tracking-[.14em] text-gold">FLIP BACK</span>
+              <span className="font-label tracking-[.12em] text-gold">FLIP BACK</span>
             </span>
           </span>
         </span>

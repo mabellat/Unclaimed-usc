@@ -6,15 +6,9 @@ html { scroll-behavior: smooth; }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
-/* Faint paper grain so large areas never read as flat and empty. */
-.paper-grain {
-  background-color: #F3EDE1;
-  background-image: radial-gradient(rgba(92, 0, 0, .05) 1px, transparent 1px);
-  background-size: 22px 22px;
-}
+/* Plain page background (the old dotted grain is gone in the minimal theme). */
+.paper-grain { background-color: #F4F4F1; }
 
-/* A dashed perforation line across a full-width band. */
-.perf { background: repeating-linear-gradient(90deg, #D8CDB8 0 10px, transparent 10px 18px); height: 2px; }
 
 @keyframes udrift { 0%, 100% { transform: translateY(0) rotate(var(--r)) } 50% { transform: translateY(-12px) rotate(var(--r)) } }
 .udrift { animation: udrift 7s ease-in-out infinite; }
@@ -30,37 +24,74 @@ html { scroll-behavior: smooth; }
 @keyframes urise { from { opacity: 0; transform: translateY(.45em) rotate(2deg); } to { opacity: 1; transform: none; } }
 .rise > span { display: inline-block; animation: urise .8s cubic-bezier(.2,.9,.3,1) both; }
 
-/* Rings that slowly ripple outward behind the hero. */
-@keyframes uripple { 0% { transform: scale(.85); opacity: 0 } 25% { opacity: 1 } 100% { transform: scale(1.25); opacity: 0 } }
-.ripple circle { transform-box: fill-box; transform-origin: center; animation: uripple 9s ease-out infinite; }
-
 /* 3D tilt with a gold glint that sweeps across on hover (components/Motion.tsx Tilt). */
 .tilt { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0)); transition: transform .25s ease-out, box-shadow .25s ease-out; will-change: transform; }
 .tilt:hover { --lift: -4px; }
 .glint { position: relative; overflow: hidden; }
-.glint::after { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 40%; transform: rotate(18deg) translateX(0); background: rgba(255, 233, 168, .35); filter: blur(10px); opacity: 0; pointer-events: none; }
+.glint::after { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 40%; transform: rotate(18deg) translateX(0); background: rgba(255, 255, 255, .45); filter: blur(12px); opacity: 0; pointer-events: none; }
 .glint:hover::after { animation: uglint .9s ease-out; }
 @keyframes uglint { 0% { opacity: 0; transform: rotate(18deg) translateX(0) } 20% { opacity: 1 } 100% { opacity: 0; transform: rotate(18deg) translateX(480%) } }
-
-/* Wallet tickets lift and glint on hover. */
-/* translate/rotate (not transform) so the shared entry animation cannot override them. */
-.ticket-grid > a { transition: translate .2s ease-out, rotate .2s ease-out, box-shadow .2s ease-out; }
-.ticket-grid > a:hover { translate: 0 -4px; rotate: -.4deg; box-shadow: 0 2px 0 #D8CDB8, 0 18px 30px rgba(60, 20, 10, .16); }
 
 /* The CLAIMED stamp lands when its card scrolls into view. */
 .is-in .stamp-on-view { animation: ustamp .5s cubic-bezier(.2,.9,.3,1) .5s both; }
 .stamp-on-view { opacity: 0; transform: rotate(-14deg); }
 
-/* The campus skyline draws itself in. */
-@keyframes udraw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
-.draw path, .draw line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: udraw 2.6s cubic-bezier(.4,.1,.2,1) .2s forwards; }
+/* The gold highlighter sweeps in under "yours." in the hero. */
+@keyframes uhl { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+.hl { transform-origin: left; animation: uhl .7s cubic-bezier(.2,.8,.3,1) 1.15s both; }
+
+/* ---- Eye-catching extras ---- */
+
+/* Soft colour glows that drift slowly behind the hero and closing panel. */
+@keyframes ublob { 0%, 100% { transform: translate(0, 0) scale(1) } 33% { transform: translate(40px, -30px) scale(1.08) } 66% { transform: translate(-30px, 20px) scale(.95) } }
+.blob { position: absolute; border-radius: 9999px; filter: blur(70px); opacity: .55; animation: ublob 18s ease-in-out infinite; pointer-events: none; }
+
+/* A faint dot grid that fades out towards the edges. */
+.dotgrid { background-image: radial-gradient(rgba(17,17,17,.13) 1px, transparent 1px); background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%); mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 30%, transparent 75%); }
+
+/* A light that follows the cursor across dark panels (components/Motion.tsx Spotlight). */
+.spot { position: relative; isolation: isolate; }
+.spot::before { content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none; opacity: 0; transition: opacity .4s;
+  background: radial-gradient(520px circle at var(--sx, 50%) var(--sy, 50%), rgba(255,199,44,.16), transparent 45%); }
+.spot:hover::before { opacity: 1; }
+.spot > :not([aria-hidden="true"]) { position: relative; z-index: 1; }
+
+/* The rotating keyword under the hero headline. */
+@keyframes uword { from { opacity: 0; transform: translateY(70%); filter: blur(6px) } to { opacity: 1; transform: none; filter: blur(0) } }
+.uword { display: inline-block; animation: uword .55s cubic-bezier(.2,.9,.3,1) both; }
+
+/* Big two-row ticker; the second row runs the other way. */
+.umarq-rev { display: flex; width: max-content; animation: umarq 32s linear infinite reverse; }
+.outline-text { color: transparent; -webkit-text-stroke: 1.5px currentColor; }
+
+/* Little things that pop, pulse and type. */
+@keyframes upop { 0% { opacity: 0; transform: scale(.6) } 70% { opacity: 1; transform: scale(1.08) } 100% { transform: scale(1) } }
+.upop { animation: upop .45s cubic-bezier(.2,.9,.3,1.3) both; }
+@keyframes ubob { 0%, 100% { transform: translateY(0) } 50% { transform: translateY(-10px) } }
+.ubob { animation: ubob 5s ease-in-out infinite; }
+@keyframes uradar { from { transform: scale(.2); opacity: .9 } to { transform: scale(1.6); opacity: 0 } }
+.radar span { position: absolute; inset: 0; border-radius: 9999px; border: 1.5px solid #FFC72C; animation: uradar 2.6s ease-out infinite; }
+.radar span:nth-child(2) { animation-delay: .85s } .radar span:nth-child(3) { animation-delay: 1.7s }
+@keyframes ucaret { 50% { opacity: 0 } }
+.caret { display: inline-block; width: 2px; height: 1em; vertical-align: -0.15em; background: currentColor; margin-left: 2px; animation: ucaret 1s steps(1) infinite; }
+@keyframes uvscroll { from { transform: translateY(0) } to { transform: translateY(-50%) } }
+.uvscroll { animation: uvscroll 22s linear infinite; }
+@keyframes ushine { from { transform: translateX(-120%) skewX(-20deg) } to { transform: translateX(260%) skewX(-20deg) } }
+.shine { position: relative; overflow: hidden; }
+.shine::after { content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 35%; background: rgba(255,255,255,.35); animation: ushine 3.2s ease-in-out infinite; pointer-events: none; }
+
+/* Step art animates once its card scrolls in. */
+.is-in .seq > * { animation: uin .5s cubic-bezier(.2,.8,.3,1) both; }
+.is-in .seq > *:nth-child(2) { animation-delay: .15s } .is-in .seq > *:nth-child(3) { animation-delay: .3s } .is-in .seq > *:nth-child(4) { animation-delay: .45s }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }
-  .rise > span, .ripple circle, .glint:hover::after, .is-in .stamp-on-view, .draw path, .draw line { animation: none; }
+  .rise > span, .glint:hover::after, .is-in .stamp-on-view { animation: none; }
   .stamp-on-view { opacity: .95; }
-  .draw path, .draw line { stroke-dashoffset: 0; }
   .tilt { transition: none; transform: none; }
   .inside-timer { display: none; }
-  .ticket-grid > a, .ticket-grid > a:hover { transition: none; translate: none; rotate: none; }
+  .hl { animation: none; }
+  .blob, .uword, .umarq-rev, .upop, .ubob, .radar span, .caret, .uvscroll, .shine::after, .is-in .seq > * { animation: none; }
+  .spot::before { display: none; }
 }

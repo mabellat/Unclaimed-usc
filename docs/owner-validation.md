@@ -52,3 +52,6 @@ Everyone using Unclaimed is a current USC student, so a new card starts with "cu
 
 ## Footer disclaimer removed (owner decision 2026-11-14)
 The owner asked to remove "Sample data from public usc.edu pages. Not official or USC-affiliated." from both apps. The website footer now shows the Unclaimed logo and "Find what's yours." CLAUDE.md's design section still lists the footer note; update it if this is final.
+
+## Minimal redesign (owner decision 2026-11-14)
+The owner asked for a completely different look from the prototype. Both apps now use a minimal black-and-white theme: Bricolage Grotesque headlines, Hanken Grotesk body text, JetBrains Mono labels and numbers, USC cardinal and gold as the only accents, thin borders instead of heavy shadows, and no rings, scallops, perforations or skyline. Tokens live in apps/web/tailwind.config.ts. CLAUDE.md's "Design" section and "match the prototype" rule still describe the old look; update them if this is final.

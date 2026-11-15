@@ -54,7 +54,7 @@ export default function Build() {
           <button type="button" onClick={back} aria-label="Back" className="inline-flex min-h-[44px] items-center gap-1.5 pr-3 text-[15px] text-muted">
             <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3L5 9l6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>Back
           </button>
-          <span className="font-label text-[13px] uppercase tracking-[.16em] text-cardinal">Step {step + 1} of 3</span>
+          <span className="font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-cardinal">Step {step + 1} of 3</span>
         </div>
         <div className="mb-[22px]">
           <TrojanCard fields={fields} level={level} schools={school ? [school] : []} needs={needs} />
@@ -68,8 +68,8 @@ export default function Build() {
               const on = level === v;
               return (
                 <button key={v} type="button" aria-pressed={on} onClick={() => { setLevel(v); setStep(1); }}
-                  className={`flex min-h-[62px] items-center justify-between rounded-[14px] border-2 px-[18px] text-left ${on ? "border-cardinal bg-cardinal text-ticket" : "border-ink bg-ticket text-ink shadow-[3px_3px_0_#FFCC00]"}`}>
-                  <span className="font-display text-xl font-bold">{shortLabel(levelSpec?.labels?.[v] ?? v)}</span>
+                  className={`flex min-h-[62px] items-center justify-between rounded-2xl border px-5 transition-colors text-left ${on ? "border-ink bg-ink text-white" : "border-rule bg-white text-ink hover:border-ink"}`}>
+                  <span className="font-display text-xl font-semibold">{shortLabel(levelSpec?.labels?.[v] ?? v)}</span>
                   <span className="text-[13px] opacity-80">{LEVEL_SUB[v]}</span>
                 </button>
               );
@@ -85,7 +85,7 @@ export default function Build() {
                 const on = school === v;
                 return (
                   <button key={v} type="button" aria-pressed={on} onClick={() => { setSchool(v); setStep(2); }}
-                    className={`min-h-[56px] rounded-xl border-2 px-2 font-display text-[17px] font-bold ${on ? "border-cardinal bg-cardinal text-ticket" : "border-ink bg-ticket text-ink"}`}>
+                    className={`min-h-[56px] rounded-2xl border px-2 font-display text-[17px] font-semibold transition-colors ${on ? "border-ink bg-ink text-white" : "border-rule bg-white text-ink hover:border-ink"}`}>
                     {v === "other" ? "Another school" : shortLabel(schoolSpec?.labels?.[v] ?? v)}
                   </button>
                 );

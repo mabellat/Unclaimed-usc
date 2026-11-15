@@ -15,11 +15,11 @@ function moments(label: string): string[] {
 }
 
 function DuePill({ closed, days }: { closed: boolean; days: number | null }) {
-  if (closed) return <span className="rounded-full bg-[#E6D9BD] px-2.5 py-1 text-xs font-semibold text-muted">Closed</span>;
+  if (closed) return <span className="rounded-full bg-[#ECECE6] px-2.5 py-1 text-xs font-semibold text-muted">Closed</span>;
   if (days === null) return null;
   const urgent = days <= 14;
   const text = days === 0 ? "Due today" : days === 1 ? "1 day left" : `${days} days left`;
-  return <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${urgent ? "bg-cardinal text-ticket" : "bg-[#F0E4C8] text-ink"}`}>{text}</span>;
+  return <span className={`whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold ${urgent ? "bg-cardinal text-ticket" : "bg-[#F0F0EA] text-ink"}`}>{text}</span>;
 }
 
 /** "How to claim it": the deadline first and big, then the steps, what to have ready, and where. */
@@ -27,7 +27,7 @@ export function HowToClaim({ r }: { r: Resource }) {
   const d = r.deadline;
   const parts = d ? moments(d.label) : [];
   return (
-    <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D8CDB8]">
+    <section className="rounded-xl bg-ticket px-[18px] py-4">
       <h2 className="mb-3 font-label text-xs font-normal uppercase tracking-[.16em] text-cardinal">How to claim it</h2>
 
       {d?.date ? (
@@ -93,7 +93,7 @@ export function HowToClaim({ r }: { r: Resource }) {
       )}
 
       <a href={r.source_url} target="_blank" rel="noopener noreferrer"
-        className="flex min-h-[46px] w-full items-center justify-center rounded-xl border-2 border-ink bg-ticket text-[15px] font-semibold text-ink">
+        className="flex min-h-[46px] w-full items-center justify-center rounded-xl border border-ink bg-white text-[15px] font-semibold text-ink">
         Open the official page to apply
       </a>
     </section>

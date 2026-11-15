@@ -183,7 +183,6 @@ With the app running: `make demo-backup` writes `docs/demo/backup/index.html` (1
 | Variable | Local | Hosted | Notes |
 |---|---|---|---|
 | `NEXT_PUBLIC_API_URL` | `http://localhost:8000` (in `apps/web/.env.local`) | your API URL, e.g. `https://unclaimed-api.onrender.com` | Baked in at build time: redeploy the web app after changing it |
-| `NEXT_PUBLIC_HERO_PHOTO` | Optional, website only (`apps/site/.env.local`) | same | A campus photo behind the website's hero, e.g. `/campus/hero.jpg` placed in `apps/site/public/campus/`. Shown tinted cardinal. Use only a photo you took or have the rights to (not images copied from usc.edu). Restart `make site` after setting it |
 
 ### Watcher (worker)
 Needs `DATABASE_URL`, plus `GEMINI_API_KEY` and `GEMINI_MODEL` if you want page extraction. It needs outbound HTTPS to usc.edu and uscimmigrationclinic.org.

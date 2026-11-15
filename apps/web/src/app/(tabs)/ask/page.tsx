@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { Kicker, Scallop } from "@/components/bits";
+import { Kicker } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 
@@ -43,11 +43,10 @@ export default function Ask() {
         <Kicker className="mb-1 text-gold">Navigator</Kicker>
         <h1 className="font-display text-2xl font-bold leading-[1.1]">Tell me what's going on.</h1>
       </header>
-      <Scallop color="#5C0000" />
       <div className="flex flex-1 flex-col justify-end gap-2.5 px-4 pb-2 pt-3" aria-live="polite">
         {chat.map((m, i) => (
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
-            <div className={`box-border max-w-[86%] rounded-[14px] px-3.5 py-2.5 ${m.role === "user" ? "bg-cardinal text-ticket" : "bg-ticket text-ink shadow-[0_1px_0_#D8CDB8]"}`}>
+            <div className={`box-border max-w-[86%] rounded-[14px] px-3.5 py-2.5 ${m.role === "user" ? "bg-ink text-white" : "border border-rule bg-white text-ink"}`}>
               <div className="text-[14.5px] leading-[1.45]">{m.text}</div>
               {m.ticket && resources[m.ticket] && (
                 <Link href={`/ticket/${m.ticket}`} className="mt-1.5 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">Open {resources[m.ticket].title}</Link>
@@ -66,11 +65,11 @@ export default function Ask() {
       <form className="flex items-center gap-2 px-4 pb-2.5 pt-1" onSubmit={(e) => { e.preventDefault(); send(text); }}>
         <label htmlFor="chat" className="sr-only">Message the Navigator</label>
         <input id="chat" value={text} onChange={(e) => setText(e.target.value)} placeholder="My landlord won't return my deposit..."
-          className="box-border min-h-[46px] min-w-0 flex-1 rounded-xl border-2 border-ink bg-ticket px-3.5 text-[15px] text-ink" />
-        <button type="submit" disabled={busy} className="min-h-[46px] rounded-xl bg-cardinal px-[18px] text-[15px] font-semibold text-ticket disabled:opacity-60">Send</button>
+          className="box-border min-h-[46px] min-w-0 flex-1 rounded-full border border-rule bg-white px-4 focus:border-ink text-[15px] text-ink" />
+        <button type="submit" disabled={busy} className="min-h-[46px] rounded-full bg-ink px-5 text-[15px] font-semibold text-white disabled:opacity-60">Send</button>
       </form>
       <p className="mb-2 px-4 text-center text-[11px] leading-[1.4] text-muted">
-        The Navigator understands plain words, and the rules engine decides what fits. It never sets sensitive details.
+        Try asking <span className="font-semibold text-ink">"Why don't I qualify for the travel award?"</span> or <span className="font-semibold text-ink">"What do I need for the food pantry?"</span>
       </p>
     </main>
   );

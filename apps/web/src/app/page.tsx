@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Rings } from "@/components/bits";
+
 import { SCMark } from "@/components/SCMark";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
@@ -11,9 +11,9 @@ import type { Persona } from "@/lib/types";
 
 // Decorative tickets. Each one is an approved record, shown with its approved title and amount.
 const FLOATERS = [
-  { r: "-9deg", left: 22, top: 34, delay: "0s", stub: ["#FFCC00", "#1A1210"], cat: "CASH", big: "$1,000", provider: "CAMPUS SUPPORT", title: "CSI Emergency Loan" },
-  { r: "6deg", left: 150, top: 86, delay: "-1.6s", stub: ["#1A1210", "#FFCC00"], cat: "LEGAL", big: "HELP", provider: "USG AND GSG", title: "Free legal counseling" },
-  { r: "-4deg", left: 42, top: 150, delay: "-3.2s", stub: ["#F1C6C0", "#5C0000"], cat: "SCHOLAR", big: "$3,000", provider: "DORNSIFE", title: "SURF / SHURE research" },
+  { r: "-9deg", left: 22, top: 34, delay: "0s", stub: ["#FFC72C", "#111111"], cat: "CASH", big: "$1,000", provider: "CAMPUS SUPPORT", title: "CSI Emergency Loan" },
+  { r: "6deg", left: 150, top: 86, delay: "-1.6s", stub: ["#111111", "#FFC72C"], cat: "LEGAL", big: "HELP", provider: "USG AND GSG", title: "Free legal counseling" },
+  { r: "-4deg", left: 42, top: 150, delay: "-3.2s", stub: ["#F6D5D9", "#111111"], cat: "SCHOLAR", big: "$3,000", provider: "DORNSIFE", title: "SURF / SHURE research" },
 ];
 const MARQUEE = "EMERGENCY LOANS · LEGAL HELP · TRAVEL AWARDS · RESEARCH FELLOWSHIPS · LAPTOP LOANS · FOOD PANTRY · RESUME REVIEW · ";
 
@@ -47,8 +47,7 @@ export default function Welcome() {
   }
 
   return (
-    <main className="relative flex min-h-dvh flex-col overflow-hidden bg-cardinal text-ticket">
-      <Rings size={520} radii={[60, 100, 140, 180, 220]} className="-right-[230px] -top-[150px]" />
+    <main className="relative flex min-h-dvh flex-col overflow-hidden bg-ink text-white">
       <div className="relative px-[26px] pt-[30px]">
         <div className="mb-[18px] flex items-center gap-2.5">
           <SCMark height={30} />
@@ -85,9 +84,9 @@ export default function Welcome() {
         <p className="mb-4 text-[14.5px] leading-normal text-blush">Build your card once. We match you to every fund, clinic and service you qualify for, then an AI agent does the paperwork.</p>
         {(error || problem) && <p role="alert" className="mb-3 rounded-lg bg-cardinal-dark p-3 text-sm">Can't reach the Unclaimed API: {problem ?? error}</p>}
         {card ? (
-          <Link href="/wallet" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink shadow-[0_4px_0_#5C0000]">Open my wallet</Link>
+          <Link href="/wallet" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink">Open my wallet</Link>
         ) : (
-          <Link href="/build" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink shadow-[0_4px_0_#5C0000]">Build my Trojan card</Link>
+          <Link href="/build" className="flex min-h-[54px] w-full items-center justify-center rounded-xl bg-gold text-[17px] font-semibold text-ink">Build my Trojan card</Link>
         )}
         {personas ? (
           <div className="mt-3 flex flex-col gap-2" role="group" aria-label="Demo students">
@@ -95,12 +94,12 @@ export default function Welcome() {
               <button key={p.id} type="button" onClick={() => loadDemo(p)} disabled={loading}
                 className="min-h-[44px] w-full rounded-xl border-2 border-gold bg-transparent px-3.5 py-2 text-left disabled:opacity-60">
                 <span className="block font-display text-[17px] font-bold text-gold">{p.name}</span>
-                <span className="block text-[13px] leading-snug text-[#FFE9D6]">{p.summary}</span>
+                <span className="block text-[13px] leading-snug text-[#E5E5E0]">{p.summary}</span>
               </button>
             ))}
           </div>
         ) : (
-          <button type="button" onClick={showPersonas} className="mt-1.5 min-h-[44px] w-full text-sm font-medium text-[#FFE9D6] underline">
+          <button type="button" onClick={showPersonas} className="mt-1.5 min-h-[44px] w-full text-sm font-medium text-[#E5E5E0] underline">
             Skip: load a demo student
           </button>
         )}

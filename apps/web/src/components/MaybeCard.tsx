@@ -24,17 +24,17 @@ export function MaybeCard({ item, resource }: { item: MatchItem; resource: Resou
   const depends = item.unknown.map((f) => ABOUT[f] ?? f.replace(/_/g, " ")).join(" and ");
 
   return (
-    <div className="mb-3 rounded-[10px] border-2 border-dashed border-sand px-4 py-3.5">
+    <div className="mb-3 rounded-2xl border border-dashed border-sand bg-white/60 px-5 py-4 transition-colors hover:border-ink">
       <button type="button" aria-expanded={open} onClick={() => setOpen(!open)} className="flex min-h-[44px] w-full items-start gap-3 text-left">
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" className="mt-0.5 flex-none"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="#5E524C" strokeWidth="1.8" /><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="#5E524C" strokeWidth="1.8" /></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" className="mt-0.5 flex-none"><rect x="4" y="9" width="12" height="9" rx="2" fill="none" stroke="#6B6B6B" strokeWidth="1.6" /><path d="M7 9V6.5a3 3 0 0 1 6 0V9" fill="none" stroke="#6B6B6B" strokeWidth="1.6" /></svg>
         <span>
-          <span className="mb-[3px] block font-display text-[17px] font-bold leading-[1.2] text-body">{resource.title}</span>
+          <span className="mb-1 block font-display text-[17px] font-semibold leading-[1.2] text-ink">{resource.title}</span>
           <span className="block text-[13px] leading-[1.4] text-muted">{depends ? `Depends on ${depends}.` : "Needs a check by the office."} {spec ? (open ? "" : "Tap to answer.") : ""}</span>
         </span>
       </button>
       {open && spec && field && (
-        <div className="mt-3 border-t border-dashed border-rule pt-3">
-          <div className="mb-1 font-display text-lg font-bold leading-tight">{spec.question}</div>
+        <div className="mt-3 border-t border-rule pt-3">
+          <div className="mb-2 font-display text-lg font-semibold leading-tight">{spec.question}</div>
           {spec.why && <p className="mb-2 text-[13px] leading-snug text-muted"><b>Why we ask:</b> {spec.why}</p>}
           <AnswerControls spec={spec} dark={false} busy={busy} onAnswer={async (v) => { setBusy(true); try { await answer(field, v); } finally { setBusy(false); } }} />
           <Link href={`/ticket/${resource.id}`} className="mt-2 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">See the full ticket</Link>

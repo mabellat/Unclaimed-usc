@@ -2,14 +2,14 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { BackButton, Check, ErrorBox, Loading, Rings, Scallop, outlineBtn, primaryBtn } from "@/components/bits";
+import { BackButton, Check, ErrorBox, Loading, outlineBtn, primaryBtn } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 import { capitalize } from "@/lib/ui";
 import type { Packet } from "@/lib/types";
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D8CDB8]">
+  <section className="rounded-xl bg-ticket px-[18px] py-4">
     <h2 className="mb-2.5 font-label text-xs font-normal uppercase tracking-[.16em] text-cardinal">{title}</h2>
     {children}
   </section>
@@ -62,14 +62,12 @@ export default function PacketPage() {
   return (
     <main className="flex min-h-dvh flex-col">
       <div className="flex-1">
-        <header className="relative overflow-hidden bg-cardinal px-5 pb-[22px] pt-2.5 text-ticket">
-          <Rings size={200} radii={[30, 55, 80, 105]} className="-right-[70px] -top-[60px]" />
+        <header className="relative overflow-hidden bg-ink px-5 pb-[22px] pt-2.5 text-white">
           <BackButton href={`/ticket/${id}`} label="Back" light />
-          <div className="relative mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">Claim packet ready</div>
+          <div className="relative mb-2 font-label text-[11px] font-medium uppercase tracking-[.12em] text-gold">Claim packet ready</div>
           <h1 className="relative mb-2 font-display text-[27px] font-bold leading-[1.1]">{p.title}</h1>
           <div className="relative text-sm leading-[1.4] text-cream">Review it, then send it yourself.</div>
         </header>
-        <Scallop color="#990000" />
 
         <div className="flex flex-col gap-4 px-5 pb-2.5 pt-[18px]">
           {p.source_check.status !== "verified" && (
@@ -85,8 +83,8 @@ export default function PacketPage() {
                 return (
                   <button key={i} type="button" role="checkbox" aria-checked={on} onClick={() => setChecks({ ...checks, [i]: !on })}
                     className="flex min-h-[44px] w-full items-center gap-3 py-1 text-left text-[15px] leading-[1.35] text-ink">
-                    <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-cardinal bg-cardinal" : "border-ink bg-ticket"}`}>
-                      {on && <Check color="#FFFCF5" size={14} width={2.4} />}
+                    <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-ink bg-ink" : "border-sand bg-white"}`}>
+                      {on && <Check color="#FFFFFF" size={14} width={2.4} />}
                     </span>
                     <span>
                       {capitalize(c.text)}
@@ -108,10 +106,10 @@ export default function PacketPage() {
               <span className="text-[12.5px] text-muted">Subject: {p.draft.subject}</span>
               <button type="button" onClick={copy} className="min-h-[44px] flex-none pl-3 text-sm font-semibold text-cardinal">{copied ? "Copied" : "Copy"}</button>
             </div>
-            <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#2A1E1A]">{p.draft.text}</p>
+            <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#222222]">{p.draft.text}</p>
             <button type="button" aria-expanded={showSources} onClick={() => setShowSources(!showSources)}
               className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 text-[13px] font-semibold text-cardinal">
-              <Check color="#990000" size={14} /> All {p.grounding.checked} statements checked against the source. {showSources ? "Hide" : "Show"} where each one comes from
+              <Check color="#9D2235" size={14} /> All {p.grounding.checked} statements checked against the source. {showSources ? "Hide" : "Show"} where each one comes from
             </button>
             {showSources && (
               <ol className="mt-1 flex flex-col gap-2.5 border-t border-dashed border-rule pt-3">
