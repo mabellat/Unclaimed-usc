@@ -46,38 +46,33 @@ export default function Ticket() {
     : idx < 3 ? { href: "/claims", label: "Track it in Claims" }
     : null;
   const verdict = status === "yes" ? { text: "You qualify", cls: "bg-gold text-ink" }
-    : status === "maybe" ? { text: "One answer away", cls: "bg-ticket text-ink" }
-    : { text: "Not a fit right now", cls: "bg-[rgba(0,0,0,.25)] text-ticket" };
+    : status === "maybe" ? { text: "One answer away", cls: "bg-white text-ink" }
+    : { text: "Not a fit right now", cls: "bg-white/10 text-white" };
 
   return (
     <main>
-      <Band color="#990000">
-        <Link href="/wallet" className="mb-5 inline-flex min-h-[44px] items-center gap-1.5 pr-3 text-[15px] text-[#FFE9D6] hover:underline">
+      <Band>
+        <Link href="/wallet" className="mb-5 inline-flex min-h-[44px] items-center gap-1.5 pr-3 text-[15px] text-[#E5E5E0] hover:underline">
           <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M11 3L5 9l6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
           Back to my wallet
         </Link>
         <div className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div className="max-w-[720px]">
             <div className="mb-3 flex flex-wrap items-center gap-3">
-              <span className="font-label text-[13px] uppercase tracking-[.16em] text-gold">{r.provider}</span>
-              <span className={`rounded-full px-3 py-1 text-[13px] font-semibold ${verdict.cls}`}>{verdict.text}</span>
+              <span className="font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-white/60">{r.provider}</span>
+              <span className={`rounded-full px-3 py-1 font-label text-[11px] font-medium uppercase tracking-[.06em] ${verdict.cls}`}>{verdict.text}</span>
             </div>
-            <h1 className="mb-3 font-display text-[40px] font-bold leading-[1.05] tracking-[-0.015em] md:text-[52px]">{r.title}</h1>
-            <p className="text-lg font-medium leading-snug text-cream">{capitalize(r.benefit?.label ?? "")}</p>
+            <h1 className="mb-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.04em] md:text-[56px]">{r.title}</h1>
+            <p className="text-lg leading-snug text-white/70">{capitalize(r.benefit?.label ?? "")}</p>
           </div>
-          <div aria-hidden="true" className="relative flex h-[150px] w-[230px] flex-none rotate-[4deg] overflow-hidden rounded-xl shadow-[0_18px_30px_rgba(0,0,0,.35)]">
-            <div className="flex w-[96px] flex-col items-center justify-center" style={{ background: stub.bg, color: stub.fg }}>
-              <span className="font-label text-[11px] tracking-[.18em]">{stub.label}</span>
-              <span className="mt-1 text-center font-label text-[26px] font-semibold leading-none">{value != null ? money(value) : stub.word}</span>
+          <div aria-hidden="true" className="relative w-full max-w-[280px] flex-none rounded-[22px] border border-white/10 bg-white/[.06] p-6">
+            <div className="flex items-center gap-2 font-label text-[11px] font-medium uppercase tracking-[.12em] text-white/60">
+              <span className="h-2.5 w-2.5 rounded-full ring-1 ring-white/20" style={{ background: stub.bg }} />{stub.label}
             </div>
-            <div className="w-0 border-l-2 border-dashed border-rule" />
-            <div className="flex flex-1 flex-col justify-between bg-ticket p-3.5 text-ink">
-              <span className="font-label text-[10px] tracking-[.14em] text-cardinal">ADMIT ONE</span>
-              <span className="font-display text-[15px] font-bold leading-tight">{r.title}</span>
-              <span className="barcode h-4 opacity-100 [filter:brightness(.3)]" />
-            </div>
+            <div className="mt-4 font-display text-[52px] font-extrabold leading-none tracking-[-0.04em]">{value != null ? money(value) : <span className="text-[34px] text-white/80">{capitalize(stub.word.toLowerCase())}</span>}</div>
+            <div className="mt-2 font-label text-[11px] uppercase tracking-[.1em] text-white/50">{value != null ? (r.benefit?.period ? `per ${r.benefit.period.replace(/^per /, "")}` : "stated on the source page") : "no amount published"}</div>
             {idx === 3 && (
-              <div className="ustamp absolute inset-0 m-auto h-fit w-fit rounded-lg border-4 border-cardinal bg-[rgba(255,252,245,.85)] px-3 py-1 font-label text-[28px] font-semibold tracking-[.12em] text-cardinal">CLAIMED</div>
+              <div className="ustamp absolute right-4 top-4 rounded-md border-2 border-gold px-2 py-0.5 font-label text-sm font-semibold tracking-[.12em] text-gold">CLAIMED</div>
             )}
           </div>
         </div>
@@ -90,7 +85,7 @@ export default function Ticket() {
               <div className="grid gap-3 sm:grid-cols-2">
                 {[...new Set(item!.why.map((w) => w.text))].map((text) => (
                   <div key={text} className="flex items-start gap-3 rounded-xl bg-paper px-4 py-3 text-[15px] leading-[1.4]">
-                    <span className="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-cardinal"><Check color="#FFFCF5" size={14} width={2.4} /></span>
+                    <span className="mt-0.5 inline-flex h-6 w-6 flex-none items-center justify-center rounded-full bg-ink"><Check color="#FFFFFF" size={13} width={2.4} /></span>
                     <span>{capitalize(text)}</span>
                   </div>
                 ))}
@@ -164,17 +159,17 @@ export default function Ticket() {
           )}
 
           {status === "yes" && idx < 0 && !r.deadline?.closed && (
-            <section className="rounded-2xl bg-ink p-6 text-ticket">
-              <div className="mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">Your claim agent</div>
+            <section className="rounded-[24px] bg-ink p-7 text-white">
+              <div className="mb-2 font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-white/60">Your claim agent</div>
               <div className="mb-4 font-display text-2xl font-bold leading-[1.2]">Let it do the paperwork.</div>
               <ol className="grid gap-3 sm:grid-cols-2">
                 {["Re-checks the source page right now", "Works out exactly what you need to prepare", "Drafts your message from your card", "Checks every statement against the source"].map((t, i) => (
-                  <li key={t} className="flex items-start gap-3 text-[15px] leading-snug text-[#EFE3D2]">
+                  <li key={t} className="flex items-start gap-3 text-[15px] leading-snug text-white/65">
                     <span className="inline-flex h-7 w-7 flex-none items-center justify-center rounded-full bg-gold font-label text-sm font-semibold text-ink">{i + 1}</span>{t}
                   </li>
                 ))}
               </ol>
-              <p className="mt-4 text-sm leading-[1.45] text-cream">You stay in control. Nothing is sent until you send it yourself.</p>
+              <p className="mt-4 text-sm leading-[1.45] text-white/60">You stay in control. Nothing is sent until you send it yourself.</p>
             </section>
           )}
 

@@ -17,7 +17,7 @@ export function AnswerControls({ spec, onAnswer, onSkip, dark = true, busy = fal
   busy?: boolean;
 }) {
   const [picked, setPicked] = useState<string[]>([]);
-  const btn = `min-h-[46px] flex-1 rounded-[10px] px-3 text-[15px] font-semibold disabled:opacity-60 ${dark ? "bg-ink text-ticket" : "border-2 border-ink bg-ticket text-ink"}`;
+  const btn = `min-h-[46px] flex-1 rounded-[10px] px-3 text-[15px] font-semibold disabled:opacity-60 ${dark ? "bg-ink text-ticket" : "border border-ink bg-white text-ink"}`;
   const skip = onSkip && (
     <button type="button" onClick={onSkip} disabled={busy} className="mt-2 min-h-[44px] w-full text-sm font-medium text-ink underline">
       {spec.sensitive ? "Prefer not to say" : "Not now"}
@@ -39,11 +39,21 @@ export function AnswerControls({ spec, onAnswer, onSkip, dark = true, busy = fal
   if (spec.type === "enum") {
     return (
       <div>
-        <div className="flex flex-wrap gap-2">
-          {values.map((v) => (
-            <button key={v} type="button" disabled={busy} className={`${btn} basis-[calc(50%-4px)]`} onClick={() => onAnswer(v)}>{label(v)}</button>
-          ))}
-        </div>
+        {/* Two short choices sit side by side; anything longer gets one full-width row each so nothing wraps awkwardly. */}
+        {values.length === 2 && values.every((v) => label(v).length <= 14) ? (
+          <div className="flex gap-2.5">
+            {values.map((v) => <button key={v} type="button" disabled={busy} className={btn} onClick={() => onAnswer(v)}>{label(v)}</button>)}
+          </div>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {values.map((v) => (
+              <button key={v} type="button" disabled={busy} className={`${btn} flex w-full flex-none items-center justify-between gap-3 px-4 py-2.5 text-left leading-snug`} onClick={() => onAnswer(v)}>
+                <span>{label(v)}</span>
+                <svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true" className="flex-none opacity-70"><path d="M6 3l5 5-5 5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+              </button>
+            ))}
+          </div>
+        )}
         {skip}
       </div>
     );
@@ -57,8 +67,8 @@ export function AnswerControls({ spec, onAnswer, onSkip, dark = true, busy = fal
             <button key={v} type="button" role="checkbox" aria-checked={on} disabled={busy}
               onClick={() => setPicked(on ? picked.filter((x) => x !== v) : [...picked, v])}
               className="flex min-h-[44px] w-full items-center gap-3 text-left text-[15px] text-ink">
-              <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-cardinal bg-cardinal" : "border-ink bg-ticket"}`}>
-                {on && <Check color="#FFFCF5" size={14} width={2.4} />}
+              <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-ink bg-ink" : "border-sand bg-white"}`}>
+                {on && <Check color="#FFFFFF" size={14} width={2.4} />}
               </span>
               {spec.labels?.[v] ?? v}
             </button>
@@ -80,7 +90,7 @@ export function QuestionNudge({ count }: { count: number }) {
   const jump = () => document.getElementById("one-question")?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
     <button type="button" onClick={jump}
-      className="mb-[22px] flex min-h-[48px] w-full items-center justify-between gap-3 rounded-xl bg-gold px-4 py-2.5 text-left shadow-[3px_3px_0_#1A1210]">
+      className="mb-[22px] flex min-h-[48px] w-full items-center justify-between gap-3 rounded-xl bg-gold px-4 py-2.5 text-left shadow-[0_1px_2px_rgba(0,0,0,.06),0_8px_24px_rgba(0,0,0,.06)]">
       <span className="text-[15px] leading-snug text-ink">
         <b className="font-semibold">One quick question</b> could unlock {count} more
       </span>
@@ -107,8 +117,8 @@ export function QuestionCard({ field, spec, count, onAnswer, onSkip }: {
     }
   };
   return (
-    <section id="one-question" aria-label="One question" className="mb-[22px] scroll-mt-4 rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#1A1210]">
-      <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em] text-ink">One question</div>
+    <section id="one-question" aria-label="One question" className="mb-[22px] scroll-mt-4 rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[0_1px_2px_rgba(0,0,0,.06),0_8px_24px_rgba(0,0,0,.06)]">
+      <div className="mb-1.5 font-label text-[11px] font-medium uppercase tracking-[.12em] text-ink">One question</div>
       <div className="mb-1 font-display text-[22px] font-bold leading-[1.15] text-ink">{spec.question}</div>
       <div className="mb-3.5 text-sm text-ink">Answering could unlock {count} more.</div>
       {spec.why && <p className="-mt-2 mb-3.5 text-[13px] leading-snug text-ink"><b>Why we ask:</b> {spec.why}</p>}

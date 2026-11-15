@@ -382,7 +382,7 @@ def test_cached_claude_draft_is_used_when_claude_is_down_and_still_checked(setup
     cache = demo_cache.load("marcus", "gsg-travel-award", packet["data_version"])
     events = list(claim_graph.run_claim(setup, "stu1", "gsg-travel-award", FakeLLM([LLMError("offline")]), fetch_ok, TODAY, cache))
     draft_ev = next(e["event"] for e in events if "event" in e and e["event"]["node"] == "draft")
-    assert draft_ev["mode"] == "ai-cached" and "cached for this demo" in draft_ev["result"]
+    assert draft_ev["mode"] == "ai-cached" and "cached for this demo" in draft_ev["note"]
     p = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
     assert p["draft"]["mode"] == "ai-cached" and p["grounding"]["passed"]
 

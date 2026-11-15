@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Kicker, Note, Scallop, Track } from "@/components/bits";
+import { Kicker, Note, Track } from "@/components/bits";
 import { api } from "@/lib/api";
 import { totalValue, useStudent } from "@/lib/student";
 import { money } from "@/lib/ui";
 import type { Claim } from "@/lib/types";
 
 const DAYS = [1, 7, 30];
-const PILL = ["bg-[#FFE680] text-ink", "bg-ink text-gold", "bg-ink text-gold", "bg-cardinal text-ticket"];
+const PILL = ["bg-[#FFF1C2] text-[#6B4E00]", "bg-ink text-white", "bg-ink text-white", "bg-[#DCEFE1] text-[#14532D]"];
 
 function line(c: Claim) {
   if (c.stage_index === 0) return "Draft ready. Send it to the office yourself to start the clock.";
@@ -47,7 +47,7 @@ export default function Claims() {
       <header className="bg-cardinal-dark px-5 pb-5 pt-[22px] text-ticket">
         <Kicker className="mb-1.5 text-gold">Your claims</Kicker>
         <h1 className="mb-3.5 font-display text-[28px] font-bold leading-[1.1]">From first draft to money in hand.</h1>
-        <div className="mb-2 text-[13px] text-[#F0DCCB]">Demo clock. Skip ahead to see the app over a semester.</div>
+        <div className="mb-2 text-[13px] text-white/65">Demo clock. Skip ahead to see the app over a semester.</div>
         <div className="flex gap-2">
           {DAYS.map((d) => (
             <button key={d} type="button" aria-pressed={day === d} onClick={() => pick(d)}
@@ -55,12 +55,11 @@ export default function Claims() {
           ))}
         </div>
       </header>
-      <Scallop color="#5C0000" />
       <div className="flex flex-col gap-3.5 px-5 pb-5 pt-[18px]">
         {/* Only money claims have a recap; a service used is not a dollar amount. */}
         {day >= 30 && got > 0 && (
-          <div className="rounded-[14px] bg-gold p-[18px] shadow-[4px_4px_0_#1A1210]">
-            <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em]">Semester recap</div>
+          <div className="rounded-[14px] bg-gold p-[18px] shadow-[0_1px_2px_rgba(0,0,0,.06),0_8px_24px_rgba(0,0,0,.06)]">
+            <div className="mb-1.5 font-label text-[11px] font-medium uppercase tracking-[.12em]">Semester recap</div>
             <div className="flex items-baseline gap-2.5"><span className="font-label text-[44px] font-semibold leading-none">{money(got)}</span><span className="text-sm">received</span></div>
             <div className="mt-2 text-sm leading-[1.45]">
               {done > 0
@@ -70,15 +69,15 @@ export default function Claims() {
           </div>
         )}
         {claims && claims.length === 0 && (
-          <div className="rounded-[14px] border-2 border-dashed border-sand px-[18px] py-[22px] text-center">
+          <div className="rounded-[14px] border border-dashed border-sand px-[18px] py-[22px] text-center">
             <div className="mb-1.5 font-display text-xl font-bold">Nothing started yet</div>
             <div className="mb-3.5 text-sm leading-normal text-muted">Open a ticket in your wallet and tap Claim it for me. It shows up here and we track it for you.</div>
-            <Link href="/wallet" className="inline-flex min-h-[46px] items-center rounded-[10px] bg-cardinal px-5 text-[15px] font-semibold text-ticket">Go to my wallet</Link>
+            <Link href="/wallet" className="inline-flex min-h-[46px] items-center rounded-full bg-ink px-5 text-[15px] font-semibold text-white">Go to my wallet</Link>
           </div>
         )}
         {(claims ?? []).map((c) => (
           <Link key={c.resource_id} href={`/ticket/${c.resource_id}`} aria-label={`${c.title}, status ${c.stage}. Open details.`}
-            className="block w-full rounded-xl bg-ticket px-4 pb-3.5 pt-4 text-left text-ink shadow-[0_1px_0_#D8CDB8,0_8px_16px_rgba(60,20,10,.08)]">
+            className="block w-full rounded-xl bg-ticket px-4 pb-3.5 pt-4 text-left text-ink shadow-[0_1px_0_#E4E4DE,0_8px_16px_rgba(0,0,0,.08)]">
             <span className="mb-3 flex items-start justify-between gap-2.5">
               <span className="font-display text-lg font-bold leading-[1.15]">{c.title}</span>
               <span className={`flex-none rounded px-2 py-1 font-label text-[11.5px] uppercase tracking-[.1em] ${PILL[c.stage_index]}`}>{c.stage}</span>

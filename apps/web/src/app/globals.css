@@ -2,9 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Motion and focus styles from reference/prototype.html */
-button:focus-visible { outline: 3px solid #FFCC00; outline-offset: 2px; box-shadow: 0 0 0 5px #1A1210; }
-a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offset: 2px; }
+/* Type: one grotesque for headlines (tight), mono for labels and numbers. The display face has no
+   italic, so accent words get colour instead of a fake slant. */
+.font-display { letter-spacing: -0.025em; font-variation-settings: "opsz" 96; }
+.font-display.italic, .font-display .italic { font-style: normal; }
+.font-label { font-variant-numeric: tabular-nums; }
+::selection { background: #FFC72C; color: #111111; }
+
+/* ---- The finishing layer: depth and a little shine, all in cardinal and gold ---- */
+
+/* A fine paper grain over everything, so white never reads as flat. */
+body::after { content: ""; position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .045; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+/* Words that matter get a slow cardinal-to-gold shimmer. */
+@keyframes usheen { from { background-position: 0% 50% } to { background-position: 200% 50% } }
+.text-sheen { background: linear-gradient(100deg, #9D2235 0%, #C8475E 25%, #FFC72C 50%, #C8475E 75%, #9D2235 100%); background-size: 200% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent; animation: usheen 6s linear infinite; }
+
+/* Cards get a cardinal-to-gold edge when you hover them. */
+.magic { position: relative; }
+.magic::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none; z-index: 2;
+  background: linear-gradient(135deg, #9D2235, #FFC72C 55%, #9D2235);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude;
+  opacity: 0; transition: opacity .3s ease; }
+.magic:hover::before, .magic:focus-visible::before { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) { .text-sheen { animation: none; } }
+
+/* Motion and focus styles */
+button:focus-visible { outline: 2px solid #111111; outline-offset: 3px; }
+a:focus-visible, input:focus-visible { outline: 2px solid #111111; outline-offset: 3px; }
 
 @keyframes ustamp { 0% { transform: rotate(-14deg) scale(2.2); opacity: 0 } 60% { transform: rotate(-14deg) scale(.94); opacity: 1 } 100% { transform: rotate(-14deg) scale(1); opacity: .95 } }
 .ustamp { animation: ustamp .45s cubic-bezier(.2,.9,.3,1) both; }
@@ -25,5 +53,6 @@ a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offse
 .flip-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .flip-back { transform: rotateY(180deg); }
 @media (prefers-reduced-motion: reduce) { .flip-inner { transition: none; } }
-.barcode { background: repeating-linear-gradient(90deg, #FFCC00 0 2px, transparent 2px 4px, #FFCC00 4px 5px, transparent 5px 9px, #FFCC00 9px 12px, transparent 12px 14px); opacity: .9; }
-.flip { background: linear-gradient(#2E0000 0%, #2E0000 49%, #190000 50%, #3A0000 100%); box-shadow: 0 2px 0 #000; }
+.barcode { background: repeating-linear-gradient(90deg, #FFFFFF 0 2px, transparent 2px 4px, #FFC72C 4px 5px, transparent 5px 9px, #FFC72C 9px 12px, transparent 12px 14px); opacity: .35; }
+/* Number tiles: flat black with a hairline split, like a departures board. */
+.flip { background: #161616 linear-gradient(transparent calc(50% - .5px), rgba(255,255,255,.08) calc(50% - .5px), rgba(255,255,255,.08) calc(50% + .5px), transparent calc(50% + .5px)); border: 1px solid #2A2A2A; }

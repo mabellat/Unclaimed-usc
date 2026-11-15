@@ -1,23 +1,23 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Inter, Oswald } from "next/font/google";
+import { Bricolage_Grotesque, Hanken_Grotesk, JetBrains_Mono } from "next/font/google";
 import { StudentProvider } from "@/lib/student";
 import "@/app/globals.css";
 import "./globals.css";
 
-const fraunces = Fraunces({ subsets: ["latin"], weight: ["500", "700"], style: ["normal", "italic"], variable: "--font-fraunces" });
-const inter = Inter({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-inter" });
-const oswald = Oswald({ subsets: ["latin"], weight: ["500", "600"], variable: "--font-oswald" });
+const display = Bricolage_Grotesque({ subsets: ["latin"], weight: ["500", "600", "700", "800"], variable: "--font-display" });
+const sans = Hanken_Grotesk({ subsets: ["latin"], weight: ["400", "500", "600", "700"], variable: "--font-sans" });
+const mono = JetBrains_Mono({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "Unclaimed",
   description: "USC has set money and help aside. Unclaimed finds what's yours, then an AI agent does the paperwork.",
 };
 
-export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#990000" };
+export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#111111" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable} ${oswald.variable}`}>
+    <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body className="m-0 min-h-dvh bg-paper font-sans text-ink antialiased">
         <StudentProvider>{children}</StudentProvider>
       </body>

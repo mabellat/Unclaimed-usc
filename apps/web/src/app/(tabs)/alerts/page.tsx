@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { Kicker, Note, Scallop } from "@/components/bits";
+import { Kicker, Note } from "@/components/bits";
 import { api } from "@/lib/api";
 import { markAlertsSeen } from "@/lib/seen";
 import { useStudent } from "@/lib/student";
@@ -10,7 +10,7 @@ import { hostOf, prettyDate } from "@/lib/ui";
 import type { Alert } from "@/lib/types";
 
 const TONE: Record<string, string> = {
-  ink: "bg-ink text-gold", gold: "bg-[#FFE680] text-ink", cardinal: "bg-cardinal text-ticket", green: "bg-[#DDF0DD] text-[#14501F]",
+  ink: "bg-ink text-white", gold: "bg-[#FFF1C2] text-[#6B4E00]", cardinal: "bg-cardinal text-white", green: "bg-[#DCEFE1] text-[#14532D]",
 };
 const OUTCOMES: [("received" | "denied" | "waiting"), string][] = [["received", "Got it"], ["denied", "Turned down"], ["waiting", "Still waiting"]];
 
@@ -44,12 +44,11 @@ export default function Alerts() {
       <header className="bg-cardinal-dark px-5 pb-5 pt-[22px] text-ticket">
         <Kicker className="mb-1.5 text-gold">Alerts</Kicker>
         <h1 className="mb-2 font-display text-[28px] font-bold leading-[1.1]">We keep watching so you don't have to.</h1>
-        <p className="text-sm leading-normal text-[#F0DCCB]">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
+        <p className="text-sm leading-normal text-white/65">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
       </header>
-      <Scallop color="#5C0000" />
       <div className="flex flex-col gap-3 px-5 pb-5 pt-[18px]">
         {(alerts ?? []).map((a) => (
-          <div key={a.key} className="rounded-xl bg-ticket px-4 py-3.5 shadow-[0_1px_0_#D8CDB8]">
+          <div key={a.key} className="rounded-xl bg-ticket px-4 py-3.5">
             <div className="mb-2 flex items-center justify-between gap-2">
               <span className={`rounded px-2 py-[3px] font-label text-[11.5px] tracking-[.12em] ${TONE[a.tone]}`}>{a.tag}</span>
               <span className="font-label text-xs tracking-[.1em] text-muted">
@@ -79,12 +78,12 @@ export default function Alerts() {
                 ))}
               </div>
             )}
-            {a.quote && <p className="mt-2.5 rounded-lg bg-paper px-3 py-2.5 font-display text-sm italic leading-normal text-[#2A1E1A]">{a.quote}</p>}
+            {a.quote && <p className="mt-2.5 rounded-lg bg-paper px-3 py-2.5 font-display text-sm italic leading-normal text-[#222222]">{a.quote}</p>}
             {a.ask_outcome && (
               thanks[a.key] ? <p className="mt-2.5 text-sm font-medium text-[#14501F]">{thanks[a.key]}</p> : (
                 <div className="mt-2.5 flex flex-wrap gap-2">
                   {OUTCOMES.map(([o, label]) => (
-                    <button key={o} type="button" onClick={() => report(a, o)} className="min-h-[44px] flex-1 rounded-[10px] border-2 border-ink bg-ticket px-3 text-sm font-semibold text-ink">{label}</button>
+                    <button key={o} type="button" onClick={() => report(a, o)} className="min-h-[44px] flex-1 rounded-[10px] border border-ink bg-white px-3 text-sm font-semibold text-ink">{label}</button>
                   ))}
                 </div>
               )

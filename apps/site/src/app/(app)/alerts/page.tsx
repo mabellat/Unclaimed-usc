@@ -12,9 +12,9 @@ import { Reveal } from "@site/components/Motion";
 import { Band, WRAP } from "@site/components/Shell";
 
 const TONE: Record<string, string> = {
-  ink: "bg-ink text-gold", gold: "bg-[#FFE680] text-ink", cardinal: "bg-cardinal text-ticket", green: "bg-[#DDF0DD] text-[#14501F]",
+  ink: "bg-ink text-white", gold: "bg-[#FFF1C2] text-[#6B4E00]", cardinal: "bg-cardinal text-white", green: "bg-[#DCEFE1] text-[#14532D]",
 };
-const EDGE: Record<string, string> = { ink: "#1A1210", gold: "#FFCC00", cardinal: "#990000", green: "#2E7D3A" };
+const EDGE: Record<string, string> = { ink: "#111111", gold: "#FFC72C", cardinal: "#9D2235", green: "#2E7D3A" };
 const OUTCOMES: [("received" | "denied" | "waiting"), string][] = [["received", "Got it"], ["denied", "Turned down"], ["waiting", "Still waiting"]];
 
 export default function Alerts() {
@@ -46,15 +46,15 @@ export default function Alerts() {
     <main>
       <Band>
         <div className="max-w-[720px]">
-          <div className="mb-2 font-label text-[13px] uppercase tracking-[.16em] text-gold">Alerts</div>
-          <h1 className="mb-3 font-display text-[40px] font-bold leading-[1.08] md:text-[48px]">We keep watching so you don't have to.</h1>
-          <p className="text-base leading-normal text-[#F0DCCB]">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
+          <div className="mb-2 font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-white/60">Alerts</div>
+          <h1 className="mb-3 font-display text-[40px] font-bold leading-[1.02] tracking-[-0.04em] md:text-[52px]">We keep watching so you don't have to.</h1>
+          <p className="text-base leading-normal text-white/65">Every night we re-read each source page. When something changes, a person approves it before it reaches you.</p>
         </div>
       </Band>
 
       <div className={`${WRAP} pb-14 pt-8`}>
         {alerts && alerts.length === 0 && (
-          <div className="mx-auto max-w-[560px] rounded-2xl border-2 border-dashed border-sand bg-ticket px-8 py-12 text-center">
+          <div className="mx-auto max-w-[560px] rounded-2xl border border-dashed border-sand bg-white px-8 py-12 text-center">
             <div className="mb-2 font-display text-[26px] font-bold">All quiet</div>
             <div className="text-[15px] leading-normal text-muted">Nothing new on the pages behind your tickets. We'll tell you when something changes.</div>
           </div>
@@ -62,7 +62,7 @@ export default function Alerts() {
         <div className="gap-5 md:columns-2">
           {(alerts ?? []).map((a, i) => (
             <Reveal key={a.key} delay={(i % 4) * 80} className="mb-5 break-inside-avoid">
-            <div className="break-inside-avoid overflow-hidden rounded-2xl bg-ticket shadow-[0_1px_0_#D8CDB8,0_10px_24px_rgba(60,20,10,.06)]">
+            <div className="break-inside-avoid overflow-hidden rounded-2xl border border-rule bg-white">
               <div className="h-1.5" style={{ background: EDGE[a.tone] ?? EDGE.ink }} />
               <div className="px-6 py-5">
                 <div className="mb-2.5 flex items-center justify-between gap-2">
@@ -94,12 +94,12 @@ export default function Alerts() {
                     ))}
                   </div>
                 )}
-                {a.quote && <p className="mt-3 rounded-lg bg-paper px-4 py-3 font-display text-[15px] italic leading-normal text-[#2A1E1A]">{a.quote}</p>}
+                {a.quote && <p className="mt-3 rounded-lg bg-paper px-4 py-3 font-display text-[15px] italic leading-normal text-[#222222]">{a.quote}</p>}
                 {a.ask_outcome && (
                   thanks[a.key] ? <p className="mt-3 text-sm font-medium text-[#14501F]">{thanks[a.key]}</p> : (
                     <div className="mt-3 flex flex-wrap gap-2">
                       {OUTCOMES.map(([o, label]) => (
-                        <button key={o} type="button" onClick={() => report(a, o)} className="min-h-[44px] flex-1 rounded-xl border-2 border-ink bg-ticket px-3 text-sm font-semibold text-ink hover:bg-ink hover:text-ticket">{label}</button>
+                        <button key={o} type="button" onClick={() => report(a, o)} className="min-h-[44px] flex-1 rounded-xl border border-ink bg-white px-3 text-sm font-semibold text-ink hover:bg-ink hover:text-white">{label}</button>
                       ))}
                     </div>
                   )

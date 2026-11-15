@@ -1,28 +1,28 @@
 import type { Config } from "tailwindcss";
 
-// Tokens from reference/prototype.html (CLAUDE.md "Design").
+// Minimal theme (owner decision 2026-11-14): black and white, USC cardinal and gold as the only accents.
 export default {
   content: ["./src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        cardinal: "#990000",
-        "cardinal-dark": "#5C0000",
-        gold: "#FFCC00",
-        paper: "#F3EDE1",
-        ticket: "#FFFCF5",
-        ink: "#1A1210",
-        muted: "#5E524C",
-        rule: "#D8CDB8",
-        sand: "#B9AA8E",
-        body: "#3B302B",
-        blush: "#F6E3D6",
-        cream: "#FFE9A8",
+        cardinal: "#9D2235",
+        "cardinal-dark": "#111111",
+        gold: "#FFC72C",
+        paper: "#F4F4F1",
+        ticket: "#FFFFFF",
+        ink: "#111111",
+        muted: "#6B6B6B",
+        rule: "#E4E4DE",
+        sand: "#CFCFC8",
+        body: "#2A2A2A",
+        blush: "#D4D4CF",
+        cream: "#FFE7A3",
       },
       fontFamily: {
-        display: ["var(--font-fraunces)", "serif"],
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        label: ["var(--font-oswald)", "sans-serif"],
+        display: ["var(--font-display)", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        label: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
     },
   },

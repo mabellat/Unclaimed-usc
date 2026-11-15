@@ -30,22 +30,22 @@ export default function Scan() {
 
   return (
     <main className="flex min-h-dvh flex-col justify-center bg-cardinal-dark px-9 text-ticket">
-      <div className="mb-3 font-label text-[13px] uppercase tracking-[.16em] text-gold">Checking the rules</div>
+      <div className="mb-3 font-label text-[11.5px] font-medium uppercase tracking-[.12em] text-white/60">Checking the rules</div>
       <h1 className="mb-[30px] font-display text-[32px] font-bold leading-[1.1] tracking-[-0.01em]">Matching you against each office's approved rules.</h1>
       <ol className="flex flex-col gap-4" aria-live="polite">
         {rows.map((label, i) => {
           const done = step > i, cur = step === i;
           return (
-            <li key={label} className={`flex items-center gap-3.5 text-base ${done || cur ? "text-ticket" : "text-[#C9A99A]"}`}>
-              <span className={`inline-flex h-6 w-6 flex-none items-center justify-center rounded-full ${done ? "bg-gold" : cur ? "border-2 border-gold" : "border-2 border-[#8A4A44]"}`}>
-                {done && <Check color="#5C0000" size={14} width={2.4} />}
+            <li key={label} className={`flex items-center gap-3.5 text-base ${done || cur ? "text-ticket" : "text-[#A8A8A2]"}`}>
+              <span className={`inline-flex h-6 w-6 flex-none items-center justify-center rounded-full ${done ? "bg-gold" : cur ? "border-2 border-gold" : "border-2 border-[#6B6B6B]"}`}>
+                {done && <Check color="#111111" size={14} width={2.4} />}
               </span>
               <span>{label}</span>
             </li>
           );
         })}
       </ol>
-      <p className="mt-[34px] text-[13px] leading-normal text-[#E9D3C0]">AI reads the source pages into drafts that a person approves. A plain rules engine makes the match, so every result comes with a reason.</p>
+      <p className="mt-[34px] text-[13px] leading-normal text-[#C4C4BE]">AI reads the source pages into drafts that a person approves. A plain rules engine makes the match, so every result comes with a reason.</p>
     </main>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Kicker, Rings, Scallop } from "@/components/bits";
+import { Kicker } from "@/components/bits";
 import { QuestionCard, QuestionNudge } from "@/components/Answer";
 import { MaybeCard } from "@/components/MaybeCard";
 import { Scoreboard, useTicker } from "@/components/Scoreboard";
@@ -27,7 +27,7 @@ function MoreButton({ total, shown, page, onMore }: { total: number; shown: numb
   }
   return (
     <button type="button" onClick={() => onMore(shown + page)}
-      className="mb-4 min-h-[46px] w-full rounded-xl border-2 border-ink bg-ticket text-[15px] font-semibold text-ink">
+      className="mb-4 min-h-[46px] w-full rounded-xl border border-ink bg-white text-[15px] font-semibold text-ink">
       Show {Math.min(page, left)} more ({left} left)
     </button>
   );
@@ -55,23 +55,21 @@ export default function Wallet() {
   return (
     <main>
       <header className="relative overflow-hidden bg-cardinal-dark px-5 pb-[22px] pt-5 text-ticket">
-        <Rings size={200} radii={[30, 55, 80, 105]} opacity={0.16} className="-right-[70px] -top-20" />
         <Kicker className="relative mb-2.5 text-gold">Waiting for you</Kicker>
         <Scoreboard amount={totalValue(match, resources)} />
         <div className="relative text-[15px] leading-[1.4] text-blush">
           <span className="font-label text-lg font-semibold text-gold">{count}</span> things you qualify for
           {maybe.length > 0 && <>, <span className="font-label text-lg font-semibold text-ticket">{maybe.length}</span> more to confirm</>}
         </div>
-        <p className="relative mt-1.5 text-xs text-[#E9D3C0]">Counts only amounts the source pages state.</p>
+        <p className="relative mt-1.5 text-xs text-[#C4C4BE]">Counts only amounts the source pages state.</p>
       </header>
-      <Scallop color="#5C0000" />
 
       <div className="px-5 pb-2 pt-[18px]">
         {question && <QuestionNudge count={q!.count} />}
 
         <Kicker className="mb-3 text-cardinal">Yours to claim</Kicker>
         {yes.length === 0 && (
-          <div className="mb-4 rounded-xl border-2 border-dashed border-sand p-4 text-sm leading-normal text-muted">
+          <div className="mb-4 rounded-xl border border-dashed border-sand p-4 text-sm leading-normal text-muted">
             Nothing confirmed yet. Answer the question below, or open <Link href="/card" className="font-semibold text-cardinal underline">My card</Link> to pick what's going on.
           </div>
         )}
