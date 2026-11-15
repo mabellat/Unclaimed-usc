@@ -39,8 +39,8 @@ def test_snapshot_matches_the_rules_file():
     assert {r["id"] for r in RESOURCES} == set(rules)
     for r in RESOURCES:
         assert r["status"] == "approved" and r["data_version"] is not None
-        bare = [{k: v for k, v in c.items() if k not in ("source_url", "evidence_quote")} for c in r["eligibility"]]
-        assert bare == rules[r["id"]]["eligibility"], r["id"]
+        logic = lambda crit: [{k: v for k, v in c.items() if k not in ("source_url", "evidence_quote", "text")} for c in crit]
+        assert logic(r["eligibility"]) == logic(rules[r["id"]]["eligibility"]), r["id"]
 
 
 def test_at_least_twelve_golden_profiles():

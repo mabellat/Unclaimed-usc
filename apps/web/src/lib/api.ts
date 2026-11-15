@@ -42,7 +42,7 @@ export const api = {
   outcome: (id: string, rid: string, outcome: "received" | "denied" | "waiting") =>
     call<Claim>(`/students/${id}/claims/${rid}/outcome`, json("POST", { outcome })),
   setClock: (id: string, day: number) => call<{ demo_day: number }>(`/students/${id}/clock`, json("PUT", { day })),
-  agentStatus: () => call<{ llm: boolean; model: string }>("/agents/status"),
+  agentStatus: () => call<{ llm: boolean; name: string | null; model: string | null }>("/agents/status"),
   runUrl: (id: string, rid: string) => `${BASE}/students/${id}/claims/${rid}/run`,
   calendarUrl: (id: string, rid: string) => `${BASE}/students/${id}/claims/${rid}/calendar.ics`,
   claim: (id: string, rid: string) => call<{ stage: string; packet: Packet }>(`/students/${id}/claims/${rid}`),

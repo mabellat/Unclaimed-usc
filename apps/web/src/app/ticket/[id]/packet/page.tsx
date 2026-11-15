@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { BackButton, Check, ErrorBox, Loading, Rings, Scallop, outlineBtn, primaryBtn } from "@/components/bits";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
-import { capitalize, hostOf } from "@/lib/ui";
+import { capitalize } from "@/lib/ui";
 import type { Packet } from "@/lib/types";
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -21,10 +21,6 @@ const CHECK_NOTE: Record<string, string> = {
   unreachable: "We couldn't reach the page just now, so this uses the version a person approved. Open the page to double-check.",
   blocked: "This page isn't on our allowlist, so it wasn't re-checked.",
 };
-
-function when(iso: string) {
-  return new Date(iso).toLocaleString("en-US", { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit" });
-}
 
 export default function PacketPage() {
   const { id } = useParams<{ id: string }>();
@@ -45,8 +41,12 @@ export default function PacketPage() {
   if (problem) return <ErrorBox message={problem} />;
   if (!ready || !card || !packet) return <Loading />;
   const p = packet;
-  const todo = p.checklist.map((c, i) => ({ c, i })).filter(({ c }) => c.kind === "step" || c.kind === "prepare" || c.kind === "confirm");
-  const office = p.checklist.filter((c) => c.kind === "office");
+  // Only real to-dos get a checkbox. What the office checks or decides is one plain note below.
+  const todo = p.checklist.map((c, i) => ({ c, i })).filter(({ c }) => c.kind === "step" || c.kind === "prepare");
+  const said = p.checklist.find((c) => c.kind === "confirm")?.text.replace(/^The office will check what you told us: /, "").replace(/\.$/, "");
+  const decides = p.checklist.filter((c) => c.kind === "office").map((o) => o.text.replace(/^The office checks: /, "").replace(/\.$/, ""));
+  const goodToKnow = [said ? `the office will check your answers (${said})` : null,
+                      decides.length ? `${said ? "and " : "the office "}decides on ${decides.join("; ")}` : null].filter(Boolean).join(" ");
 
   async function copy() {
     try { await navigator.clipboard.writeText(p.draft.text); } catch {}
@@ -67,7 +67,7 @@ export default function PacketPage() {
           <BackButton href={`/ticket/${id}`} label="Back" light />
           <div className="relative mb-2 font-label text-xs uppercase tracking-[.16em] text-gold">Claim packet ready</div>
           <h1 className="relative mb-2 font-display text-[27px] font-bold leading-[1.1]">{p.title}</h1>
-          <div className="relative text-sm leading-[1.4] text-cream">Checked against {hostOf(p.source_url)} on {when(p.verified_at)}. Review it, then send it yourself.</div>
+          <div className="relative text-sm leading-[1.4] text-cream">Review it, then send it yourself.</div>
         </header>
         <Scallop color="#990000" />
 
@@ -77,7 +77,7 @@ export default function PacketPage() {
           )}
 
           <Section title="What to prepare">
-            <div className="-mt-1 mb-2.5 text-[12.5px] text-muted">Worked out from the source page and your card. Check each item with the office.</div>
+            
             {todo.length === 0 && <div className="text-[15px]">Nothing to prepare. You can go straight there.</div>}
             <div className="flex flex-col gap-0.5">
               {todo.map(({ c, i }) => {
@@ -90,22 +90,22 @@ export default function PacketPage() {
                     </span>
                     <span>
                       {capitalize(c.text)}
-                      {c.kind === "confirm" && <span className="block text-[12px] text-muted">You told us this. {c.office_verifies ? "The office verifies it." : "The office may ask."}</span>}
+                      
                     </span>
                   </button>
                 );
               })}
             </div>
-            {office.length > 0 && (
-              <div className="mt-3 border-t border-dashed border-rule pt-3 text-[13.5px] leading-snug text-body">
-                <b className="font-semibold">The office decides:</b> {office.map((o) => o.text.replace(/^The office checks: /, "")).join("; ")}.
-              </div>
+            {goodToKnow && (
+              <p className="mt-3 border-t border-dashed border-rule pt-3 text-[13.5px] leading-snug text-body">
+                <b className="font-semibold">Good to know:</b> {goodToKnow}.
+              </p>
             )}
           </Section>
 
           <Section title="Your draft message">
             <div className="-mt-1 mb-2 flex items-center justify-between gap-2">
-              <span className="text-[12.5px] text-muted">{p.draft.mode === "claude" ? "Drafted by Claude." : p.draft.mode === "claude-cached" ? "Drafted by Claude earlier and cached for this demo." : "Drafted from a template (no AI key configured)."}{p.replayed_from ? " Replayed from a cached run." : ""} Subject: {p.draft.subject}</span>
+              <span className="text-[12.5px] text-muted">Subject: {p.draft.subject}</span>
               <button type="button" onClick={copy} className="min-h-[44px] flex-none pl-3 text-sm font-semibold text-cardinal">{copied ? "Copied" : "Copy"}</button>
             </div>
             <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#2A1E1A]">{p.draft.text}</p>
@@ -135,9 +135,7 @@ export default function PacketPage() {
             <a href={p.source_url} target="_blank" rel="noopener noreferrer" className="mt-2.5 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">Open the source page</a>
           </Section>
 
-          <div className="text-xs leading-normal text-muted">
-            Every statement in this packet comes from the source page or your card. {p.basis} Data version {p.data_version}.
-          </div>
+          
         </div>
       </div>
       <div className="sticky bottom-0 flex flex-col gap-2 border-t border-rule bg-paper px-5 pb-5 pt-3">

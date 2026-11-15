@@ -18,5 +18,12 @@ a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offse
 .ufloat { animation: ufloat 5s ease-in-out infinite; }
 @media (prefers-reduced-motion: reduce) { .ustamp, .upulse, .umarq, .ufloat, .uin { animation: none; } }
 
+/* The Trojan card flips over to show its details. */
+.flip-card { perspective: 1200px; }
+.flip-inner { transition: transform .6s cubic-bezier(.3,.7,.2,1); transform-style: preserve-3d; }
+.is-flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip-back { transform: rotateY(180deg); }
+@media (prefers-reduced-motion: reduce) { .flip-inner { transition: none; } }
 .barcode { background: repeating-linear-gradient(90deg, #FFCC00 0 2px, transparent 2px 4px, #FFCC00 4px 5px, transparent 5px 9px, #FFCC00 9px 12px, transparent 12px 14px); opacity: .9; }
 .flip { background: linear-gradient(#2E0000 0%, #2E0000 49%, #190000 50%, #3A0000 100%); box-shadow: 0 2px 0 #000; }

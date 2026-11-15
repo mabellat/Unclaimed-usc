@@ -83,7 +83,7 @@ def run_demo_claims(session, personas: list[dict], llm) -> None:
                 ok = packet["grounding"]["passed"]
                 mode = packet["draft"]["mode"]
                 source = packet["source_check"]["status"]
-                if ok and mode in ("claude", "template"):
+                if ok and mode in ("ai", "template"):
                     demo_cache.save(p["id"], rid, packet["data_version"], mode, trace, packet)
                 report("PASS" if ok else "FAIL", f"4. claim agent: {p['name']} / {rid}",
                        f"draft={mode}, grounded={ok}, source page={source}" + ("" if ok else " (not cached)"))
@@ -98,7 +98,7 @@ def main() -> int:
     args = ap.parse_args()
     personas = load_personas()
     llm = llm_mod.get_llm()
-    print(f"Demo check. Claude key: {'yes' if llm else 'NO (template drafts)'}. Personas: {', '.join(p['name'] for p in personas)}\n")
+    print(f"Demo check. AI: {f'{llm.name} ({llm.model})' if llm else 'NO KEY (template drafts)'}. Personas: {', '.join(p['name'] for p in personas)}\n")
 
     with SessionLocal() as session:
         resources = [repo.public_dict(r) for r in repo.list_approved(session)]
@@ -147,13 +147,13 @@ def main() -> int:
                 c = demo_cache.load(p["id"], rid, by_id[rid]["data_version"] if rid in by_id else None)
                 if not c or not c["packet"]["grounding"]["passed"]:
                     missing.append(f"{p['name']}/{rid}")
-                elif c["mode"] != "claude":
+                elif c["mode"] != "ai":
                     template_only.append(f"{p['name']}/{rid}")
         if missing:
             report("FAIL", "5. cached agent runs for the current data", "missing or stale: " + ", ".join(missing))
         elif template_only:
             report("WARN", "5. cached agent runs for the current data",
-                   "cached, but with template drafts (no Claude key when they ran): " + ", ".join(template_only))
+                   "cached, but with template drafts (no AI key when they ran): " + ", ".join(template_only))
         else:
             report("PASS", "5. cached agent runs for the current data")
 

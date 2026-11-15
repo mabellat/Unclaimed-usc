@@ -57,7 +57,8 @@ export default function Claims() {
       </header>
       <Scallop color="#5C0000" />
       <div className="flex flex-col gap-3.5 px-5 pb-5 pt-[18px]">
-        {day >= 30 && (
+        {/* Only money claims have a recap; a service used is not a dollar amount. */}
+        {day >= 30 && got > 0 && (
           <div className="rounded-[14px] bg-gold p-[18px] shadow-[4px_4px_0_#1A1210]">
             <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em]">Semester recap</div>
             <div className="flex items-baseline gap-2.5"><span className="font-label text-[44px] font-semibold leading-none">{money(got)}</span><span className="text-sm">received</span></div>

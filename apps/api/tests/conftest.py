@@ -3,6 +3,7 @@ import os
 os.environ["DATABASE_URL"] = os.environ.get("TEST_DATABASE_URL", "postgresql+psycopg://localhost/unclaimed_test")
 os.environ["ADMIN_USER"] = "owner"
 os.environ["ADMIN_PASSWORD"] = "test-password"
+os.environ["UNCLAIMED_LLM"] = "off"  # tests never call a real model, whatever .env holds
 
 from pathlib import Path  # noqa: E402
 import sys  # noqa: E402

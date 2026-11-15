@@ -2,7 +2,6 @@
 
 import type { FactValue, FieldSpec } from "./types";
 
-export const NOTE = "Sample data from public usc.edu pages. Not official or USC-affiliated.";
 
 // Situation chips (needs). Order follows the prototype, extended with the owner's 2026-11-13 needs.
 export const NEED_LABELS: [string, string][] = [

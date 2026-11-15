@@ -59,3 +59,9 @@ def test_student_fact_unknown_is_a_missing_row_not_null(session):
     session.add(StudentFact(student_id="s1", field="veteran", value=None))
     with pytest.raises(IntegrityError):
         session.commit()
+
+
+@pytest.mark.parametrize("url", ["postgres://u:p@h:5432/db", "postgresql://u:p@h:5432/db", "postgresql+psycopg://u:p@h:5432/db"])
+def test_hosted_database_urls_use_the_psycopg_driver(url):
+    from unclaimed.db import _normalize
+    assert _normalize(url) == "postgresql+psycopg://u:p@h:5432/db"

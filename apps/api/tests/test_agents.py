@@ -94,7 +94,10 @@ def test_template_run_produces_a_grounded_packet_without_an_llm(setup):
     assert p["draft"]["mode"] == "template" and p["grounding"]["passed"]
     assert p["source_check"]["status"] == "verified"
     kinds = [c["kind"] for c in p["checklist"]]
-    assert kinds.count("confirm") == 2 and "step" in kinds and "prepare" in kinds and "deadline" in kinds
+    assert kinds.count("confirm") == 1 and "step" in kinds and "prepare" in kinds and "deadline" in kinds
+    confirm = next(c for c in p["checklist"] if c["kind"] == "confirm")["text"]
+    assert confirm == ("The office will check what you told us: you're a master's student "
+                       "and you have paid the Graduate Student Programming Fee this semester.")
     assert p["deadline"]["date"] == "2026-12-01" and p["has_calendar"]
     run_row = setup.query(AgentRun).one()
     assert run_row.status == "done" and len(run_row.trace) == 6
@@ -113,7 +116,7 @@ def test_claude_draft_that_passes_is_used(setup):
     fake = FakeLLM([GOOD])
     run(setup, llm=fake)
     p = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
-    assert p["draft"]["mode"] == "claude" and "$500" in p["draft"]["text"]
+    assert p["draft"]["mode"] == "ai" and "$500" in p["draft"]["text"]
 
 
 def test_invented_facts_fail_the_check_and_get_redrafted(setup):
@@ -334,7 +337,7 @@ def test_claude_answer_that_claims_eligibility_is_rejected_then_replaced(nav):
     good = [{"text": "PURF is for undergraduates, and your card says Master's.", "cites": ["purf:needs:0", "purf:you:level"]}]
     fake = FakeNavLLM(plan, [bad, good])
     out = ask(nav, "can I get PURF", fake)
-    assert out["mode"] == "claude" and out["reply"] == good[0]["text"]
+    assert out["mode"] == "ai" and out["reply"] == good[0]["text"]
     run = nav.query(AgentRun).filter_by(kind="navigator").order_by(AgentRun.id.desc()).first()
     checks = [t for t in run.trace if t.get("step") == "check"]
     assert [c["passed"] for c in checks] == [False, True]
@@ -373,21 +376,21 @@ def test_cached_claude_draft_is_used_when_claude_is_down_and_still_checked(setup
     monkeypatch.setattr(demo_cache, "CACHE_DIR", tmp_path)
     run(setup, llm=FakeLLM([GOOD]))
     packet = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
-    demo_cache.save("marcus", "gsg-travel-award", packet["data_version"], "claude", [], packet)
+    demo_cache.save("marcus", "gsg-travel-award", packet["data_version"], "ai", [], packet)
     setup.query(Claim).delete()
     setup.commit()
     cache = demo_cache.load("marcus", "gsg-travel-award", packet["data_version"])
     events = list(claim_graph.run_claim(setup, "stu1", "gsg-travel-award", FakeLLM([LLMError("offline")]), fetch_ok, TODAY, cache))
     draft_ev = next(e["event"] for e in events if "event" in e and e["event"]["node"] == "draft")
-    assert draft_ev["mode"] == "claude-cached" and "cached for this demo" in draft_ev["result"]
+    assert draft_ev["mode"] == "ai-cached" and "cached for this demo" in draft_ev["result"]
     p = setup.get(Claim, ("stu1", "gsg-travel-award")).packet
-    assert p["draft"]["mode"] == "claude-cached" and p["grounding"]["passed"]
+    assert p["draft"]["mode"] == "ai-cached" and p["grounding"]["passed"]
 
 
 def test_stale_cache_is_ignored(tmp_path, monkeypatch):
     from unclaimed.agents import demo_cache
     monkeypatch.setattr(demo_cache, "CACHE_DIR", tmp_path)
-    demo_cache.save("marcus", "x", 5, "claude", [], {"draft": {}})
+    demo_cache.save("marcus", "x", 5, "ai", [], {"draft": {}})
     assert demo_cache.load("marcus", "x", 6) is None and demo_cache.load("marcus", "x", 5)
 
 
@@ -426,3 +429,15 @@ def test_deadline_status(label, closed, date_):
     from unclaimed.deadlines import deadline_status
     s = deadline_status(label, TODAY)
     assert s["closed"] is closed and s["date"] == date_
+
+
+def test_ai_error_is_reported_not_swallowed(nav):
+    class Broken:
+        model, provider, name = "m", "gemini", "Gemini"
+
+        def json(self, *a, **k):
+            raise LLMError("Gemini API error 400: schema not supported")
+    out = ask(nav, "Why can't I get PURF?", Broken())
+    assert out["mode"] == "rules" and "schema not supported" in out["ai_error"]
+    run = nav.query(AgentRun).filter_by(kind="navigator").order_by(AgentRun.id.desc()).first()
+    assert "schema not supported" in run.output["ai_error"]

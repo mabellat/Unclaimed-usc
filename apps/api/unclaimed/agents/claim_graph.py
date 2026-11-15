@@ -52,6 +52,7 @@ class State(TypedDict, total=False):
     why_fields: list
     draft: dict
     draft_mode: str
+    drafted_by: str | None
     attempts: int
     feedback: dict | None
     grounding: dict
@@ -67,6 +68,7 @@ def _event(node: str, tools: list[dict], result: str, **extra) -> dict:
 def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | None = None, cache: dict | None = None):
     today = today or date.today()
     fetch = fetch or http_fetch  # looked up at call time, so tests can replace it
+    ai_name = getattr(llm, "name", "The AI model") if llm is not None else "The AI model"
 
     def plan(state: State) -> dict:
         resources = [repo.public_dict(r) for r in repo.list_approved(session)]
@@ -123,25 +125,27 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
         if use_llm:
             try:
                 d = claim_tools.draft_document(llm, state["resource"], state["catalog"], state["requirements"], state["feedback"])
-                mode = "claude"
+                mode = "ai"
             except LLMError as e:
-                d, mode, note = None, "template", f"Claude was unavailable ({e}); used the template draft."
+                d, mode, note = None, "template", f"{ai_name} was unavailable ({e}); used the template draft."
         else:
             d, mode = None, "template"
             if llm is not None:
-                note = "Claude's drafts kept failing the check, so the template draft was used."
+                note = f"{ai_name}'s drafts kept failing the check, so the template draft was used."
         if d is None and attempts == 1 and (cached := demo_cache.cached_draft(cache)) \
                 and cache.get("data_version") == state["resource"]["data_version"]:
-            # Demo fallback: the Claude draft cached for this persona and data version. It is checked again below.
-            d, mode = cached, "claude-cached"
-            note = (("Claude couldn't be reached" if llm is not None else "No Claude key on this machine")
-                    + f", so this uses the Claude draft cached for this demo on {cache['cached_at'][:10]}.")
+            # Demo fallback: the AI draft cached for this persona and data version. It is checked again below.
+            d, mode = cached, "ai-cached"
+            note = ((f"{ai_name} couldn't be reached" if llm is not None else "No AI key on this machine")
+                    + f", so this uses the AI draft cached for this demo on {cache['cached_at'][:10]}.")
         if d is None:
             d = grounding.template_draft(state["resource"], state["catalog"], state["facts"], state["why_fields"])
         tool = "draft_document" + (f" (attempt {attempts})" if attempts > 1 else "")
-        result = ("Draft written by Claude from your card and the source page." if mode == "claude"
+        result = (f"Draft written by {ai_name} from your card and the source page." if mode == "ai"
                   else "Draft written from your card and the source page (template, no AI).")
-        return {"draft": d, "draft_mode": mode, "attempts": attempts if mode in ("claude", "claude-cached") else MAX_LLM_DRAFTS + 1,
+        drafted_by = (llm.model if mode == "ai" else (cache or {}).get("model") if mode == "ai-cached" else None)
+        return {"draft": d, "draft_mode": mode, "drafted_by": drafted_by,
+                "attempts": attempts if mode in ("ai", "ai-cached") else MAX_LLM_DRAFTS + 1,
                 "trace": [_event("draft", [{"name": tool, "summary": mode}], note or result, mode=mode)]}
 
     def groundedness_check(state: State) -> dict:
@@ -152,7 +156,7 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
         result = (f"All {g['checked']} statements trace to the source page or your card." if g["passed"]
                   else f"{len(g['issues'])} problem{'s' if len(g['issues']) != 1 else ''} found. Redrafting.")
         # A cached draft that no longer fits is not retried: the next draft is the template.
-        extra = {"attempts": MAX_LLM_DRAFTS} if not g["passed"] and state["draft_mode"] == "claude-cached" else {}
+        extra = {"attempts": MAX_LLM_DRAFTS} if not g["passed"] and state["draft_mode"] == "ai-cached" else {}
         return {**extra, "grounding": g, "feedback": None if g["passed"] else {"draft": state["draft"], "issues": g["issues"]},
                 "trace": [_event("groundedness_check", [{"name": "groundedness_check", "summary": "pass" if g["passed"] else "fail"}],
                                  result, passed=g["passed"], issues=g["issues"])]}
@@ -169,7 +173,8 @@ def build_graph(session: Session, llm: LLM | None, fetch=None, today: date | Non
             "data_version": r["data_version"], "source_url": r["source_url"],
             "verified_at": datetime.now(timezone.utc).isoformat(), "source_check": state["source"],
             "checklist": state["requirements"],
-            "draft": {**state["draft"], "text": grounding.render(state["draft"]), "mode": state["draft_mode"]},
+            "draft": {**state["draft"], "text": grounding.render(state["draft"]), "mode": state["draft_mode"],
+                      "drafted_by": state.get("drafted_by")},
             "catalog": state["catalog"], "grounding": state["grounding"],
             "deadline": {"label": (r.get("deadline") or {}).get("label"), "date": when.isoformat() if when else None},
             "has_calendar": when is not None, "reminder": reminder,
@@ -206,7 +211,7 @@ def run_claim(session: Session, student_id: str, resource_id: str, llm: LLM | No
     """Run the graph, yielding each trace event as it happens, then {"done": packet}.
     The run (inputs, every tool call, the output) is stored in agent_runs."""
     run = AgentRun(kind="claim", student_id=student_id, resource_id=resource_id, status="running",
-                   mode="claude" if llm else "template", model=llm.model if llm else None,
+                   mode=getattr(llm, "provider", "ai") if llm else "template", model=llm.model if llm else None,
                    inputs={"student_id": student_id, "resource_id": resource_id}, trace=[])
     session.add(run)
     session.commit()

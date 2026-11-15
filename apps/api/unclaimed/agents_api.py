@@ -30,8 +30,11 @@ def _student(session: Session, student_id: str) -> Student:
 
 @router.get("/agents/status")
 def status():
-    """Whether Claude is configured. Without it, agents use their labelled no-LLM paths."""
-    return {"llm": llm_mod.has_credentials(), "model": llm_mod.MODEL, "claim_steps": [{"node": n, "label": l} for n, l in STEPS]}
+    """Which AI model is configured, if any. Without one, agents use their labelled no-AI paths."""
+    st = llm_mod.status()
+    p = st["provider"]
+    return {"llm": p is not None, "provider": p, "name": llm_mod.PROVIDERS[p]["name"] if p else None,
+            "model": st["model"], "problem": st["problem"], "claim_steps": [{"node": n, "label": l} for n, l in STEPS]}
 
 
 def _sse(event: str, data) -> str:
@@ -75,7 +78,8 @@ def run(student_id: str, resource_id: str):
                 yield from _replay(session, student, resource_id, cache)
                 return
             llm = llm_mod.get_llm()
-            yield _sse("start", {"mode": "claude" if llm else "template", "steps": steps})
+            yield _sse("start", {"mode": "ai" if llm else "template", "name": llm.name if llm else None,
+                                 "model": llm.model if llm else None, "steps": steps})
             for item in run_claim(session, student_id, resource_id, llm, cache=cache):
                 if "event" in item:
                     yield _sse("step", item["event"])

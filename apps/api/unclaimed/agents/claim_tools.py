@@ -9,6 +9,21 @@ from unclaimed.deadlines import parse_deadline
 from unclaimed.rules import load_fields
 
 
+def _you(statement: str) -> str:
+    """'I am a U.S. citizen.' -> 'you're a U.S. citizen' (the approved statement, turned to the student)."""
+    t = statement.rstrip(".")
+    for a, b in (("I am not ", "you're not "), ("I am ", "you're "), ("I have ", "you have "), ("I receive ", "you receive "),
+                 ("I expect ", "you expect "), ("My ", "your "), ("A Dornsife faculty member has agreed to mentor my project",
+                                                                    "a Dornsife faculty member has agreed to mentor your project")):
+        if t.startswith(a):
+            return b + t[len(a):]
+    return t[0].lower() + t[1:]
+
+
+def _join(items: list[str]) -> str:
+    return items[0] if len(items) == 1 else ", ".join(items[:-1]) + " and " + items[-1]
+
+
 def list_requirements(resource: dict, item: dict, facts: dict) -> list[dict]:
     """Everything to prepare or confirm, each tied to evidence. Per-item quotes are used when the
     record has them; otherwise the record-level quote stands (owner-verified record)."""
@@ -24,13 +39,17 @@ def list_requirements(resource: dict, item: dict, facts: dict) -> list[dict]:
     for t in item.get("office_decides") or []:
         out.append({"kind": "office", "text": f"The office checks: {t}", "evidence_quote": record["evidence_quote"],
                     "evidence_level": "record", "source_url": record["source_url"]})
-    # Every self-reported fact the match relied on: the student confirms it is still true.
+    # The self-reported answers the match relied on, as one short line the student can tick.
+    said = []
     for w in item.get("why") or []:
         f = w.get("field")
         if f and f in facts and f in fields:
-            out.append({"kind": "confirm", "field": f,
-                        "text": f"Confirm this is still true: {grounding._answer_label(fields[f], facts[f])} ({fields[f]['question']})",
-                        "rule": w["text"], "self_reported": True, "office_verifies": bool(fields[f].get("office_verifies"))})
+            for st in grounding.statements_for(f, facts[f]):
+                said.append(_you(st))
+    said = list(dict.fromkeys(said))  # two rules can rest on the same answer
+    if said:
+        out.append({"kind": "confirm", "text": "The office will check what you told us: " + _join(said) + ".",
+                    "self_reported": True, "office_verifies": True})
     if resource.get("deadline"):
         out.append({"kind": "deadline", "text": f"Timing: {resource['deadline']['label']}", "evidence_quote": record["evidence_quote"],
                     "evidence_level": "record", "source_url": record["source_url"]})
@@ -67,7 +86,7 @@ def draft_schema(refs: list[str]) -> dict:
 
 
 def draft_document(llm: LLM, resource: dict, catalog: dict, requirements: list[dict], feedback: dict | None) -> dict:
-    """Draft with Claude via structured output. `feedback` carries the previous draft and the
+    """Draft with the AI model via structured output. `feedback` carries the previous draft and the
     groundedness issues to fix."""
     payload = {"resource_title": resource["title"], "catalog": catalog,
                "what_the_student_will_prepare": [r["text"] for r in requirements if r["kind"] in ("step", "prepare")]}

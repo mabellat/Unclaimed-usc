@@ -75,6 +75,20 @@ export function AnswerControls({ spec, onAnswer, onSkip, dark = true, busy = fal
   );
 }
 
+/** A slim reminder at the top of the wallet that jumps down to the "One question" card. */
+export function QuestionNudge({ count }: { count: number }) {
+  const jump = () => document.getElementById("one-question")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  return (
+    <button type="button" onClick={jump}
+      className="mb-[22px] flex min-h-[48px] w-full items-center justify-between gap-3 rounded-xl bg-gold px-4 py-2.5 text-left shadow-[3px_3px_0_#1A1210]">
+      <span className="text-[15px] leading-snug text-ink">
+        <b className="font-semibold">One quick question</b> could unlock {count} more
+      </span>
+      <span className="flex-none font-label text-xs uppercase tracking-[.14em] text-ink">Answer &darr;</span>
+    </button>
+  );
+}
+
 /** The gold "One question" card: the next-best question. */
 export function QuestionCard({ field, spec, count, onAnswer, onSkip }: {
   field: string;
@@ -93,7 +107,7 @@ export function QuestionCard({ field, spec, count, onAnswer, onSkip }: {
     }
   };
   return (
-    <section aria-label="One question" className="mb-[22px] rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#1A1210]">
+    <section id="one-question" aria-label="One question" className="mb-[22px] scroll-mt-4 rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#1A1210]">
       <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em] text-ink">One question</div>
       <div className="mb-1 font-display text-[22px] font-bold leading-[1.15] text-ink">{spec.question}</div>
       <div className="mb-3.5 text-sm text-ink">Answering could unlock {count} more.</div>

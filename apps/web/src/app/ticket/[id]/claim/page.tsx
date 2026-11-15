@@ -18,6 +18,7 @@ export default function ClaimRun() {
   const [steps, setSteps] = useState<Step[]>([]);
   const [events, setEvents] = useState<TraceEvent[]>([]);
   const [mode, setMode] = useState<string | null>(null);
+  const [aiName, setAiName] = useState<string | null>(null);
   const [failed, setFailed] = useState<string | null>(null);
   const es = useRef<EventSource | null>(null);
 
@@ -29,6 +30,7 @@ export default function ClaimRun() {
       const d = JSON.parse((e as MessageEvent).data);
       setSteps(d.steps);
       setMode(d.mode);
+      setAiName(d.name ?? null);
     });
     source.addEventListener("step", (e) => setEvents((prev) => [...prev, JSON.parse((e as MessageEvent).data)]));
     source.addEventListener("done", () => {
@@ -69,7 +71,7 @@ export default function ClaimRun() {
         <h1 className="mb-1.5 font-display text-[28px] font-bold leading-[1.1]">{r.title}</h1>
         <p className="mb-[22px] text-sm text-[#F0DCCB]">
           {failed ? "Stopped." : "Working on it. You can stop at any time."}
-          {mode && <span className="ml-1.5 rounded bg-[rgba(255,204,0,.15)] px-1.5 py-px font-label text-[11px] tracking-[.1em] text-gold">{mode === "claude" ? "CLAUDE" : mode === "replay" ? "REPLAY OF A CACHED RUN" : "TEMPLATE, NO AI KEY"}</span>}
+          {mode && <span className="ml-1.5 rounded bg-[rgba(255,204,0,.15)] px-1.5 py-px font-label text-[11px] tracking-[.1em] text-gold">{mode === "ai" ? (aiName ?? "AI").toUpperCase() : mode === "replay" ? "REPLAY OF A CACHED RUN" : "TEMPLATE, NO AI KEY"}</span>}
         </p>
         <ol className="flex flex-col gap-4" aria-live="polite">
           {steps.map((s) => {
@@ -87,11 +89,7 @@ export default function ClaimRun() {
                   </div>
                   {ev && (
                     <>
-                      <div className="mt-[3px] flex flex-wrap gap-1">
-                        {ev.tools.map((t, i) => (
-                          <span key={i} className="font-mono text-[11.5px] text-gold">{t.name}{t.summary ? ` → ${t.summary}` : ""}</span>
-                        ))}
-                      </div>
+                      
                       <div className="mt-1 text-[13.5px] leading-[1.4] text-[#EFE3D2]">{ev.result}</div>
                     </>
                   )}
@@ -101,7 +99,7 @@ export default function ClaimRun() {
           })}
         </ol>
         {failed && <div role="alert" className="mt-6 rounded-xl bg-[rgba(0,0,0,.25)] p-4 text-sm leading-normal">{failed}</div>}
-        <p className="mt-7 text-xs leading-normal text-[#E3CDBB]">Live run. The agent reads only data a person approved, checks the source page, and has no way to send anything. The rules engine, not the AI, decides eligibility.</p>
+        <p className="mt-7 text-xs leading-normal text-[#E3CDBB]">Nothing is sent without you.</p>
       </div>
       <div className="border-t border-[#8A2A2A] px-6 pb-[22px] pt-3">
         {failed ? (

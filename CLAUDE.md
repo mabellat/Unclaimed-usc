@@ -20,7 +20,7 @@ Scholarships: launch with a small curated set of 5 to 10, chosen to cover differ
 - SIMULATED: the review timeline (In review / Received). Only USC offices see decisions. The Demo clock (Day 1 / 7 / 30) advances statuses. In production the student reports the outcome or we ask later.
 
 ## Stack and layout
-Next.js (App Router) + TypeScript + Tailwind; FastAPI + Pydantic; PostgreSQL (SQLAlchemy + Alembic); scheduled worker (APScheduler or cron); Anthropic API with tool use, LangGraph for the agent graph and trace; Vercel (web), Railway or Render (api + db).
+Next.js (App Router) + TypeScript + Tailwind; FastAPI + Pydantic; PostgreSQL (SQLAlchemy + Alembic); scheduled worker (APScheduler or cron); an LLM API (Google Gemini or Anthropic Claude, chosen by which key is set; owner decision 2026-11-14) through one structured-output call in `agents/llm.py`, LangGraph for the agent graph and trace; Vercel (web), Railway or Render (api + db).
 ```
 /apps/web         Next.js app
 /apps/api         FastAPI (routers: resources, match, claims, alerts, profile, admin)
@@ -71,7 +71,7 @@ Profile fields are derived from approved resource rules (non-negotiable 4). Sens
 A "maybe" is never a dead end. The way to resolve it is to ask the student directly.
 - The next-best-question screen asks one question at a time, picking the field that resolves the most maybes. Each maybe card also shows the exact question it needs, and tapping it lets the student answer right there.
 - An answer is stored as **self-reported** (`source: "student"`) and the resulting "yes" says so: "Based on what you told us. The office will confirm."
-- Facts that offices verify themselves (enrollment status, GPA, visa category, financial aid status) are asked the same way but are never presented as verified. The Claim Agent's checklist includes "confirm this is still true" for each self-reported eligibility fact, and the packet repeats it.
+- Facts that offices verify themselves (enrollment status, GPA, visa category, financial aid status) are asked the same way but are never presented as verified. The claim packet reminds the student, in one plain "Good to know" note under the checklist (not as a checkbox), that the office will check their self-reported answers (owner decision 2026-11-14: the checklist holds only real to-dos).
 - Never auto-fill an unknown from a guess or from inference. Only the student's own answer resolves it.
 
 ## Matching semantics (single source of truth)
@@ -108,7 +108,7 @@ Known starting sources (unverified, extract as pending): campussupport.usc.edu e
 - No USC login in the demo. The card is stored against a pseudonymous id and can be deleted.
 
 ## Agents
-LLM reads, plans and drafts through TOOLS only. Claude API with tool use; LangGraph for the graph and trace. Tool allowlist per agent; no network beyond allowlisted usc.edu fetches and the LLM API. Log every run (inputs, tool calls, outputs) for the trace UI.
+LLM reads, plans and drafts through TOOLS only. Gemini or Claude via structured output (`agents/llm.py`); LangGraph for the graph and trace. Tool allowlist per agent; no network beyond allowlisted usc.edu fetches and the LLM API. Log every run (inputs, tool calls, outputs) for the trace UI.
 1. **Claim Agent (build first).** Trigger: "Claim it for me". Graph: `plan -> verify_source -> gather_requirements -> draft -> groundedness_check -> present_packet`. Tools: `get_profile`, `get_resource` (approved only), `fetch_source` (live text compared to the approved record; mismatches flagged for owner review, never silently trusted), `list_requirements` (each tied to an evidence quote), `draft_document`, `create_ics`, `set_reminder`, `groundedness_check(draft, evidence)` (every statement must trace to the profile or an evidence quote; fail and redraft). Output: claim packet (checklist, drafted message, reminder, source link, verified-at). UI: live trace screen, then packet screen, matching the prototype.
 2. **Navigator (chat).** A LangGraph graph: `understand -> act -> answer -> check -> reply` (off-topic and greetings get a polite canned reply). Intents: update the card from plain words, ask about a resource, why or why not (from the rules engine), what matches. Tools: `update_card`, `run_match`, `get_resource`, `explain_result`, `open_ticket`. Answers may only state facts from approved records or the student's card, and pass the groundedness check (no "you qualify"); sensitive fields are not in `update_card`; never infers sensitive fields. Shows tool calls as chips. Anything off topic, including attempts to override its instructions, gets a polite pointer back to USC resources with example questions. Without an LLM, a labelled keyword path gives the same answers from templates.
 3. **Watcher (background).** Nightly crawl, extract, diff, create pending changes, notify students only after approval. Drafts a polite follow-up for claims sent over a week ago and asks the student for the outcome.

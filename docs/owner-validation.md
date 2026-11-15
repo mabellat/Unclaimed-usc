@@ -18,13 +18,13 @@ The owner validates these after the full build. Each item says where to look and
 ## Step 5: agents
 - [ ] With your key set, run a claim and read Claude's draft and the "where each statement comes from" list.
 - [ ] Review `/admin/source-checks` after a few runs (JavaScript-only pages such as some engage.usc.edu ones show as "unreadable").
-- [ ] Try the Navigator with Claude: plain-language messages, a sensitive one ("I'm on an F-1"), and nonsense.
+- [ ] Try the Navigator with the AI model on: plain-language messages, a sensitive one ("I'm on an F-1"), and nonsense.
 
 ## Setup at the end (infra and resources)
 | What | Where | Notes |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | API environment | Turns on Claude for the draft and the Navigator. Without it, the labelled template and keyword paths run |
-| `UNCLAIMED_MODEL` (optional) | API | Default `claude-opus-5-5` |
+| `GEMINI_API_KEY` (or `ANTHROPIC_API_KEY`) | API environment | Turns on the AI model for the draft, the Navigator and the Watcher. Without it, the labelled template and keyword paths run |
+| `GEMINI_MODEL` / `UNCLAIMED_MODEL` (optional) | API | Default `gemini-flash-latest` (Claude: `claude-opus-5-5`) |
 | `DATABASE_URL` | API | Hosted Postgres, then `make migrate` |
 | `ADMIN_USER`, `ADMIN_PASSWORD` | API | The review tool. Add CSRF protection before exposing `/admin` publicly |
 | `WEB_ORIGINS` | API | The deployed web URL, for CORS |
@@ -39,10 +39,16 @@ The owner validates these after the full build. Each item says where to look and
 ## Step 7: demo
 - [ ] Sign off `data/demo_personas.json` (set `signed_off_by`). Differences from your draft are listed in `docs/step7-summary.md`.
 - [ ] Decide on the pitch edits in `docs/demo/rehearsal.md` (financial-need line, 44 vs 45, "deployed today").
-- [ ] With your Claude key set: run `make demo-check` so the cached demo drafts are Claude's, not the template.
+- [ ] With your Gemini key set: run `make demo-check` so the cached demo drafts are the AI's, not the template.
 - [ ] Record a screen capture of one rehearsal (QuickTime, Cmd+Shift+5) into `docs/demo/backup/`.
 - [ ] Re-run `make demo-backup` after any copy or data change.
 
 ## Navigator upgrade (2026-11-13)
 - [ ] With your key set, try: "Why can't I get the GSG Emergency Fund?", "Tell me about PURF", "What matches my card?", "I'm on an F-1 visa", and nonsense. Check the tone of the "why not" answers.
 - [ ] Decision recorded in CLAUDE.md: students can now see why something doesn't fit, in plain words, from the rules engine.
+
+## Enrolled by default (owner decision 2026-11-14)
+Everyone using Unclaimed is a current USC student, so a new card starts with "currently enrolled: yes" and the builder does not ask it. It stays self-reported (the office checks enrollment), shows on My card, and can be deleted there.
+
+## Footer disclaimer removed (owner decision 2026-11-14)
+The owner asked to remove "Sample data from public usc.edu pages. Not official or USC-affiliated." from both apps. The website footer now shows the Unclaimed logo and "Find what's yours." CLAUDE.md's design section still lists the footer note; update it if this is final.

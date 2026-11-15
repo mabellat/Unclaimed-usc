@@ -139,7 +139,7 @@ export interface Packet {
   verified_at: string;
   source_check: { status: "verified" | "changed" | "unreadable" | "unreachable" | "blocked"; detail: string };
   checklist: ChecklistItem[];
-  draft: { subject: string; greeting: string; closing: string; text: string; mode: "claude" | "claude-cached" | "template"; sentences: { text: string; cites: string[] }[] };
+  draft: { subject: string; greeting: string; closing: string; text: string; mode: "ai" | "ai-cached" | "template"; drafted_by?: string | null; sentences: { text: string; cites: string[] }[] };
   catalog: Record<string, string>;
   grounding: { passed: boolean; checked: number };
   deadline: { label: string | null; date: string | null };
@@ -154,5 +154,6 @@ export interface NavReply {
   reply: string;
   tools: string[];
   ticket: string | null;
-  mode: "claude" | "rules";
+  mode: "ai" | "rules";
+  ai_error?: string | null;
 }

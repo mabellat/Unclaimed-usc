@@ -1,7 +1,7 @@
 """Cached Claim Agent runs for the demo personas, written by `make demo-check`.
 
 Two uses, both labelled on screen:
-  - fallback: if Claude can't be reached during a live demo run, the cached Claude draft for the
+  - fallback: if the AI model can't be reached during a live demo run, the cached AI draft for the
     same persona, resource and data version is used, and it still goes through the groundedness check;
   - replay (UNCLAIMED_DEMO_REPLAY=1): the whole cached run is replayed, for a demo with no network.
 """
@@ -35,6 +35,7 @@ def save(persona: str, resource_id: str, data_version: int, mode: str, trace: li
     CACHE_DIR.mkdir(exist_ok=True)
     path(persona, resource_id).write_text(json.dumps({
         "persona": persona, "resource_id": resource_id, "data_version": data_version, "mode": mode,
+        "model": packet.get("draft", {}).get("drafted_by"),
         "cached_at": datetime.now(timezone.utc).isoformat(), "trace": trace, "packet": packet}, indent=1) + "\n")
 
 
@@ -43,8 +44,8 @@ def replay_enabled() -> bool:
 
 
 def cached_draft(c: dict | None) -> dict | None:
-    """The Claude draft from a cached run, without the rendered fields."""
-    if not c or c.get("mode") != "claude":
+    """The AI draft from a cached run, without the rendered fields."""
+    if not c or c.get("mode") != "ai":
         return None
     d = c["packet"]["draft"]
     return {k: d[k] for k in ("subject", "greeting", "sentences", "closing")}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Rings } from "@/components/bits";
+import { SCMark } from "@/components/SCMark";
 import { api } from "@/lib/api";
 import { useStudent } from "@/lib/student";
 import type { Persona } from "@/lib/types";
@@ -50,7 +51,7 @@ export default function Welcome() {
       <Rings size={520} radii={[60, 100, 140, 180, 220]} className="-right-[230px] -top-[150px]" />
       <div className="relative px-[26px] pt-[30px]">
         <div className="mb-[18px] flex items-center gap-2.5">
-          <svg width="30" height="22" viewBox="0 0 30 22" aria-hidden="true"><path d="M2 2h26v6a3 3 0 0 0 0 6v6H2v-6a3 3 0 0 0 0-6z" fill="#FFCC00" /><path d="M10 4v14" stroke="#990000" strokeWidth="1.5" strokeDasharray="2 2" /></svg>
+          <SCMark height={30} />
           <span className="font-label text-[13px] uppercase tracking-[.2em] text-gold">For USC students</span>
         </div>
         <h1 className="m-0 font-display text-[68px] font-bold leading-[.95] tracking-[-0.035em]">Unclaimed<span className="text-gold">.</span></h1>

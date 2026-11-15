@@ -66,8 +66,8 @@ export default function MyCard() {
         </>
       )}
 
-      <Kicker className="mb-1 text-cardinal">Everything you told us</Kicker>
-      <p className="mb-2.5 text-[13px] leading-snug text-muted">Self-reported. Offices confirm the details when you apply. Delete any answer and it goes back to unknown.</p>
+      <Kicker className="mb-1 text-cardinal">Your answers</Kicker>
+      <p className="mb-2.5 text-[13px] leading-snug text-muted">Tap Delete to change an answer.</p>
       <div className="mb-6 overflow-hidden rounded-xl bg-ticket shadow-[0_1px_0_#D8CDB8]">
         {Object.keys(card.facts).length === 0 && <p className="p-4 text-sm text-muted">No answers yet.</p>}
         {Object.entries(card.facts).map(([f, v]) => (
@@ -83,7 +83,7 @@ export default function MyCard() {
       </div>
 
       <button type="button" onClick={restart} disabled={busy} className={outlineBtn}>Delete my card and restart</button>
-      <Note className="mt-3.5">Your card is stored under a random id, with no name, email or USC login. Sample data from public usc.edu pages. Not official or USC-affiliated.</Note>
+      <Note className="mt-3.5">Your card is stored under a random id, with no name, email or USC login.</Note>
     </main>
   );
 }

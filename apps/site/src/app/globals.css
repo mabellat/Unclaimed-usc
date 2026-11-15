@@ -1,0 +1,66 @@
+/* Desktop extras on top of the shared tokens and motion (apps/web/src/app/globals.css). */
+html { scroll-behavior: smooth; }
+/* What's inside: the selected kind shows how long until the next one opens. */
+@keyframes utimer { from { width: 0 } to { width: 100% } }
+.inside-timer { animation: utimer 3.8s linear both; }
+
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Faint paper grain so large areas never read as flat and empty. */
+.paper-grain {
+  background-color: #F3EDE1;
+  background-image: radial-gradient(rgba(92, 0, 0, .05) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* A dashed perforation line across a full-width band. */
+.perf { background: repeating-linear-gradient(90deg, #D8CDB8 0 10px, transparent 10px 18px); height: 2px; }
+
+@keyframes udrift { 0%, 100% { transform: translateY(0) rotate(var(--r)) } 50% { transform: translateY(-12px) rotate(var(--r)) } }
+.udrift { animation: udrift 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .udrift { animation: none; } }
+
+/* ---- Motion (all of it switched off under prefers-reduced-motion at the end) ---- */
+
+/* Scroll reveal: elements rise in as they enter the viewport (components/Motion.tsx). */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s cubic-bezier(.2,.8,.3,1), transform .7s cubic-bezier(.2,.8,.3,1); transition-delay: var(--d, 0ms); }
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* Headline words rise one after another. */
+@keyframes urise { from { opacity: 0; transform: translateY(.45em) rotate(2deg); } to { opacity: 1; transform: none; } }
+.rise > span { display: inline-block; animation: urise .8s cubic-bezier(.2,.9,.3,1) both; }
+
+/* Rings that slowly ripple outward behind the hero. */
+@keyframes uripple { 0% { transform: scale(.85); opacity: 0 } 25% { opacity: 1 } 100% { transform: scale(1.25); opacity: 0 } }
+.ripple circle { transform-box: fill-box; transform-origin: center; animation: uripple 9s ease-out infinite; }
+
+/* 3D tilt with a gold glint that sweeps across on hover (components/Motion.tsx Tilt). */
+.tilt { transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift, 0)); transition: transform .25s ease-out, box-shadow .25s ease-out; will-change: transform; }
+.tilt:hover { --lift: -4px; }
+.glint { position: relative; overflow: hidden; }
+.glint::after { content: ""; position: absolute; inset: -40% auto -40% -60%; width: 40%; transform: rotate(18deg) translateX(0); background: rgba(255, 233, 168, .35); filter: blur(10px); opacity: 0; pointer-events: none; }
+.glint:hover::after { animation: uglint .9s ease-out; }
+@keyframes uglint { 0% { opacity: 0; transform: rotate(18deg) translateX(0) } 20% { opacity: 1 } 100% { opacity: 0; transform: rotate(18deg) translateX(480%) } }
+
+/* Wallet tickets lift and glint on hover. */
+/* translate/rotate (not transform) so the shared entry animation cannot override them. */
+.ticket-grid > a { transition: translate .2s ease-out, rotate .2s ease-out, box-shadow .2s ease-out; }
+.ticket-grid > a:hover { translate: 0 -4px; rotate: -.4deg; box-shadow: 0 2px 0 #D8CDB8, 0 18px 30px rgba(60, 20, 10, .16); }
+
+/* The CLAIMED stamp lands when its card scrolls into view. */
+.is-in .stamp-on-view { animation: ustamp .5s cubic-bezier(.2,.9,.3,1) .5s both; }
+.stamp-on-view { opacity: 0; transform: rotate(-14deg); }
+
+/* The campus skyline draws itself in. */
+@keyframes udraw { from { stroke-dashoffset: 1 } to { stroke-dashoffset: 0 } }
+.draw path, .draw line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: udraw 2.6s cubic-bezier(.4,.1,.2,1) .2s forwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .rise > span, .ripple circle, .glint:hover::after, .is-in .stamp-on-view, .draw path, .draw line { animation: none; }
+  .stamp-on-view { opacity: .95; }
+  .draw path, .draw line { stroke-dashoffset: 0; }
+  .tilt { transition: none; transform: none; }
+  .inside-timer { display: none; }
+  .ticket-grid > a, .ticket-grid > a:hover { transition: none; translate: none; rotate: none; }
+}

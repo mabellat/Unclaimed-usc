@@ -2,7 +2,7 @@
 
 ## The morning of the demo
 1. `make admin ADMIN_PASSWORD=...` and `make web`. Run them **on the demo laptop**, so venue Wi-Fi only affects Claude and the usc.edu re-check.
-2. `make demo-check`: it must say **READY**. With your Claude key set, it also refreshes the cached Claude drafts.
+2. Optional: `make test` should end with "passed".
 3. Open http://localhost:3000 in a phone-sized window (Chrome device toolbar, iPhone 14 Pro, 390 x 844).
 4. If an old card loads, go to My card, then "Delete my card and restart".
 5. Keep `docs/demo/backup/index.html` open in a second tab.
@@ -25,8 +25,6 @@
 ## If something breaks
 | Problem | What happens / what to do |
 |---|---|
-| Claude unreachable | Automatic: the cached Claude draft for that persona is used, labelled "cached for this demo", and checked again. Needs one `make demo-check` run with the key |
-| No internet at all | Restart the API with `UNCLAIMED_DEMO_REPLAY=1 make admin ...`: demo claims replay the cached run, labelled "REPLAY OF A CACHED RUN" |
 | usc.edu unreachable | Automatic: the trace says it couldn't reach the page and the approved version is used |
 | The app won't load | Switch to the `docs/demo/backup/index.html` tab and click through (16 real screenshots with captions) |
 

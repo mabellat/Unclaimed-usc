@@ -333,7 +333,7 @@ def understand_schema(card: Card) -> dict:
                 "mentions_sensitive": {"type": "boolean"}}}
 
 
-def understand_with_claude(llm: LLM, card: Card, message: str, history: list[dict]) -> dict:
+def understand_with_ai(llm: LLM, card: Card, message: str, history: list[dict]) -> dict:
     fields = _fields_for_chat(card.askable)
     payload = {"message": message, "recent_chat": history[-6:],
                "resources": [{"id": r["id"], "title": r["title"]} for r in card.resources],
@@ -344,7 +344,7 @@ def understand_with_claude(llm: LLM, card: Card, message: str, history: list[dic
     return out
 
 
-# --- answer: facts pack, Claude or template, then the check ------------------------------------
+# --- answer: facts pack, the AI model or a template, then the check ------------------------------------
 
 def facts_pack(card: Card, intent: str, plan: dict, acted: dict) -> dict[str, str]:
     """ref -> text. The only things an answer may state."""
@@ -505,6 +505,7 @@ class State(TypedDict, total=False):
     history: list
     plan: dict
     mode: str
+    ai_error: str | None
     acted: dict
     catalog: dict
     sentences: list
@@ -529,19 +530,21 @@ def _chip(name: str, args: dict | None = None, out: dict | None = None) -> str:
 
 def build_graph(card: Card, llm: LLM | None):
     def understand(state: State) -> dict:
-        mode = "claude"
+        mode, ai_error = "ai", None
         try:
             if llm is None:
                 raise LLMError("no LLM configured")
-            plan = understand_with_claude(llm, card, state["message"], state["history"])
-        except LLMError:
+            plan = understand_with_ai(llm, card, state["message"], state["history"])
+        except LLMError as e:
             mode, plan = "rules", understand_with_rules(card, state["message"])
+            ai_error = None if llm is None else str(e)
         if plan["intent"] in ("ask_resource", "why_not") and not plan["resource_ids"]:
             plan["resource_ids"] = card.find_resources(state["message"])
             if not plan["resource_ids"]:
                 plan["intent"] = "what_matches" if plan["intent"] == "why_not" else "off_topic"
-        return {"plan": plan, "mode": mode, "trace": [{"step": "understand", "intent": plan["intent"], "mode": mode,
-                                                       "resource_ids": plan["resource_ids"]}]}
+        return {"plan": plan, "mode": mode, "ai_error": ai_error,
+                "trace": [{"step": "understand", "intent": plan["intent"], "mode": mode, "resource_ids": plan["resource_ids"],
+                           **({"ai_error": ai_error} if ai_error else {})}]}
 
     def route(state: State) -> str:
         return "canned" if state["plan"]["intent"] in ("greeting", "off_topic") else "act"
@@ -586,15 +589,17 @@ def build_graph(card: Card, llm: LLM | None):
     def answer(state: State) -> dict:
         attempts = state["attempts"] + 1
         cat = state["catalog"]
-        if state["mode"] == "claude" and llm is not None and attempts <= MAX_ANSWERS:
+        if state["mode"] == "ai" and llm is not None and attempts <= MAX_ANSWERS:
             payload = {"student_message": state["message"], "intent": state["plan"]["intent"], "facts_pack": cat}
             if state.get("feedback"):
                 payload["previous_attempt_failed_the_check"] = state["feedback"]
             try:
                 sentences = llm.json(ANSWER_SYSTEM, json.dumps(payload, indent=1), answer_schema(cat), effort="low")["sentences"]
-                return {"sentences": sentences, "attempts": attempts, "trace": [{"step": "answer", "mode": "claude", "attempt": attempts}]}
-            except LLMError:
-                pass
+                return {"sentences": sentences, "attempts": attempts, "trace": [{"step": "answer", "mode": "ai", "attempt": attempts}]}
+            except LLMError as e:
+                return {"sentences": template_answer(state["plan"]["intent"], state["plan"], state["acted"], cat),
+                        "attempts": MAX_ANSWERS + 1, "ai_error": str(e),
+                        "trace": [{"step": "answer", "mode": "template", "ai_error": str(e)}]}
         sentences = template_answer(state["plan"]["intent"], state["plan"], state["acted"], cat)
         return {"sentences": sentences, "attempts": MAX_ANSWERS + 1, "trace": [{"step": "answer", "mode": "template"}]}
 
@@ -627,7 +632,7 @@ def build_graph(card: Card, llm: LLM | None):
 
 def navigate(session: Session, student: Student, message: str, history: list[dict], llm: LLM | None) -> dict:
     card = Card(session, student)
-    run = AgentRun(kind="navigator", student_id=student.id, status="running", mode="claude" if llm else "rules",
+    run = AgentRun(kind="navigator", student_id=student.id, status="running", mode="ai" if llm else "rules",
                    model=llm.model if llm else None, inputs={"message": message, "history_turns": len(history)}, trace=[])
     session.add(run)
     session.commit()
@@ -635,10 +640,13 @@ def navigate(session: Session, student: Student, message: str, history: list[dic
                                           config={"recursion_limit": 20})
     mode = state.get("mode", "rules")
     run.mode, run.trace, run.status = mode, state["trace"], "done"
-    run.output = {"reply": state["reply"], "ticket": card.ticket, "intent": state["plan"]["intent"]}
+    run.output = {"reply": state["reply"], "ticket": card.ticket, "intent": state["plan"]["intent"],
+                  "ai_error": state.get("ai_error")}
     run.finished_at = datetime.now(timezone.utc)
     session.commit()
     return {"reply": state["reply"], "tools": state["chips"], "ticket": card.ticket, "mode": mode,
+            "model": llm.model if (llm is not None and mode == "ai") else None,
+            "ai_error": state.get("ai_error"),
             "intent": state["plan"]["intent"], "run_id": run.id}
 
 

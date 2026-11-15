@@ -1,4 +1,4 @@
-"""Read a page into a candidate record with Claude. Every value carries a quote, and a value
+"""Read a page into a candidate record with the AI model (Gemini or Claude). Every value carries a quote, and a value
 whose quote is not on the page verbatim is dropped (set to null). The LLM never decides
 eligibility: eligibility text is only compared, never turned into rules."""
 

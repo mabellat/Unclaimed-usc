@@ -15,7 +15,7 @@
     },
     "calfresh-navigation": {
       "eligibility": [
-        {"kind": "office", "text": "decided by the county and state, NOT by USC"}
+        {"kind": "office", "text": "decided by the county and state, not by USC"}
       ],
       "note_add": ["The page says participation does not affect financial aid and parental tax information is not required."]
     },
@@ -167,7 +167,7 @@
     },
     "first-generation-plus-success-center": {
       "eligibility": [
-        {"kind": "rule", "field": "communities", "op": "includes_any", "value": ["first_gen", "transfer", "undocumented", "foster_youth"], "text": "first-generation (USC pages differ: \"parents do not have four-year degrees\" vs \"neither parent completed college\"), transfer, undocumented or former foster youth"}
+        {"kind": "rule", "field": "communities", "op": "includes_any", "value": ["first_gen", "transfer", "undocumented", "foster_youth"], "text": "first-generation, transfer, undocumented or former foster youth"}
       ]
     },
     "ship-insurance-waiver": {
@@ -191,7 +191,7 @@
     },
     "federal-work-study": {
       "eligibility": [
-        {"kind": "rule", "field": "citizenship", "op": "neq", "value": "f1_j1", "text": "Career Center page: international students are not eligible."},
+        {"kind": "rule", "field": "citizenship", "op": "neq", "value": "f1_j1", "text": "not on an F-1 or J-1 visa"},
         {"kind": "office", "text": "\"demonstrate financial need, meet all application deadlines, be a U.S. citizen or eligible noncitizen and enroll for the number of units your financial aid award was based on\""},
         {"kind": "office", "text": "Graduate page: enroll in at least 4 units each semester"},
         {"kind": "office", "text": "work-study is limited to on-campus students and is not offered to online graduate programs"}

@@ -16,7 +16,7 @@ app.include_router(students.router)
 app.include_router(agents_api.router)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.environ.get("WEB_ORIGINS", "http://localhost:3000").split(","),
+    allow_origins=os.environ.get("WEB_ORIGINS", "http://localhost:3000,http://localhost:3001").split(","),
     allow_methods=["GET", "POST", "PUT", "DELETE"],
     allow_headers=["Content-Type"],
 )

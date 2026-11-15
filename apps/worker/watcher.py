@@ -2,7 +2,7 @@
 
   1. crawl     every allowlisted page -> page_snapshots (raw text + fetch date)
   2. compare   each approved record with its page; flag mismatches for the owner (no AI needed)
-  3. extract   (with Claude) changed pages -> candidate -> diff -> NEW PENDING version
+  3. extract   (with the AI model) changed pages -> candidate -> diff -> NEW PENDING version
   4. follow up claims sent over a week ago with no reply: draft a follow-up, ask the outcome
 
 Nothing here changes approved data or reaches students. Students hear about a change only

@@ -15,10 +15,8 @@ export default function Ask() {
   const [chat, setChat] = useState<Msg[]>([HELLO]);
   const [text, setText] = useState("");
   const [busy, setBusy] = useState(false);
-  const [llm, setLlm] = useState<boolean | null>(null);
   const end = useRef<HTMLDivElement>(null);
 
-  useEffect(() => { api.agentStatus().then((s) => setLlm(s.llm)).catch(() => setLlm(null)); }, []);
   useEffect(() => { end.current?.scrollIntoView({ block: "end" }); }, [chat, busy]);
 
   async function send(t: string) {
@@ -51,11 +49,6 @@ export default function Ask() {
           <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
             <div className={`box-border max-w-[86%] rounded-[14px] px-3.5 py-2.5 ${m.role === "user" ? "bg-cardinal text-ticket" : "bg-ticket text-ink shadow-[0_1px_0_#D8CDB8]"}`}>
               <div className="text-[14.5px] leading-[1.45]">{m.text}</div>
-              {m.tools && m.tools.length > 0 && (
-                <div className="mt-2 flex flex-col gap-1">
-                  {m.tools.map((t, j) => <span key={j} className="self-start rounded bg-ink px-[7px] py-[3px] font-mono text-[11.5px] leading-[1.4] text-gold">{t}</span>)}
-                </div>
-              )}
               {m.ticket && resources[m.ticket] && (
                 <Link href={`/ticket/${m.ticket}`} className="mt-1.5 inline-flex min-h-[44px] items-center text-sm font-semibold text-cardinal underline">Open {resources[m.ticket].title}</Link>
               )}
@@ -77,9 +70,7 @@ export default function Ask() {
         <button type="submit" disabled={busy} className="min-h-[46px] rounded-xl bg-cardinal px-[18px] text-[15px] font-semibold text-ticket disabled:opacity-60">Send</button>
       </form>
       <p className="mb-2 px-4 text-center text-[11px] leading-[1.4] text-muted">
-        {llm === false
-          ? "No AI key configured: the Navigator uses simple keyword matching for now. It never sets sensitive details."
-          : "The Navigator uses Claude to map your words to your card with tool calls. It never sets sensitive details."}
+        The Navigator understands plain words, and the rules engine decides what fits. It never sets sensitive details.
       </p>
     </main>
   );

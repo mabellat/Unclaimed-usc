@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { BackButton, Chip, Note, primaryBtn } from "@/components/bits";
+import { BackButton, Chip, primaryBtn } from "@/components/bits";
 import { TrojanCard } from "@/components/TrojanCard";
 import { useStudent } from "@/lib/student";
 import { NEED_LABELS, shortLabel } from "@/lib/ui";
@@ -33,7 +33,8 @@ export default function Build() {
     setProblem(null);
     try {
       // Only what the student picked is saved. Skipped questions stay unknown.
-      const facts: Record<string, string | string[]> = {};
+      // Unclaimed is for current USC students, so building a card says you are one (owner decision 2026-11-14).
+      const facts: Record<string, boolean | string | string[]> = { enrolled: true };
       if (level) facts.level = level;
       if (school) facts.schools = [school];
       await start(facts, needs);
@@ -106,7 +107,6 @@ export default function Build() {
         <div className="sticky bottom-0 border-t border-rule bg-paper px-6 pb-5 pt-3">
           {problem && <p role="alert" className="mb-2 text-sm text-cardinal">{problem}</p>}
           <button type="button" onClick={find} disabled={busy} className={primaryBtn}>{busy ? "Saving your card..." : "Find what's mine"}</button>
-          <Note className="mt-2.5" />
         </div>
       )}
     </main>

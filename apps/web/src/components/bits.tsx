@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { NOTE } from "@/lib/ui";
 
 export function Rings({ size, className, opacity = 0.22, radii }: { size: number; className?: string; opacity?: number; radii: number[] }) {
   const c = size / 2;
@@ -34,7 +33,7 @@ export function Kicker({ children, className = "text-cardinal" }: { children: Re
   return <div className={`font-label text-[13px] uppercase tracking-[.16em] ${className}`}>{children}</div>;
 }
 
-export function Note({ children = NOTE, className = "" }: { children?: React.ReactNode; className?: string }) {
+export function Note({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return <p className={`text-center text-[11.5px] leading-normal text-muted ${className}`}>{children}</p>;
 }
 
