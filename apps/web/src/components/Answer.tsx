@@ -58,7 +58,7 @@ export function AnswerControls({ spec, onAnswer, onSkip, dark = true, busy = fal
               onClick={() => setPicked(on ? picked.filter((x) => x !== v) : [...picked, v])}
               className="flex min-h-[44px] w-full items-center gap-3 text-left text-[15px] text-ink">
               <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-cardinal bg-cardinal" : "border-ink bg-ticket"}`}>
-                {on && <Check color="#FFFCF5" size={14} width={2.4} />}
+                {on && <Check color="#FFFFFF" size={14} width={2.4} />}
               </span>
               {spec.labels?.[v] ?? v}
             </button>
@@ -80,7 +80,7 @@ export function QuestionNudge({ count }: { count: number }) {
   const jump = () => document.getElementById("one-question")?.scrollIntoView({ behavior: "smooth", block: "start" });
   return (
     <button type="button" onClick={jump}
-      className="mb-[22px] flex min-h-[48px] w-full items-center justify-between gap-3 rounded-xl bg-gold px-4 py-2.5 text-left shadow-[3px_3px_0_#1A1210]">
+      className="mb-[22px] flex min-h-[48px] w-full items-center justify-between gap-3 rounded-xl bg-gold px-4 py-2.5 text-left shadow-[3px_3px_0_#182522]">
       <span className="text-[15px] leading-snug text-ink">
         <b className="font-semibold">One quick question</b> could unlock {count} more
       </span>
@@ -107,7 +107,7 @@ export function QuestionCard({ field, spec, count, onAnswer, onSkip }: {
     }
   };
   return (
-    <section id="one-question" aria-label="One question" className="mb-[22px] scroll-mt-4 rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#1A1210]">
+    <section id="one-question" aria-label="One question" className="mb-[22px] scroll-mt-4 rounded-[14px] bg-gold px-[18px] pb-[18px] pt-4 shadow-[4px_4px_0_#182522]">
       <div className="mb-1.5 font-label text-xs uppercase tracking-[.16em] text-ink">One question</div>
       <div className="mb-1 font-display text-[22px] font-bold leading-[1.15] text-ink">{spec.question}</div>
       <div className="mb-3.5 text-sm text-ink">Answering could unlock {count} more.</div>

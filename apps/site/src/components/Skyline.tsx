@@ -4,7 +4,7 @@
  */
 const P = { pathLength: 1 } as const;
 
-export function Skyline({ className = "", color = "#FFCC00", opacity = 0.35 }: { className?: string; color?: string; opacity?: number }) {
+export function Skyline({ className = "", color = "#BDE6D9", opacity = 0.35 }: { className?: string; color?: string; opacity?: number }) {
   return (
     <svg viewBox="0 0 1200 240" preserveAspectRatio="xMidYMax slice" aria-hidden="true" className={`draw pointer-events-none ${className}`}>
       <g fill="none" stroke={color} strokeOpacity={opacity} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

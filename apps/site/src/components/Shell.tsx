@@ -55,7 +55,7 @@ export function TopNav({ unseen = 0 }: { unseen?: number }) {
         <Link href="/card" aria-current={path === "/card" ? "page" : undefined}
           className={`hidden min-h-[44px] items-center gap-2.5 rounded-full border-2 py-1 pl-1.5 pr-4 md:inline-flex ${path === "/card" ? "border-gold bg-gold text-ink" : "border-[#4A3A33] text-ticket hover:border-gold"}`}>
           <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cardinal">
-            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#FFCC00" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16v12H4zM8 11h5M8 14h8" /></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#BDE6D9" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 6h16v12H4zM8 11h5M8 14h8" /></svg>
           </span>
           <span className="text-sm font-semibold">{who}</span>
         </Link>
@@ -76,13 +76,13 @@ export function Footer({ dark = false }: { dark?: boolean }) {
 }
 
 /** A coloured page band with rings and a scalloped edge, used as each screen's header. */
-export function Band({ children, color = "#5C0000" }: { children: React.ReactNode; color?: string }) {
+export function Band({ children, color = "#183F3B" }: { children: React.ReactNode; color?: string }) {
   return (
     <>
       <header className="relative overflow-hidden text-ticket" style={{ background: color }}>
         <Skyline className="absolute bottom-0 left-0 h-[210px] w-full" opacity={0.16} />
         <svg width="560" height="560" viewBox="0 0 560 560" aria-hidden="true" className="ripple pointer-events-none absolute -right-[160px] -top-[260px]">
-          <g fill="none" stroke="#FFCC00" strokeOpacity="0.16" strokeWidth="2">
+          <g fill="none" stroke="#BDE6D9" strokeOpacity="0.16" strokeWidth="2">
             {[70, 120, 170, 220, 270].map((r, i) => <circle key={r} cx="280" cy="280" r={r} style={{ animationDelay: `${-i * 1.8}s` }} />)}
           </g>
         </svg>
@@ -101,7 +101,7 @@ export function Band({ children, color = "#5C0000" }: { children: React.ReactNod
 /** A white panel with a small red label, the building block of every desktop screen. */
 export function Panel({ title, children, className = "" }: { title?: string; children: React.ReactNode; className?: string }) {
   return (
-    <section className={`rounded-2xl bg-ticket p-6 shadow-[0_1px_0_#D8CDB8,0_10px_24px_rgba(60,20,10,.06)] ${className}`}>
+    <section className={`rounded-2xl bg-ticket p-6 shadow-[0_1px_0_#D9E3DD,0_10px_24px_rgba(60,20,10,.06)] ${className}`}>
       {title && <h2 className="mb-4 font-label text-[13px] font-normal uppercase tracking-[.16em] text-cardinal">{title}</h2>}
       {children}
     </section>

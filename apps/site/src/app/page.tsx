@@ -7,7 +7,6 @@ import { money, stubFor } from "@/lib/ui";
 import type { Resource } from "@/lib/types";
 import { FlipNumber, Reveal, Rise, Tilt } from "@site/components/Motion";
 import { Footer, Logo, WRAP } from "@site/components/Shell";
-import { Skyline } from "@site/components/Skyline";
 
 const MARQUEE = "EMERGENCY LOANS · LEGAL HELP · TRAVEL AWARDS · RESEARCH FELLOWSHIPS · LAPTOP LOANS · FOOD PANTRY · RESUME REVIEW · ";
 // Where the hero tickets sit (px inside a 560 x 500 box) and how they tilt.
@@ -79,20 +78,20 @@ function StepArt({ art }: { art: "card" | "tickets" | "packet" }) {
   if (art === "tickets") {
     return (
       <div className="flex h-full flex-col justify-center gap-2">
-        {[["#FFCC00", "#1A1210", "CASH", "w-[92%]"], ["#F1C6C0", "#5C0000", "SCHOLAR", "w-[80%]"], ["#1A1210", "#FFCC00", "LEGAL", "w-[68%]"]].map(([bg, fg, l, w]) => (
-          <div key={l} className={`flex h-9 overflow-hidden rounded-md bg-ticket shadow-[0_1px_0_#D8CDB8] ${w}`}>
+        {[["#BDE6D9", "#182522", "CASH", "w-[92%]"], ["#CDE5E4", "#183F3B", "SCHOLAR", "w-[80%]"], ["#182522", "#BDE6D9", "LEGAL", "w-[68%]"]].map(([bg, fg, l, w]) => (
+          <div key={l} className={`flex h-9 overflow-hidden rounded-md bg-ticket shadow-[0_1px_0_#D9E3DD] ${w}`}>
             <span className="flex w-16 items-center justify-center font-label text-[10px] tracking-[.14em]" style={{ background: bg, color: fg }}>{l}</span>
-            <span className="flex flex-1 items-center gap-2 px-2.5"><span className="h-2 w-2/3 rounded bg-rule" /><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#990000" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
+            <span className="flex flex-1 items-center gap-2 px-2.5"><span className="h-2 w-2/3 rounded bg-rule" /><svg width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#245F58" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" /></svg></span>
           </div>
         ))}
       </div>
     );
   }
   return (
-    <div className="relative flex h-full flex-col gap-2 rounded-xl bg-ticket p-4 shadow-[0_1px_0_#D8CDB8]">
+    <div className="relative flex h-full flex-col gap-2 rounded-xl bg-ticket p-4 shadow-[0_1px_0_#D9E3DD]">
       {["Source page checked", "What to prepare", "Draft message ready"].map((t) => (
         <div key={t} className="flex items-center gap-2 text-[13px]">
-          <span className="inline-flex h-4 w-4 items-center justify-center rounded bg-cardinal"><svg width="10" height="10" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#FFFCF5" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" /></svg></span>{t}
+          <span className="inline-flex h-4 w-4 items-center justify-center rounded bg-cardinal"><svg width="10" height="10" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#FFFFFF" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" /></svg></span>{t}
         </div>
       ))}
       <div className="mt-auto rounded-md bg-gold py-1.5 text-center text-xs font-semibold">You send it</div>
@@ -151,7 +150,7 @@ function Inside({ kinds }: { kinds: [string, Resource[]][] }) {
           <ul className="grid flex-1 content-start gap-x-8 px-8 pb-8 pt-6 md:grid-cols-2">
             {list.slice(0, 10).map((r, i) => (
               <li key={r.id} className="uin flex items-start gap-3 border-b border-rule py-3" style={{ animationDelay: `${120 + i * 45}ms` }}>
-                <span aria-hidden="true" className="mt-[7px] h-2 w-2 flex-none rounded-full" style={{ background: s.bg === "#FFFCF5" ? "#990000" : s.bg, boxShadow: "0 0 0 1px rgba(0,0,0,.18)" }} />
+                <span aria-hidden="true" className="mt-[7px] h-2 w-2 flex-none rounded-full" style={{ background: s.bg === "#FFFFFF" ? "#245F58" : s.bg, boxShadow: "0 0 0 1px rgba(0,0,0,.18)" }} />
                 <span className="min-w-0 flex-1">
                   <span className="block text-[15px] font-semibold leading-snug">{r.title}</span>
                   <span className="block truncate text-[13px] text-muted">{r.provider}</span>
@@ -186,8 +185,8 @@ export default function Home() {
   const scholarships = all.filter((r) => r.category === "scholarship" || r.category === "cash").length;
 
   const cta = card
-    ? <Link href="/wallet" className="inline-flex min-h-[56px] items-center justify-center rounded-xl bg-gold px-8 text-[17px] font-semibold text-ink shadow-[0_5px_0_#5C0000] transition-transform hover:-translate-y-0.5">Open my wallet</Link>
-    : <Link href="/build" className="inline-flex min-h-[56px] items-center justify-center rounded-xl bg-gold px-8 text-[17px] font-semibold text-ink shadow-[0_5px_0_#5C0000] transition-transform hover:-translate-y-0.5">Build my Trojan card</Link>;
+    ? <Link href="/wallet" className="inline-flex min-h-[56px] items-center justify-center rounded-xl bg-gold px-8 text-[17px] font-semibold text-ink shadow-[0_5px_0_#183F3B] transition-transform hover:-translate-y-0.5">Open my wallet</Link>
+    : <Link href="/build" className="inline-flex min-h-[56px] items-center justify-center rounded-xl bg-gold px-8 text-[17px] font-semibold text-ink shadow-[0_5px_0_#183F3B] transition-transform hover:-translate-y-0.5">Build my Trojan card</Link>;
 
   return (
     <main>
@@ -198,9 +197,8 @@ export default function Home() {
           <img src={HERO_PHOTO} alt="" aria-hidden="true" className="pointer-events-none absolute inset-0 h-full w-full object-cover opacity-30 mix-blend-multiply grayscale" />
         )}
         <svg width="900" height="900" viewBox="0 0 900 900" aria-hidden="true" className="ripple pointer-events-none absolute -right-[260px] -top-[340px]">
-          <g fill="none" stroke="#FFCC00" strokeOpacity="0.22" strokeWidth="2">{[100, 170, 240, 310, 380, 450].map((r, i) => <circle key={r} cx="450" cy="450" r={r} style={{ animationDelay: `${-i * 1.5}s` }} />)}</g>
+          <g fill="none" stroke="#BDE6D9" strokeOpacity="0.22" strokeWidth="2">{[100, 170, 240, 310, 380, 450].map((r, i) => <circle key={r} cx="450" cy="450" r={r} style={{ animationDelay: `${-i * 1.5}s` }} />)}</g>
         </svg>
-        <Skyline className="absolute bottom-[34px] left-0 h-[200px] w-full" opacity={0.3} />
         <div className={`${WRAP} relative`}>
           <nav aria-label="Site" className="flex items-center justify-between gap-4 py-4">
             <Logo />
@@ -212,7 +210,7 @@ export default function Home() {
             <Link href={card ? "/wallet" : "/build"} className="inline-flex min-h-[44px] items-center rounded-full border-2 border-gold px-5 text-[15px] font-semibold text-gold hover:bg-gold hover:text-ink">{card ? "My wallet" : "Get started"}</Link>
           </nav>
 
-          <div className="grid items-center gap-10 pb-20 pt-10 lg:grid-cols-[minmax(0,1fr)_560px] lg:pt-16">
+          <div className="grid max-w-[850px] items-center gap-10 pb-20 pt-10 lg:pt-20">
             <div>
               <div className="uin mb-5 inline-flex items-center gap-2 rounded-full bg-[rgba(0,0,0,.2)] px-4 py-1.5 font-label text-[13px] uppercase tracking-[.18em] text-gold">For USC students</div>
               <h1 className="mb-6 font-display text-[48px] font-bold leading-[1.0] tracking-[-0.03em] md:text-[68px]">
@@ -227,7 +225,7 @@ export default function Home() {
               {error && <p role="alert" className="mt-5 max-w-[560px] rounded-lg bg-cardinal-dark p-3 text-sm">Can't reach the Unclaimed API: {error}</p>}
             </div>
 
-            <div className="relative mx-auto hidden h-[470px] w-[560px] lg:block" aria-hidden="true">
+            <div className="relative mx-auto hidden h-[470px] w-[560px]" aria-hidden="true">
               {hero.map((r, i) => (
                 <div key={r.id} className="uin absolute" style={{ left: SPOTS[i].left, top: SPOTS[i].top, animationDelay: `${300 + i * 140}ms` }}>
                   <div className="transition-transform duration-300 ease-out" style={{ transform: `translate(calc(var(--mx, 0) * ${18 + i * 9}px), calc(var(--my, 0) * ${14 + i * 7}px))` }}>
@@ -238,7 +236,7 @@ export default function Home() {
                 </div>
               ))}
               {ready && all.length > 0 && (
-                <div className="uin absolute bottom-2 right-0 rotate-[4deg] rounded-xl border-2 border-ink bg-gold px-5 py-3 text-ink shadow-[5px_5px_0_#1A1210]" style={{ animationDelay: "1100ms" }}>
+                <div className="uin absolute bottom-2 right-0 rotate-[4deg] rounded-xl border-2 border-ink bg-gold px-5 py-3 text-ink shadow-[5px_5px_0_#182522]" style={{ animationDelay: "1100ms" }}>
                   <div className="font-label text-[44px] font-semibold leading-none">{all.length}</div>
                   <div className="text-[13px] font-medium">funds, scholarships &amp; services</div>
                 </div>
@@ -246,7 +244,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="relative -mx-6 -mb-2 -rotate-2 overflow-hidden border-y-2 border-ink bg-gold text-ink" aria-hidden="true">
+        <div className="hero-marquee relative -mx-6 -mb-2 -rotate-2 overflow-hidden border-y-2 border-ink bg-gold text-ink" aria-hidden="true">
           <div className="umarq">
             {[0, 1, 2, 3].map((i) => <span key={i} className="whitespace-nowrap py-3 font-label text-xl font-semibold tracking-[.12em]">{MARQUEE}</span>)}
           </div>
@@ -257,8 +255,8 @@ export default function Home() {
       <section className="paper-grain">
         <div className={`${WRAP} py-16`}>
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl bg-ink text-ticket shadow-[8px_8px_0_#FFCC00]">
-              <div className="flex flex-col gap-1 border-b-2 border-dashed border-[#3A2C26] px-8 py-5 md:flex-row md:items-baseline md:justify-between">
+            <div className="relative overflow-hidden rounded-3xl bg-ink text-ticket shadow-[8px_8px_0_#BDE6D9]">
+              <div className="flex flex-col gap-1 border-b-2 border-dashed border-[#34463E] px-8 py-5 md:flex-row md:items-baseline md:justify-between">
                 <div className="font-label text-[13px] uppercase tracking-[.2em] text-gold">The scoreboard</div>
                 <div className="font-display text-[22px] font-bold italic">Set aside for USC students, waiting in one wallet.</div>
               </div>
@@ -268,7 +266,7 @@ export default function Home() {
                   [scholarships, "Put money in your pocket", "Emergency funds and scholarships"],
                   [kinds.length, "Kinds of help", "From food to legal advice"],
                 ] as [number, string, string][]).map(([n, l, sub], i) => (
-                  <div key={l} className={`flex flex-col items-center px-6 py-9 text-center ${i ? "border-t-2 border-dashed border-[#3A2C26] md:border-l-2 md:border-t-0" : ""}`}>
+                  <div key={l} className={`flex flex-col items-center px-6 py-9 text-center ${i ? "border-t-2 border-dashed border-[#34463E] md:border-l-2 md:border-t-0" : ""}`}>
                     <FlipNumber value={n} label={l} />
                     <div className="mt-4 font-label text-[15px] uppercase tracking-[.14em] text-gold">{l}</div>
                     <div className="mt-1 text-sm text-[#BFB3A8]">{sub}</div>
@@ -288,10 +286,10 @@ export default function Home() {
           <div className="grid gap-6 md:grid-cols-3">
             {STEPS.map((s, i) => (
               <Reveal key={s.n} delay={i * 140} className="h-full">
-                <Tilt className="flex h-full flex-col rounded-2xl bg-ticket p-6 shadow-[0_1px_0_#D8CDB8,0_14px_30px_rgba(60,20,10,.07)]" max={5}>
+                <Tilt className="flex h-full flex-col rounded-2xl bg-ticket p-6 shadow-[0_1px_0_#D9E3DD,0_14px_30px_rgba(60,20,10,.07)]" max={5}>
                   <div className="mb-5 h-[150px] rounded-xl bg-paper p-4"><StepArt art={s.art} /></div>
                   <div className="flex items-baseline gap-3">
-                    <span className="font-label text-[40px] font-semibold leading-none text-gold [-webkit-text-stroke:1.5px_#990000]">{s.n}</span>
+                    <span className="font-label text-[40px] font-semibold leading-none text-gold [-webkit-text-stroke:1.5px_#245F58]">{s.n}</span>
                     <h3 className="font-display text-[26px] font-bold leading-tight">{s.title}</h3>
                   </div>
                   <p className="mt-2 text-[15px] leading-normal text-body">{s.body}</p>
@@ -306,7 +304,7 @@ export default function Home() {
       {kinds.length > 0 && (
         <section id="inside" className="relative scroll-mt-4 overflow-hidden bg-cardinal-dark text-ticket">
           <svg width="800" height="800" viewBox="0 0 800 800" aria-hidden="true" className="ripple pointer-events-none absolute -right-[300px] -top-[300px]">
-            <g fill="none" stroke="#FFCC00" strokeOpacity="0.14" strokeWidth="2">{[110, 180, 250, 320, 390].map((r, i) => <circle key={r} cx="400" cy="400" r={r} style={{ animationDelay: `${-i * 1.8}s` }} />)}</g>
+            <g fill="none" stroke="#BDE6D9" strokeOpacity="0.14" strokeWidth="2">{[110, 180, 250, 320, 390].map((r, i) => <circle key={r} cx="400" cy="400" r={r} style={{ animationDelay: `${-i * 1.8}s` }} />)}</g>
           </svg>
           <div className={`${WRAP} relative py-20`}>
             <Reveal>

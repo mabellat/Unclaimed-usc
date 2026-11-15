@@ -11,7 +11,7 @@ import { Reveal } from "@site/components/Motion";
 import { Band, WRAP } from "@site/components/Shell";
 
 const DAYS = [1, 7, 30];
-const PILL = ["bg-[#FFE680] text-ink", "bg-ink text-gold", "bg-ink text-gold", "bg-cardinal text-ticket"];
+const PILL = ["bg-[#D4EEE4] text-ink", "bg-ink text-gold", "bg-ink text-gold", "bg-cardinal text-ticket"];
 
 function line(c: Claim) {
   if (c.stage_index === 0) return "Draft ready. Send it to the office yourself to start the clock.";
@@ -53,7 +53,7 @@ export default function Claims() {
             <h1 className="font-display text-[40px] font-bold leading-[1.08] md:text-[48px]">From first draft to money in hand.</h1>
           </div>
           <div className="w-full max-w-[380px]">
-            <div className="mb-2 text-sm text-[#F0DCCB]">Demo clock. Skip ahead to see the app over a semester.</div>
+            <div className="mb-2 text-sm text-[#CFE4D8]">Demo clock. Skip ahead to see the app over a semester.</div>
             <div className="flex gap-2">
               {DAYS.map((d) => (
                 <button key={d} type="button" aria-pressed={day === d} onClick={() => pick(d)}
@@ -67,7 +67,7 @@ export default function Claims() {
       <div className={`${WRAP} pb-14 pt-8`}>
         {/* Only money claims have a recap; a service used is not a dollar amount. */}
         {day >= 30 && got > 0 && (
-          <div className="mb-8 flex flex-col gap-4 rounded-2xl bg-gold p-7 shadow-[5px_5px_0_#1A1210] md:flex-row md:items-center md:justify-between">
+          <div className="mb-8 flex flex-col gap-4 rounded-2xl bg-gold p-7 shadow-[5px_5px_0_#182522] md:flex-row md:items-center md:justify-between">
             <div>
               <div className="mb-1.5 font-label text-[13px] uppercase tracking-[.16em]">Semester recap</div>
               <div className="flex items-baseline gap-3"><span className="font-label text-[56px] font-semibold leading-none">{money(got)}</span><span className="text-base">received</span></div>
@@ -84,7 +84,7 @@ export default function Claims() {
           <div className="mx-auto max-w-[560px] rounded-2xl border-2 border-dashed border-sand bg-ticket px-8 py-12 text-center">
             <div className="mb-2 font-display text-[26px] font-bold">Nothing started yet</div>
             <div className="mb-5 text-[15px] leading-normal text-muted">Open a ticket in your wallet and click Claim it for me. It shows up here and we track it for you.</div>
-            <Link href="/wallet" className="inline-flex min-h-[48px] items-center rounded-xl bg-cardinal px-6 text-[15px] font-semibold text-ticket shadow-[0_4px_0_#5C0000]">Go to my wallet</Link>
+            <Link href="/wallet" className="inline-flex min-h-[48px] items-center rounded-xl bg-cardinal px-6 text-[15px] font-semibold text-ticket shadow-[0_4px_0_#183F3B]">Go to my wallet</Link>
           </div>
         )}
 
@@ -95,7 +95,7 @@ export default function Claims() {
             return (
               <Reveal key={c.resource_id} delay={i * 80}>
               <Link href={`/ticket/${c.resource_id}`} aria-label={`${c.title}, status ${c.stage}. Open details.`}
-                className="glint flex h-full overflow-hidden rounded-2xl bg-ticket text-ink shadow-[0_1px_0_#D8CDB8,0_10px_24px_rgba(60,20,10,.08)] transition-transform hover:-translate-y-1">
+                className="glint flex h-full overflow-hidden rounded-2xl bg-ticket text-ink shadow-[0_1px_0_#D9E3DD,0_10px_24px_rgba(60,20,10,.08)] transition-transform hover:-translate-y-1">
                 <span aria-hidden="true" className="w-2.5 flex-none" style={{ background: stub.bg }} />
                 <span className="flex-1 px-6 pb-5 pt-5">
                   <span className="mb-4 flex items-start justify-between gap-3">

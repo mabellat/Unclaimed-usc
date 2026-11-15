@@ -68,7 +68,7 @@ export default function MyCard() {
 
       <Kicker className="mb-1 text-cardinal">Your answers</Kicker>
       <p className="mb-2.5 text-[13px] leading-snug text-muted">Tap Delete to change an answer.</p>
-      <div className="mb-6 overflow-hidden rounded-xl bg-ticket shadow-[0_1px_0_#D8CDB8]">
+      <div className="mb-6 overflow-hidden rounded-xl bg-ticket shadow-[0_1px_0_#D9E3DD]">
         {Object.keys(card.facts).length === 0 && <p className="p-4 text-sm text-muted">No answers yet.</p>}
         {Object.entries(card.facts).map(([f, v]) => (
           <div key={f} className="flex items-center gap-3 border-b border-rule px-4 py-2.5 last:border-b-0">

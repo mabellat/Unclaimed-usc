@@ -9,7 +9,7 @@ import { capitalize } from "@/lib/ui";
 import type { Packet } from "@/lib/types";
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D8CDB8]">
+  <section className="rounded-xl bg-ticket px-[18px] py-4 shadow-[0_1px_0_#D9E3DD]">
     <h2 className="mb-2.5 font-label text-xs font-normal uppercase tracking-[.16em] text-cardinal">{title}</h2>
     {children}
   </section>
@@ -69,11 +69,11 @@ export default function PacketPage() {
           <h1 className="relative mb-2 font-display text-[27px] font-bold leading-[1.1]">{p.title}</h1>
           <div className="relative text-sm leading-[1.4] text-cream">Review it, then send it yourself.</div>
         </header>
-        <Scallop color="#990000" />
+        <Scallop color="#245F58" />
 
         <div className="flex flex-col gap-4 px-5 pb-2.5 pt-[18px]">
           {p.source_check.status !== "verified" && (
-            <div role="note" className="rounded-xl bg-[#FFF1B8] px-[18px] py-3.5 text-sm leading-normal"><strong className="font-semibold">Heads up.</strong> {CHECK_NOTE[p.source_check.status]}</div>
+            <div role="note" className="rounded-xl bg-[#E6F4EE] px-[18px] py-3.5 text-sm leading-normal"><strong className="font-semibold">Heads up.</strong> {CHECK_NOTE[p.source_check.status]}</div>
           )}
 
           <Section title="What to prepare">
@@ -86,7 +86,7 @@ export default function PacketPage() {
                   <button key={i} type="button" role="checkbox" aria-checked={on} onClick={() => setChecks({ ...checks, [i]: !on })}
                     className="flex min-h-[44px] w-full items-center gap-3 py-1 text-left text-[15px] leading-[1.35] text-ink">
                     <span className={`box-border inline-flex h-6 w-6 flex-none items-center justify-center rounded-md border-2 ${on ? "border-cardinal bg-cardinal" : "border-ink bg-ticket"}`}>
-                      {on && <Check color="#FFFCF5" size={14} width={2.4} />}
+                      {on && <Check color="#FFFFFF" size={14} width={2.4} />}
                     </span>
                     <span>
                       {capitalize(c.text)}
@@ -108,10 +108,10 @@ export default function PacketPage() {
               <span className="text-[12.5px] text-muted">Subject: {p.draft.subject}</span>
               <button type="button" onClick={copy} className="min-h-[44px] flex-none pl-3 text-sm font-semibold text-cardinal">{copied ? "Copied" : "Copy"}</button>
             </div>
-            <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#2A1E1A]">{p.draft.text}</p>
+            <p className="whitespace-pre-line font-display text-[15px] italic leading-normal text-[#23332E]">{p.draft.text}</p>
             <button type="button" aria-expanded={showSources} onClick={() => setShowSources(!showSources)}
               className="mt-2 inline-flex min-h-[44px] items-center gap-1.5 text-[13px] font-semibold text-cardinal">
-              <Check color="#990000" size={14} /> All {p.grounding.checked} statements checked against the source. {showSources ? "Hide" : "Show"} where each one comes from
+              <Check color="#245F58" size={14} /> All {p.grounding.checked} statements checked against the source. {showSources ? "Hide" : "Show"} where each one comes from
             </button>
             {showSources && (
               <ol className="mt-1 flex flex-col gap-2.5 border-t border-dashed border-rule pt-3">

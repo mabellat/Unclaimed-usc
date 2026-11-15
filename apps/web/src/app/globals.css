@@ -2,9 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Motion and focus styles from reference/prototype.html */
-button:focus-visible { outline: 3px solid #FFCC00; outline-offset: 2px; box-shadow: 0 0 0 5px #1A1210; }
-a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offset: 2px; }
+/* Minimalist theme: quiet typography, thin edges, and visible keyboard focus. */
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible,
+textarea:focus-visible, summary:focus-visible { outline: 3px solid #245F58; outline-offset: 3px; }
+.font-display { letter-spacing: -.035em; font-weight: 600; }
+h1.font-display { font-size: clamp(2.4rem, 6vw, 3.75rem); line-height: 1.08; }
+.font-label { letter-spacing: .08em; }
+.rounded-xl { border-radius: 10px; }
+.rounded-2xl { border-radius: 12px; }
+.rounded-3xl { border-radius: 14px; }
+[class*="shadow-"] { box-shadow: 0 1px 3px rgba(24, 37, 34, .08) !important; }
 
 @keyframes ustamp { 0% { transform: rotate(-14deg) scale(2.2); opacity: 0 } 60% { transform: rotate(-14deg) scale(.94); opacity: 1 } 100% { transform: rotate(-14deg) scale(1); opacity: .95 } }
 .ustamp { animation: ustamp .45s cubic-bezier(.2,.9,.3,1) both; }
@@ -25,5 +32,13 @@ a:focus-visible, input:focus-visible { outline: 3px solid #1A1210; outline-offse
 .flip-face { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
 .flip-back { transform: rotateY(180deg); }
 @media (prefers-reduced-motion: reduce) { .flip-inner { transition: none; } }
-.barcode { background: repeating-linear-gradient(90deg, #FFCC00 0 2px, transparent 2px 4px, #FFCC00 4px 5px, transparent 5px 9px, #FFCC00 9px 12px, transparent 12px 14px); opacity: .9; }
-.flip { background: linear-gradient(#2E0000 0%, #2E0000 49%, #190000 50%, #3A0000 100%); box-shadow: 0 2px 0 #000; }
+.barcode { background: repeating-linear-gradient(90deg, #BDE6D9 0 2px, transparent 2px 4px, #BDE6D9 4px 5px, transparent 5px 9px, #BDE6D9 9px 12px, transparent 12px 14px); opacity: .9; }
+.flip { background: linear-gradient(#173832 0%, #173832 49%, #102F2B 50%, #25534C 100%); box-shadow: 0 2px 0 #000; }
+
+/* The visual system uses still surfaces so content and selection carry emphasis. */
+.uin, .ufloat, .udrift, .umarq, .ustamp, .upulse, .ripple circle,
+.rise > span, .is-in .stamp-on-view { animation: none !important; }
+.reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+.tilt, .tilt:hover { transform: none !important; transition: none !important; }
+.glint::after, .ripple, .hero-marquee { display: none !important; }
+.ticket-grid > a:hover { translate: none !important; rotate: none !important; }

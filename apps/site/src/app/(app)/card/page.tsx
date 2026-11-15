@@ -43,7 +43,7 @@ export default function MyCard() {
       <div className={`${WRAP} grid gap-8 pb-14 pt-8 lg:grid-cols-[360px_minmax(0,1fr)]`}>
         <aside className="flex flex-col gap-4 lg:sticky lg:top-[84px] lg:self-start">
           <Tilt className="rounded-2xl shadow-[0_12px_24px_rgba(92,0,0,.28)]" max={10}><TrojanCard card={card} fields={fields} /></Tilt>
-          <div className="rounded-2xl bg-gold px-5 py-4 text-[15px] leading-[1.4] shadow-[4px_4px_0_#1A1210]">
+          <div className="rounded-2xl bg-gold px-5 py-4 text-[15px] leading-[1.4] shadow-[4px_4px_0_#182522]">
             <span className="font-label text-[28px] font-semibold">{match?.yes.length ?? 0}</span> tickets match your card right now. Change anything here and your wallet updates.
           </div>
           <button type="button" onClick={restart} disabled={busy} className={outlineBtn}>Delete my card and restart</button>

@@ -38,7 +38,7 @@ export default function Scan() {
           return (
             <li key={label} className={`flex items-center gap-3.5 text-base ${done || cur ? "text-ticket" : "text-[#C9A99A]"}`}>
               <span className={`inline-flex h-6 w-6 flex-none items-center justify-center rounded-full ${done ? "bg-gold" : cur ? "border-2 border-gold" : "border-2 border-[#8A4A44]"}`}>
-                {done && <Check color="#5C0000" size={14} width={2.4} />}
+                {done && <Check color="#183F3B" size={14} width={2.4} />}
               </span>
               <span>{label}</span>
             </li>
