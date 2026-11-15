@@ -1,5 +1,5 @@
-import type { Config } from "tailwindcss";
-
+// No imports: the website (apps/site) loads this file too, and on its own deploy only its packages
+// are installed. apps/site/tailwind.config.ts checks the type.
 // Minimal theme (owner decision 2026-11-14): black and white, USC cardinal and gold as the only accents.
 export default {
   content: ["./src/**/*.{ts,tsx}"],
@@ -27,4 +27,4 @@ export default {
     },
   },
   plugins: [],
-} satisfies Config;
+};
